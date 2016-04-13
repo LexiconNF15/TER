@@ -1,0 +1,58 @@
+﻿@model TravelExpenseReport.Models.LegalAmount
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LegalAmount</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValidDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullDayAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullDayAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HalfDayAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HalfDayAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NightAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NightAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MilageAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MilageAmount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LegalAmountId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

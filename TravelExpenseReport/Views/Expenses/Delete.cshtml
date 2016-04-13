@@ -1,0 +1,72 @@
+﻿@model TravelExpenseReport.Models.Expense
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Expense</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TravelReport.Destination)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TravelReport.Destination)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpenseType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpenseType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpenseInformation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpenseInformation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpenseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpenseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpenseAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpenseAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpenseMilage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpenseMilage)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

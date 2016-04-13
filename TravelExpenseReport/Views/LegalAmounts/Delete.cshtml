@@ -1,0 +1,64 @@
+﻿@model TravelExpenseReport.Models.LegalAmount
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>LegalAmount</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValidDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValidDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullDayAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullDayAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HalfDayAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HalfDayAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NightAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NightAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MilageAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MilageAmount)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
