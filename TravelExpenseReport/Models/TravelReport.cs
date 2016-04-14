@@ -8,6 +8,7 @@ namespace TravelExpenseReport.Models
     public class TravelReport
     {
         public int TravelReportId { get; set; }
+        public string TravelReportName { get; set; }
         public string Destination { get; set; }
         public string Purpose { get; set; }
         public DateTime DepartureDateTime { get; set; }
@@ -24,5 +25,9 @@ namespace TravelExpenseReport.Models
         public string Commment { get; set; }
 
         public virtual ICollection<Expense> Expenses { get; set; }
+
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
     }
 }
