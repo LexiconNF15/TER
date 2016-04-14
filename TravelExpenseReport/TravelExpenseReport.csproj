@@ -202,6 +202,7 @@
     <Compile Include="Controllers\LegalAmountsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
+    <Compile Include="Controllers\TravelReportsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -297,6 +298,11 @@
     <Content Include="Views\ExpenseTypes\Details.cshtml" />
     <Content Include="Views\ExpenseTypes\Edit.cshtml" />
     <Content Include="Views\ExpenseTypes\Index.cshtml" />
+    <Content Include="Views\TravelReports\Create.cshtml" />
+    <Content Include="Views\TravelReports\Delete.cshtml" />
+    <Content Include="Views\TravelReports\Details.cshtml" />
+    <Content Include="Views\TravelReports\Edit.cshtml" />
+    <Content Include="Views\TravelReports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

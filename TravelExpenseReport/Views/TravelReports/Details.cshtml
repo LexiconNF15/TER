@@ -1,0 +1,138 @@
+﻿@model TravelExpenseReport.Models.TravelReport
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TravelReport</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TravelReportName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TravelReportName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Destination)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Destination)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Purpose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Purpose)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartureDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartureDateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnDateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartureHoursExtra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartureHoursExtra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnHoursExtra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnHoursExtra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HalfDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HalfDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Night)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Night)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BreakfastReduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BreakfastReduction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LunchReduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LunchReduction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DinnerReduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DinnerReduction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Commment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commment)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TravelReportId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
