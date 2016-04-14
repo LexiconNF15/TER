@@ -17,7 +17,8 @@ namespace TravelExpenseReport.Controllers
         // GET: TravelReports
         public ActionResult Index()
         {
-            return View(db.TravelReports.ToList());
+            var travelReports = db.TravelReports.Include(t => t.ApplicationUser);
+            return View(travelReports.ToList());
         }
 
         // GET: TravelReports/Details/5
@@ -38,6 +39,7 @@ namespace TravelExpenseReport.Controllers
         // GET: TravelReports/Create
         public ActionResult Create()
         {
+            ViewBag.ApplicationUserId = new SelectList(db.ApplicationUsers, "Id", "FullName");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TravelReportId,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        public ActionResult Create([Bind(Include = "TravelReportId,TravelReportName,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment,ApplicationUserId")] TravelReport travelReport)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace TravelExpenseReport.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ApplicationUserId = new SelectList(db.ApplicationUsers, "Id", "FullName", travelReport.ApplicationUserId);
             return View(travelReport);
         }
 
@@ -70,6 +73,7 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ApplicationUserId = new SelectList(db.ApplicationUsers, "Id", "FullName", travelReport.ApplicationUserId);
             return View(travelReport);
         }
 
@@ -78,7 +82,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TravelReportId,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        public ActionResult Edit([Bind(Include = "TravelReportId,TravelReportName,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment,ApplicationUserId")] TravelReport travelReport)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace TravelExpenseReport.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ApplicationUserId = new SelectList(db.ApplicationUsers, "Id", "FullName", travelReport.ApplicationUserId);
             return View(travelReport);
         }
 

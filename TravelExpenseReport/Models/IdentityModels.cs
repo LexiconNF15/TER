@@ -43,5 +43,7 @@ namespace TravelExpenseReport.Models
         public System.Data.Entity.DbSet<TravelExpenseReport.Models.LegalAmount> LegalAmounts { get; set; }
 
         public System.Data.Entity.DbSet<TravelExpenseReport.Models.Patient> Patients { get; set; }
+
+        public System.Data.Entity.DbSet<TravelExpenseReport.Models.ExpenseType> ExpenseTypes { get; set; }
     }
 }
