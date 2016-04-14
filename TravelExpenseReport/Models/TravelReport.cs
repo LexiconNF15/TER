@@ -66,9 +66,9 @@ namespace TravelExpenseReport.Models
 
     
 
-        public string AId { get; set; }
-        [ForeignKey("AId")]
-        public virtual ApplicationUser Users { get; set; }
+        //public string AId { get; set; }
+        //[ForeignKey("AId")]
+        //public virtual ApplicationUser Users { get; set; }
 
     }
 }

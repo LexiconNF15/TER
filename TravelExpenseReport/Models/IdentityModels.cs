@@ -12,7 +12,7 @@ namespace TravelExpenseReport.Models
     {
         public string FullName { get; set; }
 
-        public virtual ICollection<TravelReport> TravelReports { get; set; }
+       public virtual ICollection<TravelReport> TravelReports { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
