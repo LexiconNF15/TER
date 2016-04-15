@@ -63,6 +63,42 @@ namespace TravelExpenseReport.Migrations
                 var user = userManager.FindByEmail(u.Email);
                 userManager.AddToRole(user.Id, "Assistant");
             }
+            var expenseTypes = new List<ExpenseType> {
+                new ExpenseType
+                {
+                    ExpenseTypeId = 1,
+                    ExpenseTypeName = "Tåg"
+                },
+                new ExpenseType
+                {
+                    ExpenseTypeId = 2,
+                    ExpenseTypeName = "Flyg"
+                },
+                 new ExpenseType
+                {
+                    ExpenseTypeId = 3,
+                    ExpenseTypeName = "Taxi"
+                },
+                  new ExpenseType
+                {
+                    ExpenseTypeId = 4,
+                    ExpenseTypeName = "Egen bil"
+                },
+                   new ExpenseType
+                {
+                    ExpenseTypeId = 5,
+                    ExpenseTypeName = "Buss, spårvagn, mm"
+                }
+                 };
+
+            foreach (var et in expenseTypes)
+            {
+                context.ExpenseTypes.AddOrUpdate(e => e.ExpenseTypeName, et);
+                //context.ExpenseTypes.AddOrUpdate(et);
+
+            }
+
+            context.SaveChanges();
         }
 
     }

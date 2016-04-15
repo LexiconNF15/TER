@@ -12,7 +12,7 @@ namespace TravelExpenseReport.Models
         public int ExpenseId { get; set; }
 
         [DisplayName("Utgiftstyp")]
-        public string ExpenseTypeId { get; set; }
+        public int ExpenseTypeId { get; set; }
 
         [DisplayName("Information")]
         public string ExpenseInformation { get; set; }
@@ -30,6 +30,7 @@ namespace TravelExpenseReport.Models
         [ForeignKey("TravelReportId")]
         public virtual TravelReport TravelReport { get; set; }
 
+        [ForeignKey("ExpenseTypeId")]
         public virtual ExpenseType ExpenseType { get; set; }
 
 

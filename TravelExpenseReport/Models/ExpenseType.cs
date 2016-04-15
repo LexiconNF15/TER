@@ -13,6 +13,7 @@ namespace TravelExpenseReport.Models
         [DisplayName("Utgiftstyp")]
         public string ExpenseTypeName { get; set; }
 
+        public virtual ICollection<Expense> Expenses { get; set; }
 
     }
 }

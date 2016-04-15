@@ -17,7 +17,7 @@ namespace TravelExpenseReport.Controllers
         // GET: Expenses
         public ActionResult Index()
         {
-            var expenses = db.Expenses.Include(e => e.TravelReport);
+            var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport);
             return View(expenses.ToList());
         }
 
@@ -39,6 +39,7 @@ namespace TravelExpenseReport.Controllers
         // GET: Expenses/Create
         public ActionResult Create()
         {
+            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
             ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId");
             return View();
         }
@@ -57,6 +58,7 @@ namespace TravelExpenseReport.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
             ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
             return View(expense);
         }
@@ -73,6 +75,7 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
             ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
             return View(expense);
         }
@@ -90,6 +93,7 @@ namespace TravelExpenseReport.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
             ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
             return View(expense);
         }
