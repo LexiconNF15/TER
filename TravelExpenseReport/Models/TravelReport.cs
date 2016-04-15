@@ -12,6 +12,8 @@ namespace TravelExpenseReport.Models
     {
         public int TravelReportId { get; set; }
 
+        public string ApplicationUserId { get; set; }
+
         [DisplayName("Reseräkningsnummer")]
         public string TravelReportName { get; set; }
 
@@ -64,11 +66,8 @@ namespace TravelExpenseReport.Models
 
         public virtual ICollection<Expense> Expenses { get; set; }
 
-    
-
-        public string AId { get; set; }
-        [ForeignKey("AId")]
-        public virtual ApplicationUser Users { get; set; }
+        [ForeignKey("ApplicationUserId")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
     }
 }

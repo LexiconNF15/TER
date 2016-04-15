@@ -10,112 +10,107 @@ using TravelExpenseReport.Models;
 
 namespace TravelExpenseReport.Controllers
 {
-    public class ExpensesController : Controller
+    public class ExpenseTypesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Expenses
+        // GET: ExpenseTypes
         public ActionResult Index()
         {
-            var expenses = db.Expenses.Include(e => e.TravelReport);
-            return View(expenses.ToList());
+            return View(db.ExpenseTypes.ToList());
         }
 
-        // GET: Expenses/Details/5
+        // GET: ExpenseTypes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Expense expense = db.Expenses.Find(id);
-            if (expense == null)
+            ExpenseType expenseType = db.ExpenseTypes.Find(id);
+            if (expenseType == null)
             {
                 return HttpNotFound();
             }
-            return View(expense);
+            return View(expenseType);
         }
 
-        // GET: Expenses/Create
+        // GET: ExpenseTypes/Create
         public ActionResult Create()
         {
-            ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId");
             return View();
         }
 
-        // POST: Expenses/Create
+        // POST: ExpenseTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId")] Expense expense)
+        public ActionResult Create([Bind(Include = "ExpenseTypeId,ExpenseTypeName")] ExpenseType expenseType)
         {
             if (ModelState.IsValid)
             {
-                db.Expenses.Add(expense);
+                db.ExpenseTypes.Add(expenseType);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
-            return View(expense);
+            return View(expenseType);
         }
 
-        // GET: Expenses/Edit/5
+        // GET: ExpenseTypes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Expense expense = db.Expenses.Find(id);
-            if (expense == null)
+            ExpenseType expenseType = db.ExpenseTypes.Find(id);
+            if (expenseType == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
-            return View(expense);
+            return View(expenseType);
         }
 
-        // POST: Expenses/Edit/5
+        // POST: ExpenseTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId")] Expense expense)
+        public ActionResult Edit([Bind(Include = "ExpenseTypeId,ExpenseTypeName")] ExpenseType expenseType)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(expense).State = EntityState.Modified;
+                db.Entry(expenseType).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
-            return View(expense);
+            return View(expenseType);
         }
 
-        // GET: Expenses/Delete/5
+        // GET: ExpenseTypes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Expense expense = db.Expenses.Find(id);
-            if (expense == null)
+            ExpenseType expenseType = db.ExpenseTypes.Find(id);
+            if (expenseType == null)
             {
                 return HttpNotFound();
             }
-            return View(expense);
+            return View(expenseType);
         }
 
-        // POST: Expenses/Delete/5
+        // POST: ExpenseTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Expense expense = db.Expenses.Find(id);
-            db.Expenses.Remove(expense);
+            ExpenseType expenseType = db.ExpenseTypes.Find(id);
+            db.ExpenseTypes.Remove(expenseType);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
