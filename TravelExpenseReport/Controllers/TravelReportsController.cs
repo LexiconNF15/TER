@@ -17,8 +17,7 @@ namespace TravelExpenseReport.Controllers
         // GET: TravelReports
         public ActionResult Index()
         {
-            var travelReports = db.TravelReports.Include(t => t.ApplicationUser);
-            return View(travelReports.ToList());
+            return View(db.TravelReports.ToList());
         }
 
         // GET: TravelReports/Details/5
