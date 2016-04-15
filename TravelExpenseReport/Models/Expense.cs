@@ -21,7 +21,7 @@ namespace TravelExpenseReport.Models
         public DateTime ExpenseDate { get; set; }
 
         [DisplayName("Kostnad")]
-        public float ExpenseAmount { get; set; }
+        public float? ExpenseAmount { get; set; }
 
         [DisplayName("Kilometer")]
         public int? ExpenseMilage { get; set; }

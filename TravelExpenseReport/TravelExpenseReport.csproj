@@ -288,11 +288,6 @@
     <Content Include="Views\Patients\Details.cshtml" />
     <Content Include="Views\Patients\Edit.cshtml" />
     <Content Include="Views\Patients\Index.cshtml" />
-    <Content Include="Views\TravelReports\Create.cshtml" />
-    <Content Include="Views\TravelReports\Delete.cshtml" />
-    <Content Include="Views\TravelReports\Details.cshtml" />
-    <Content Include="Views\TravelReports\Edit.cshtml" />
-    <Content Include="Views\TravelReports\Index.cshtml" />
     <Content Include="Views\ExpenseTypes\Create.cshtml" />
     <Content Include="Views\ExpenseTypes\Delete.cshtml" />
     <Content Include="Views\ExpenseTypes\Details.cshtml" />
@@ -303,6 +298,11 @@
     <Content Include="Views\Expenses\Details.cshtml" />
     <Content Include="Views\Expenses\Edit.cshtml" />
     <Content Include="Views\Expenses\Index.cshtml" />
+    <Content Include="Views\TravelReports\Create.cshtml" />
+    <Content Include="Views\TravelReports\Delete.cshtml" />
+    <Content Include="Views\TravelReports\Details.cshtml" />
+    <Content Include="Views\TravelReports\Edit.cshtml" />
+    <Content Include="Views\TravelReports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
