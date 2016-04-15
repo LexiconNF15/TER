@@ -199,6 +199,7 @@
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\ExpenseTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LegalAmounts1Controller.cs" />
     <Compile Include="Controllers\LegalAmountsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
@@ -278,11 +279,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\LegalAmounts\Create.cshtml" />
-    <Content Include="Views\LegalAmounts\Delete.cshtml" />
-    <Content Include="Views\LegalAmounts\Details.cshtml" />
-    <Content Include="Views\LegalAmounts\Edit.cshtml" />
-    <Content Include="Views\LegalAmounts\Index.cshtml" />
     <Content Include="Views\Patients\Create.cshtml" />
     <Content Include="Views\Patients\Delete.cshtml" />
     <Content Include="Views\Patients\Details.cshtml" />
@@ -303,6 +299,11 @@
     <Content Include="Views\TravelReports\Details.cshtml" />
     <Content Include="Views\TravelReports\Edit.cshtml" />
     <Content Include="Views\TravelReports\Index.cshtml" />
+    <Content Include="Views\LegalAmounts\Create.cshtml" />
+    <Content Include="Views\LegalAmounts\Delete.cshtml" />
+    <Content Include="Views\LegalAmounts\Details.cshtml" />
+    <Content Include="Views\LegalAmounts\Edit.cshtml" />
+    <Content Include="Views\LegalAmounts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
