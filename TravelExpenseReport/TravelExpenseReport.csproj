@@ -303,6 +303,9 @@
     <Content Include="Views\TravelReports\Details.cshtml" />
     <Content Include="Views\TravelReports\Edit.cshtml" />
     <Content Include="Views\TravelReports\Index.cshtml" />
+    <Content Include="Views\TravelReports\_CreatePartial.cshtml" />
+    <Content Include="Views\TravelReports\Create2.cshtml" />
+    <Content Include="Views\TravelReports\Edit2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

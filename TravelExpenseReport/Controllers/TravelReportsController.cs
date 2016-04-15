@@ -54,6 +54,31 @@ namespace TravelExpenseReport.Controllers
             {
                 db.TravelReports.Add(travelReport);
                 db.SaveChanges();
+                return RedirectToAction("Edit2", new { id = 3 });
+            }
+
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            return View(travelReport);
+        }
+
+        // GET: TravelReports/Create
+        public ActionResult Create2()
+        {
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName");
+            return View();
+        }
+
+        // POST: TravelReports/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create2([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        {
+            if (ModelState.IsValid)
+            {
+                db.TravelReports.Add(travelReport);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -83,6 +108,39 @@ namespace TravelExpenseReport.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(travelReport).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            return View(travelReport);
+        }
+
+        // GET: TravelReports/Edit/5
+        public ActionResult Edit2(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TravelReport travelReport = db.TravelReports.Find(id);
+            if (travelReport == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            return View(travelReport);
+        }
+
+        // POST: TravelReports/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit2([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
         {
             if (ModelState.IsValid)
             {
