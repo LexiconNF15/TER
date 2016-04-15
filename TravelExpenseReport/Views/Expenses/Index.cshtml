@@ -18,6 +18,9 @@
             @Html.DisplayNameFor(model => model.TravelReport.ApplicationUserId)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.TravelReport.TravelReportName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ExpenseInformation)
         </th>
         <th>
@@ -39,6 +42,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TravelReport.ApplicationUserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TravelReport.TravelReportName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ExpenseInformation)
