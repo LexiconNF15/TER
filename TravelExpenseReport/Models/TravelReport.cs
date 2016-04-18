@@ -25,13 +25,20 @@ namespace TravelExpenseReport.Models
 
        
         [DisplayName("Avresa datum")]
-        [DataType(DataType.DateTime)]
-        public DateTime DepartureDateTime { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DepartureDate { get; set; }
 
-       
+        [DisplayName("Avresa tid")]
+        [DataType(DataType.Time)]
+        public DateTime DepartureTime { get; set; }
+
         [DisplayName("Hemkomst datum")]
-        [DataType(DataType.DateTime)]
-        public DateTime ReturnDateTime { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime ReturnDate { get; set; }
+
+        [DisplayName("Hemkomst tid")]
+        [DataType(DataType.Time)]
+        public DateTime ReturnTime { get; set; }
 
         [DisplayName("Avresa extra timmar")]
         public int? DepartureHoursExtra { get; set; }

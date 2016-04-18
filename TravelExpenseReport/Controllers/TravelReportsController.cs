@@ -48,13 +48,13 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        public ActionResult Create([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
         {
             if (ModelState.IsValid)
             {
                 db.TravelReports.Add(travelReport);
                 db.SaveChanges();
-                return RedirectToAction("Edit2", new { id = 3 });
+                return RedirectToAction("Edit2", new { id = travelReport.TravelReportId });
             }
 
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
@@ -73,7 +73,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create2([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        public ActionResult Create2([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        public ActionResult Edit([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
         {
             if (ModelState.IsValid)
             {
@@ -132,15 +132,18 @@ namespace TravelExpenseReport.Controllers
                 return HttpNotFound();
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            ViewBag.TravelReportName1 = "2016-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
+            TimeSpan differense = travelReport.ReturnDate - travelReport.DepartureDate;
+            travelReport.Night = differense.Days;
             return View(travelReport);
         }
 
-        // POST: TravelReports/Edit/5
+        // POST: TravelReports/Edit2/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit2([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDateTime,ReturnDateTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        public ActionResult Edit2([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
         {
             if (ModelState.IsValid)
             {
