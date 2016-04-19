@@ -4,10 +4,15 @@
     ViewBag.Title = "Index";
 }
 
+        @Html.ActionLink("Create New", "Create", new {TravelreportId = ViewBag.ActualTravelReportId });
+    
+
 <h2>Index</h2>
 
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New", "Create", new { TravelreportId = ViewBag.ActualTravelReportId);*@
+    @*@Html.ActionLink("Create New", "Create");*@
 </p>
 <table class="table">
     <tr>
@@ -41,7 +46,7 @@
             @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TravelReport.ApplicationUserId)
+            @Html.DisplayFor(modelItem => item.TravelReport.ApplicationUser.FullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TravelReport.TravelReportName)
@@ -58,6 +63,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.ExpenseMilage)
         </td>
+       
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ExpenseId }) |
             @Html.ActionLink("Details", "Details", new { id=item.ExpenseId }) |

@@ -15,9 +15,11 @@ namespace TravelExpenseReport.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Expenses
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
+                     
             var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport);
+            ViewBag.ActualTravelReportId = expenses.FirstOrDefault().TravelReportId;
             return View(expenses.ToList());
         }
 
@@ -37,19 +39,28 @@ namespace TravelExpenseReport.Controllers
         }
 
         // GET: Expenses/Create
-        public ActionResult Create()
+         public ActionResult Create(int? id)
+       
+        //public ActionResult Create()
         {
+            //if (id != null)
+            //{
+            //    ViewBag.ActualTravelReportId = id;
+            //}
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
-            ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId");
+            ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", "TravelReportName");
+            ViewBag.ActualTravelReportId = id;
             return View();
+          
         }
+    
 
         // POST: Expenses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId")] Expense expense)
+        public ActionResult Create([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId,TravelReportName")] Expense expense)
         {
             if (ModelState.IsValid)
             {
@@ -77,6 +88,8 @@ namespace TravelExpenseReport.Controllers
             }
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
             ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
+            //ViewBag.CurrentUserId = new SelectList(db.Users, "ApplicationUserId", "FullName");
+            //ViewBag.TestId = new SelectList(db.TravelReports, " TravelReportId", "TravelReportName");
             return View(expense);
         }
 
@@ -85,7 +98,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId")] Expense expense)
+        public ActionResult Edit([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId,TravelReportName")] Expense expense)
         {
             if (ModelState.IsValid)
             {
@@ -134,3 +147,4 @@ namespace TravelExpenseReport.Controllers
         }
     }
 }
+
