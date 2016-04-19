@@ -98,7 +98,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FullDay)
+            @Html.DisplayFor(model => model.FullDay) 
         </dd>
 
         <dt>
@@ -114,7 +114,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Night)
+            @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
         </dd>
 
         <dt>
@@ -155,6 +155,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Commment)
+        </dd>
+
+        <dt>
+            Summa
+        </dt>
+
+        <dd>
+            @ViewBag.Summa
         </dd>
 
     </dl>

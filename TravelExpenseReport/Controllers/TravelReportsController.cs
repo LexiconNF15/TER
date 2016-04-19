@@ -179,6 +179,8 @@ namespace TravelExpenseReport.Controllers
                     travelReport.Night = 0;
                 }
             }
+            ViewBag.TravelReportId = travelReport.TravelReportId;
+
 
             return View(travelReport);
         }

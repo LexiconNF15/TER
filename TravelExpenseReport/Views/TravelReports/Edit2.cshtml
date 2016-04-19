@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Edit";
+    int travelReportId =0;
+    if (ViewBag.TravelReportId != null)
+    {
+        travelReportId = (int)ViewBag.TravelReportId;
+    }
 }
 
 <h2>Edit2</h2>
@@ -173,10 +178,10 @@
 }
 
 <div>
-    @Html.ActionLink("Mata in utgifter", "Create", "Expenses")
+    @Html.ActionLink("Mata in utgifter", "Create", "Expenses", new { id = travelReportId }, null)
 </div>
 <div>
-    @Html.ActionLink("Beräkna utan kvitton", "Calculate")
+    @Html.ActionLink("Beräkna utan kvitton", "Calculate", new { id = travelReportId }, null)
 </div>
 <div>
     @Html.ActionLink("Back to List", "Index")
