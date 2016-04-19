@@ -1,12 +1,14 @@
 ﻿@model TravelExpenseReport.Models.TravelReport
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Calculate";
 }
 
-<h2>Delete</h2>
+<h2>Calculate</h2>
+<h2>@ViewBag.Summa</h2>
+<h2>@ViewBag.LegalAmount.NightAmount</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+
 <div>
     <h4>TravelReport</h4>
     <hr />
@@ -156,13 +158,8 @@
         </dd>
 
     </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
 </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TravelReportId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

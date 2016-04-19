@@ -199,7 +199,6 @@
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\ExpenseTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LegalAmounts1Controller.cs" />
     <Compile Include="Controllers\LegalAmountsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
@@ -299,6 +298,10 @@
     <Content Include="Views\LegalAmounts\Details.cshtml" />
     <Content Include="Views\LegalAmounts\Edit.cshtml" />
     <Content Include="Views\LegalAmounts\Index.cshtml" />
+    <Content Include="Views\TravelReports\_CreatePartial.cshtml" />
+    <Content Include="Views\TravelReports\Create2.cshtml" />
+    <Content Include="Views\TravelReports\Edit2.cshtml" />
+    <Content Include="Views\TravelReports\Calculate.cshtml" />
     <Content Include="Views\Expenses\Create.cshtml" />
     <Content Include="Views\Expenses\Delete.cshtml" />
     <Content Include="Views\Expenses\Details.cshtml" />

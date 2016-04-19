@@ -24,10 +24,16 @@
             @Html.DisplayNameFor(model => model.Purpose)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DepartureDateTime)
+            @Html.DisplayNameFor(model => model.DepartureDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReturnDateTime)
+            @Html.DisplayNameFor(model => model.DepartureTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReturnTime)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DepartureHoursExtra)
@@ -57,7 +63,7 @@
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Commment)
+            @Html.DisplayNameFor(model => model.Comment)
         </th>
         <th></th>
     </tr>
@@ -77,10 +83,16 @@
             @Html.DisplayFor(modelItem => item.Purpose)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DepartureDateTime)
+            @Html.DisplayFor(modelItem => item.DepartureDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ReturnDateTime)
+            @Html.DisplayFor(modelItem => item.DepartureTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReturnDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReturnTime)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DepartureHoursExtra)
@@ -110,7 +122,7 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Commment)
+            @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TravelReportId }) |

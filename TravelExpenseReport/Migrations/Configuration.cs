@@ -128,6 +128,52 @@ namespace TravelExpenseReport.Migrations
 
             }
 
+            var travelReport = new List<TravelReport> {
+                new TravelReport
+                {
+                    TravelReportId = 1,
+                    ApplicationUserId = "1f32be38-a0ab-4540-a9d8-efe3bcd167e1",
+                    TravelReportName = "2016-001",
+                    Destination = "Flen",
+                    Purpose = "Utbildning",
+                    DepartureDate = DateTime.Parse("2016-04-20 00:00:00"),
+                    DepartureTime = DateTime.Parse("2016-04-19 13:00:00"),
+                    ReturnDate = DateTime.Parse("2016-04-22 00:00:00"),
+                    ReturnTime = DateTime.Parse("2016-04-19 13:00:00"),
+                    DepartureHoursExtra = 1 ,
+                    ReturnHoursExtra = 2,
+                    FullDay = 0,
+                    HalfDay = 0,
+                    Night = 0,
+                    BreakfastReduction = 0,
+                    LunchReduction = 0,
+                    DinnerReduction = 0,
+                    Status = null,
+                    Comment = null
+                 }
+                };
+
+
+            //},
+            //new LegalAmount
+            //{
+            //   LegalAmountId = 2,
+            //    ValidDate = DateTime.Parse("2015-01-01"),
+            //    FullDayAmount = 220,
+            //    HalfDayAmount = 110,
+            //    NightAmount = 110,
+            //    MilageAmount = 185
+           //}
+        //};
+
+            foreach (var tr in travelReport)
+            {
+                context.TravelReports.AddOrUpdate(t => t.TravelReportId, tr);
+                //context.ExpenseTypes.AddOrUpdate(et);
+
+            }
+
+
             context.SaveChanges();
         }
 
