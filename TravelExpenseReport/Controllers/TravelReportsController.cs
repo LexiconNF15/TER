@@ -36,6 +36,25 @@ namespace TravelExpenseReport.Controllers
             return View(travelReport);
         }
 
+        // GET: TravelReports/Calculate/5
+        public ActionResult Calculate(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TravelReport travelReport = db.TravelReports.Find(id);
+            if (travelReport == null)
+            {
+                return HttpNotFound();
+            }
+            var legalAmount = db.LegalAmounts.FirstOrDefault();
+            ViewBag.LegalAmount = legalAmount;
+            ViewBag.Summa = travelReport.Night * legalAmount.NightAmount;
+            return View(travelReport);
+        }
+
+
         // GET: TravelReports/Create
         public ActionResult Create()
         {
@@ -132,9 +151,35 @@ namespace TravelExpenseReport.Controllers
                 return HttpNotFound();
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.TravelReportName1 = "2016-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
+            //ViewBag.TravelReportName1 = "2016-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
+            travelReport.TravelReportName = "2016-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
             TimeSpan differense = travelReport.ReturnDate - travelReport.DepartureDate;
+
             travelReport.Night = differense.Days;
+            travelReport.HalfDay = 0;
+            travelReport.FullDay = travelReport.Night + 1;
+
+            if (travelReport.DepartureTime.Hour >= 12)
+            {
+                travelReport.HalfDay++;
+                travelReport.FullDay--;
+            }
+
+            if (travelReport.ReturnTime.Hour <= 18)
+            {
+                travelReport.HalfDay++;
+                travelReport.FullDay--;
+            }
+
+            if (travelReport.ReturnTime.Hour <= 5)
+            {
+                travelReport.Night--;
+                if (travelReport.Night < 0)
+                {
+                    travelReport.Night = 0;
+                }
+            }
+
             return View(travelReport);
         }
 
