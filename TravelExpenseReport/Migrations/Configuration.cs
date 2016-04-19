@@ -98,6 +98,36 @@ namespace TravelExpenseReport.Migrations
 
             }
 
+
+            var legalAmount = new List<LegalAmount> {
+                new LegalAmount
+                {
+                    LegalAmountId = 1,
+                    ValidDate = DateTime.Parse("2014-01-01"),
+                    FullDayAmount = 210,
+                    HalfDayAmount = 100,
+                    NightAmount = 100,
+                    MilageAmount = 175
+
+                },
+                new LegalAmount
+                {
+                   LegalAmountId = 2,
+                    ValidDate = DateTime.Parse("2015-01-01"),
+                    FullDayAmount = 220,
+                    HalfDayAmount = 110,
+                    NightAmount = 110,
+                    MilageAmount = 185
+                }
+            };
+
+            foreach (var la in legalAmount)
+            {
+                context.LegalAmounts.AddOrUpdate(l => l.LegalAmountId, la);
+                //context.ExpenseTypes.AddOrUpdate(et);
+
+            }
+
             context.SaveChanges();
         }
 
