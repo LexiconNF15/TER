@@ -41,9 +41,11 @@ namespace TravelExpenseReport.Models
         public DateTime ReturnTime { get; set; }
 
         [DisplayName("Avresa extra timmar")]
+        [Range(0, 72)]
         public int? DepartureHoursExtra { get; set; }
 
         [DisplayName("Hemresa extra timmar")]
+        [Range(0, 72)]
         public int? ReturnHoursExtra { get; set; }
 
         [DisplayName("Heldag")]
@@ -57,12 +59,15 @@ namespace TravelExpenseReport.Models
 
 
         [DisplayName("Avdrag frukost")]
+        [DefaultValue(0)]
         public int? BreakfastReduction { get; set; }
 
         [DisplayName("Avdrag lunch")]
+        [DefaultValue(0)]
         public int? LunchReduction { get; set; }
 
         [DisplayName("Avdrag middag")]
+        [DefaultValue(0)]
         public int? DinnerReduction { get; set; }
 
         [DisplayName("Status")]
@@ -76,5 +81,15 @@ namespace TravelExpenseReport.Models
         [ForeignKey("ApplicationUserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
+        // Set default values
+        public TravelReport()
+        {
+            BreakfastReduction = 0;
+            LunchReduction = 0;
+            DinnerReduction = 0;
+            DepartureHoursExtra = 0;
+            ReturnHoursExtra = 0;
+            Status = "Ny";
+        }
     }
 }
