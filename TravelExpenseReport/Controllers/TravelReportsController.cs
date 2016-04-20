@@ -37,6 +37,9 @@ namespace TravelExpenseReport.Controllers
         }
 
         // GET: TravelReports/Calculate/5
+        //
+        // The view Calculate will present the calculated sum of allowance for expenses
+        //
         public ActionResult Calculate(int? id)
         {
             if (id == null)
@@ -50,7 +53,14 @@ namespace TravelExpenseReport.Controllers
             }
             var legalAmount = db.LegalAmounts.FirstOrDefault();
             ViewBag.LegalAmount = legalAmount;
-            ViewBag.Summa = travelReport.Night * legalAmount.NightAmount;
+
+            int allowanceSum = 0;
+            allowanceSum = allowanceSum + (int)travelReport.Night * (int)legalAmount.NightAmount;
+            allowanceSum = allowanceSum + (int)travelReport.FullDay * (int)legalAmount.FullDayAmount;
+            allowanceSum = allowanceSum + (int)travelReport.HalfDay * (int)legalAmount.HalfDayAmount;
+
+            ViewBag.Summa = allowanceSum;
+
             return View(travelReport);
         }
 
