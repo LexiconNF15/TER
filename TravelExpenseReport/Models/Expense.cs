@@ -28,7 +28,7 @@ namespace TravelExpenseReport.Models
         [DisplayName("Kilometer")]
         public int? ExpenseMilage { get; set; }
 
-        public int TravelReportId { get; set; }
+        public int? TravelReportId { get; set; }
         [ForeignKey("TravelReportId")]
         public virtual TravelReport TravelReport { get; set; }
 
