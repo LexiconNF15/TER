@@ -43,10 +43,11 @@ namespace TravelExpenseReport.Controllers
        
         //public ActionResult Create()
         {
-            //if (id != null)
-            //{
-            //    ViewBag.ActualTravelReportId = id;
-            //}
+            
+            if (id != null)
+            {
+                TravelReport travelReport = db.TravelReports.Find(id);
+            }
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
             ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", "TravelReportName");
             ViewBag.ActualTravelReportId = id;
