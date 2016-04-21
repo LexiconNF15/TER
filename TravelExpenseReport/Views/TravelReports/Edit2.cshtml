@@ -178,6 +178,19 @@
     </div>
 }
 
+@*<div>
+    @Html.Partial("_ListExpensePartial", travelReportId);
+</div>
+<div>
+    @{
+        Html.RenderPartial("_CreateExpensePartial");
+    }
+</div>*@
+
+<div>
+    @{Html.RenderAction("Expenses", "Index");}
+</div>
+
 <div>
     @Html.ActionLink("Mata in utgifter", "Create", "Expenses", new { id = travelReportId }, null)
 </div>
