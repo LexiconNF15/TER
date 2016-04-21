@@ -10,18 +10,18 @@ using TravelExpenseReport.Models;
 
 namespace TravelExpenseReport.Controllers
 {
-    public class ExpensesController : Controller
+    public class Expenses1Controller : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Expenses
+        // GET: Expenses1
         public ActionResult Index()
         {
             var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport);
             return View(expenses.ToList());
         }
 
-        // GET: Expenses/Details/5
+        // GET: Expenses1/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,15 +36,15 @@ namespace TravelExpenseReport.Controllers
             return View(expense);
         }
 
-        // GET: Expenses/Create
-        public ActionResult Create(int? id)
+        // GET: Expenses1/Create
+        public ActionResult Create()
         {
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
-            ViewBag.TravelReportId = id;
+            ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId");
             return View();
         }
 
-        // POST: Expenses/Create
+        // POST: Expenses1/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -63,7 +63,7 @@ namespace TravelExpenseReport.Controllers
             return View(expense);
         }
 
-        // GET: Expenses/Edit/5
+        // GET: Expenses1/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,7 +80,7 @@ namespace TravelExpenseReport.Controllers
             return View(expense);
         }
 
-        // POST: Expenses/Edit/5
+        // POST: Expenses1/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -98,7 +98,7 @@ namespace TravelExpenseReport.Controllers
             return View(expense);
         }
 
-        // GET: Expenses/Delete/5
+        // GET: Expenses1/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -113,7 +113,7 @@ namespace TravelExpenseReport.Controllers
             return View(expense);
         }
 
-        // POST: Expenses/Delete/5
+        // POST: Expenses1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

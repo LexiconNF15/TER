@@ -107,7 +107,10 @@ namespace TravelExpenseReport.Migrations
                     FullDayAmount = 210,
                     HalfDayAmount = 100,
                     NightAmount = 100,
-                    MilageAmount = 175
+                    MilageAmount = 175,
+                    BreakfastReductionAmount = 42,
+                    LunchReductionAmount = 75,
+                    DinnerReductionAmount =75
 
                 },
                 new LegalAmount
@@ -117,7 +120,10 @@ namespace TravelExpenseReport.Migrations
                     FullDayAmount = 220,
                     HalfDayAmount = 110,
                     NightAmount = 110,
-                    MilageAmount = 185
+                    MilageAmount = 185,
+                    BreakfastReductionAmount = 44,
+                    LunchReductionAmount = 77,
+                    DinnerReductionAmount =77
                 }
             };
 
