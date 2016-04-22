@@ -10,6 +10,7 @@ using TravelExpenseReport.Models;
 
 namespace TravelExpenseReport.Controllers
 {
+    [Authorize]
     public class TravelReportsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -17,8 +18,18 @@ namespace TravelExpenseReport.Controllers
         // GET: TravelReports
         public ActionResult Index()
         {
+            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+
+            if (User.IsInRole("Assistant"))
+            {
+                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Where(t => t.ApplicationUserId == ActiveUser.Id);
+                return View(travelReports.ToList());
+            }
+            else
+            {
             var travelReports = db.TravelReports.Include(t => t.ApplicationUser);
             return View(travelReports.ToList());
+        }
         }
 
         // GET: TravelReports/Details/5
@@ -58,6 +69,9 @@ namespace TravelExpenseReport.Controllers
             allowanceSum = allowanceSum + (int)travelReport.Night * (int)legalAmount.NightAmount;
             allowanceSum = allowanceSum + (int)travelReport.FullDay * (int)legalAmount.FullDayAmount;
             allowanceSum = allowanceSum + (int)travelReport.HalfDay * (int)legalAmount.HalfDayAmount;
+            allowanceSum = allowanceSum - (int)travelReport.BreakfastReduction * (int)legalAmount.BreakfastReductionAmount;
+            allowanceSum = allowanceSum - (int)travelReport.LunchReduction * (int)legalAmount.LunchReductionAmount;
+            allowanceSum = allowanceSum - (int)travelReport.DinnerReduction * (int)legalAmount.DinnerReductionAmount;
 
             ViewBag.Summa = allowanceSum;
 
@@ -68,7 +82,11 @@ namespace TravelExpenseReport.Controllers
         // GET: TravelReports/Create
         public ActionResult Create()
         {
+            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName");
+            ViewBag.ApplicationUserId1 = ActiveUser.Id;
+
             return View();
         }
 
@@ -206,11 +224,24 @@ namespace TravelExpenseReport.Controllers
             {
                 db.Entry(travelReport).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Calculate", new { id = travelReport.TravelReportId });
+
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             return View(travelReport);
         }
+
+        //
+    //                if (ModelState.IsValid)
+    //        {
+    //            db.TravelReports.Add(travelReport);
+    //            db.SaveChanges();
+    //            return RedirectToAction("Edit2", new { id = travelReport.TravelReportId
+    //});
+    //        }
+
+//
 
         // GET: TravelReports/Delete/5
         public ActionResult Delete(int? id)

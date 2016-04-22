@@ -170,10 +170,9 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Beräkna utan kvitton" class="btn btn-default" />
             </div>
         </div>
-
  
     </div>
 }
@@ -192,7 +191,7 @@
 </div>
 
 <div>
-    @Html.ActionLink("Mata in utgifter", "Create", "Expenses", new { id = travelReportId }, null)
+    @Html.ActionLink("Mata in utgifter", "Index", "Expenses1", new { id = travelReportId }, null)
 </div>
 <div>
     @Html.ActionLink("Beräkna utan kvitton", "Calculate", new { id = travelReportId }, null)

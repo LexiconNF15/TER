@@ -6,15 +6,6 @@
 
 <h2>Create</h2>
 
-<h4>
-    
-
-   @Html.DisplayFor(model => model.TravelReport.TravelReportName)
-
-    @Html.DisplayFor(model => model.TravelReport.ApplicationUser.FullName)
-
-</h4>
-
 
 @using (Html.BeginForm()) 
 {
@@ -24,9 +15,6 @@
         <h4>Expense</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ExpenseId)
-        @Html.HiddenFor(model => model.TravelReportId)
-
         <div class="form-group">
             @Html.LabelFor(model => model.ExpenseTypeId, "ExpenseTypeId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -67,20 +55,13 @@
             </div>
         </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.TravelReportId, "TravelReportId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @ViewBag.TravelReportId;
+                @Html.DropDownList("TravelReportId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TravelReportId, "", new { @class = "text-danger" })
             </div>
-        </div>*@
-       
-        <p>
-            @Html.DisplayNameFor(model => model.TravelReport.TravelReportName)
-            @Html.DisplayFor(model => model.TravelReport.TravelReportName)
-        </p>
-
-
-        
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
