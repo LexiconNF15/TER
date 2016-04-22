@@ -63,6 +63,7 @@ namespace TravelExpenseReport.Migrations
                 var user = userManager.FindByEmail(u.Email);
                 userManager.AddToRole(user.Id, "Assistant");
             }
+
             var expenseTypes = new List<ExpenseType> {
                 new ExpenseType
                 {
@@ -98,6 +99,44 @@ namespace TravelExpenseReport.Migrations
 
             }
 
+            var statusTypes = new List<StatusType> {
+                new StatusType
+                {
+                    StatusTypeId = 1,
+                    StatusName = "Ny"
+                },
+                new StatusType
+                {
+                    StatusTypeId = 2,
+                    StatusName = "Inskickad"
+                },
+                new StatusType
+                {
+                    StatusTypeId = 3,
+                    StatusName = "Ej godkänd"
+                },
+                new StatusType
+                {
+                    StatusTypeId = 4,
+                    StatusName = "Godkänd"
+                },
+                new StatusType
+                {
+                    StatusTypeId = 5,
+                    StatusName = "För utbetalning"
+                },
+                new StatusType
+                {
+                    StatusTypeId = 6,
+                    StatusName = "Utbetald"
+                }
+            };
+
+            foreach (var st in statusTypes)
+            {
+                context.StatusTypes.AddOrUpdate(s => s.StatusName, st);
+
+            }
 
             var legalAmount = new List<LegalAmount> {
                 new LegalAmount

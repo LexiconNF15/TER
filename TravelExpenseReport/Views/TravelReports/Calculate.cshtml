@@ -22,6 +22,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.StatusType.StatusName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusType.StatusName)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.TravelReportName)
         </dt>
 
@@ -142,19 +150,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.Comment)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Commment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Commment)
+            @Html.DisplayFor(model => model.Comment)
         </dd>
 
         <dt>

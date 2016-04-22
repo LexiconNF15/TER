@@ -8,7 +8,7 @@ using System.Web;
 
 namespace TravelExpenseReport.Models
 {
-    public class TravelReport
+    public class TravelReport : IValidatableObject
     {
         public int TravelReportId { get; set; }
 
@@ -18,9 +18,11 @@ namespace TravelExpenseReport.Models
         public string TravelReportName { get; set; }
 
         [DisplayName("Resmål")]
+        [Required]
         public string Destination { get; set; }
 
         [DisplayName("Syfte")]
+        [Required]
         public string Purpose { get; set; }
 
        
@@ -30,7 +32,9 @@ namespace TravelExpenseReport.Models
 
         [DisplayName("Avresa tid")]
         [DataType(DataType.Time)]
-        public DateTime DepartureTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        public TimeSpan DepartureTime { get; set; }
+
 
         [DisplayName("Hemkomst datum")]
         [DataType(DataType.Date)]
@@ -38,7 +42,8 @@ namespace TravelExpenseReport.Models
 
         [DisplayName("Hemkomst tid")]
         [DataType(DataType.Time)]
-        public DateTime ReturnTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        public TimeSpan ReturnTime { get; set; }
 
         [DisplayName("Avresa extra timmar")]
         [Range(0, 72)]
@@ -57,29 +62,37 @@ namespace TravelExpenseReport.Models
         [DisplayName("Natt")]
         public int? Night { get; set; }
 
-
         [DisplayName("Avdrag frukost")]
-        [DefaultValue(0)]
         public int? BreakfastReduction { get; set; }
 
         [DisplayName("Avdrag lunch")]
-        [DefaultValue(0)]
         public int? LunchReduction { get; set; }
 
         [DisplayName("Avdrag middag")]
-        [DefaultValue(0)]
         public int? DinnerReduction { get; set; }
 
         [DisplayName("Status")]
-        public string Status { get; set; }
+        public int StatusTypeId { get; set; }
 
         [DisplayName("Kommentar")]
-        public string Commment { get; set; }
+        public string Comment { get; set; }
 
         public virtual ICollection<Expense> Expenses { get; set; }
 
         [ForeignKey("ApplicationUserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        [ForeignKey("StatusTypeId")]
+        public virtual StatusType StatusType { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (ReturnDate < DepartureDate)
+            {
+                yield return new ValidationResult("Hemkomstdatum måste vara senare eller lika med avresedatum!");
+            }
+        }
+
 
         // Set default values
         public TravelReport()
@@ -89,7 +102,6 @@ namespace TravelExpenseReport.Models
             DinnerReduction = 0;
             DepartureHoursExtra = 0;
             ReturnHoursExtra = 0;
-            Status = "Ny";
         }
     }
 }

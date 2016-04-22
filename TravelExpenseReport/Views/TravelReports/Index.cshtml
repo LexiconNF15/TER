@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.StatusType.StatusName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.TravelReportName)
         </th>
         <th>
@@ -59,11 +62,8 @@
         <th>
             @Html.DisplayNameFor(model => model.DinnerReduction)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Commment)
+                <th>
+            @Html.DisplayNameFor(model => model.Comment)
         </th>
         <th></th>
     </tr>
@@ -72,6 +72,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusType.StatusName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TravelReportName)
@@ -119,10 +122,7 @@
             @Html.DisplayFor(modelItem => item.DinnerReduction)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Commment)
+            @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TravelReportId }) |

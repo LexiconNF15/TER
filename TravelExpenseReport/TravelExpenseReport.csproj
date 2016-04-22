@@ -196,10 +196,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Expenses1Controller.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\ExpenseTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JourneysController.cs" />
     <Compile Include="Controllers\LegalAmountsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
@@ -212,9 +212,11 @@
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Journey.cs" />
     <Compile Include="Models\LegalAmount.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Patient.cs" />
+    <Compile Include="Models\StatusType.cs" />
     <Compile Include="Models\TravelReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -308,11 +310,11 @@
     <Content Include="Views\TravelReports\Create2.cshtml" />
     <Content Include="Views\TravelReports\Edit2.cshtml" />
     <Content Include="Views\TravelReports\Calculate.cshtml" />
-    <Content Include="Views\Expenses1\Create.cshtml" />
-    <Content Include="Views\Expenses1\Delete.cshtml" />
-    <Content Include="Views\Expenses1\Details.cshtml" />
-    <Content Include="Views\Expenses1\Edit.cshtml" />
-    <Content Include="Views\Expenses1\Index.cshtml" />
+    <Content Include="Views\Journeys\Create.cshtml" />
+    <Content Include="Views\Journeys\Delete.cshtml" />
+    <Content Include="Views\Journeys\Details.cshtml" />
+    <Content Include="Views\Journeys\Edit.cshtml" />
+    <Content Include="Views\Journeys\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

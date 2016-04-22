@@ -85,6 +85,7 @@ namespace TravelExpenseReport.Controllers
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
 
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName");
+            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName");
             ViewBag.ApplicationUserId1 = ActiveUser.Id;
 
             return View();
@@ -95,7 +96,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        public ActionResult Create([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,StatusTypeId,Comment")] TravelReport travelReport)
         {
             if (ModelState.IsValid)
             {
@@ -105,6 +106,7 @@ namespace TravelExpenseReport.Controllers
             }
 
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
             return View(travelReport);
         }
 
@@ -129,7 +131,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        public ActionResult Edit([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Comment")] TravelReport travelReport)
         {
             if (ModelState.IsValid)
             {
@@ -154,6 +156,7 @@ namespace TravelExpenseReport.Controllers
                 return HttpNotFound();
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
             //ViewBag.TravelReportName1 = "2016-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
             travelReport.TravelReportName = "2016-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
             TimeSpan differense = travelReport.ReturnDate - travelReport.DepartureDate;
@@ -162,19 +165,19 @@ namespace TravelExpenseReport.Controllers
             travelReport.HalfDay = 0;
             travelReport.FullDay = travelReport.Night + 1;
 
-            if (travelReport.DepartureTime.Hour >= 12)
+            if (travelReport.DepartureTime.Hours >= 12)
             {
                 travelReport.HalfDay++;
                 travelReport.FullDay--;
             }
 
-            if (travelReport.ReturnTime.Hour <= 18)
+            if (travelReport.ReturnTime.Hours <= 18)
             {
                 travelReport.HalfDay++;
                 travelReport.FullDay--;
             }
 
-            if (travelReport.ReturnTime.Hour <= 5)
+            if (travelReport.ReturnTime.Hours <= 5)
             {
                 travelReport.Night--;
                 if (travelReport.Night < 0)
@@ -184,7 +187,6 @@ namespace TravelExpenseReport.Controllers
             }
             ViewBag.TravelReportId = travelReport.TravelReportId;
 
-
             return View(travelReport);
         }
 
@@ -193,7 +195,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit2([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,Status,Commment")] TravelReport travelReport)
+        public ActionResult Edit2([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,StatusTypeId,Comment")] TravelReport travelReport)
         {
             if (ModelState.IsValid)
             {
@@ -204,6 +206,7 @@ namespace TravelExpenseReport.Controllers
 
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
             return View(travelReport);
         }
 
