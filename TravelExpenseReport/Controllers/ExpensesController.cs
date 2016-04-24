@@ -7,9 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TravelExpenseReport.Models;
+using Microsoft.AspNet.Identity;
 
 namespace TravelExpenseReport.Controllers
-{
+{   [Authorize]
     public class ExpensesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -17,10 +18,28 @@ namespace TravelExpenseReport.Controllers
         // GET: Expenses
         public ActionResult Index(int? id)
         {
-                     
-            var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport);
-            ViewBag.ActualTravelReportId = expenses.FirstOrDefault().TravelReportId;
-            return View(expenses.ToList());
+            
+            var activeUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+
+            if (User.IsInRole("Assistant"))
+            {
+                var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport).Where(e => e.TravelReport.ApplicationUserId == activeUser.Id);
+                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Where(t => t.ApplicationUserId == activeUser.Id);
+                return View(expenses.ToList());
+            }
+            else
+            {
+                var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport);
+                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser);
+                return View(expenses.ToList());
+            };
+
+            
+            //var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport);
+            //ViewBag.ActualTravelReportId = expenses.FirstOrDefault().TravelReportId;
+            //return View(expenses.ToList());
+
+
         }
 
         // GET: Expenses/Details/5
@@ -41,9 +60,11 @@ namespace TravelExpenseReport.Controllers
         // GET: Expenses/Create
         public ActionResult Create(int? id)
         {
-            
-            //if (tId != null)
-            //{
+
+            if (id != null)
+            {
+                //
+            }
                 ViewBag.ActualTravelReportId = id;
                 Expense ex = new Expense();
                 ex.TravelReportId = id;

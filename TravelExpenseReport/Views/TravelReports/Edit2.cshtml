@@ -178,20 +178,21 @@
 }
 
 @*<div>
-    @Html.Partial("_ListExpensePartial", travelReportId);
+    @Html.Partial("_ListExpensePartial",);
 </div>
 <div>
     @{
-        Html.RenderPartial("_CreateExpensePartial");
+        Html.RenderPartial("_CreateExpensePartial",);
     }
 </div>*@
 
 <div>
-    @{Html.RenderAction("Expenses", "Index");}
+    @{Html.RenderAction("Index", "Expenses");}
+    @*@{Html.RenderAction("Create", "Expenses");}*@
 </div>
 
 <div>
-    @Html.ActionLink("Mata in utgifter", "Index", "Expenses1", new { id = travelReportId }, null)
+    @Html.ActionLink("Mata in utgifter", "Index", "Expenses", new { id = travelReportId }, null)
 </div>
 <div>
     @Html.ActionLink("Beräkna utan kvitton", "Calculate", new { id = travelReportId }, null)
