@@ -61,8 +61,10 @@ namespace TravelExpenseReport.Migrations
             {
                 userManager.Create(u, "foobar");
                 var user = userManager.FindByEmail(u.Email);
+                NewUserList.Add(user);
                 userManager.AddToRole(user.Id, "Assistant");
             }
+
             var expenseTypes = new List<ExpenseType> {
                 new ExpenseType
                 {
@@ -98,6 +100,44 @@ namespace TravelExpenseReport.Migrations
 
             }
 
+            var statusTypes = new List<StatusType> {
+                new StatusType
+                {
+                    StatusTypeId = 1,
+                    StatusName = "Ny"
+                },
+                new StatusType
+                {
+                    StatusTypeId = 2,
+                    StatusName = "Inskickad"
+                },
+                new StatusType
+                {
+                    StatusTypeId = 3,
+                    StatusName = "Ej godkänd"
+                },
+                new StatusType
+                {
+                    StatusTypeId = 4,
+                    StatusName = "Godkänd"
+                },
+                new StatusType
+                {
+                    StatusTypeId = 5,
+                    StatusName = "För utbetalning"
+                },
+                new StatusType
+                {
+                    StatusTypeId = 6,
+                    StatusName = "Utbetald"
+                }
+            };
+
+            foreach (var st in statusTypes)
+            {
+                context.StatusTypes.AddOrUpdate(s => s.StatusName, st);
+
+            }
 
             var legalAmount = new List<LegalAmount> {
                 new LegalAmount
@@ -134,318 +174,326 @@ namespace TravelExpenseReport.Migrations
 
             }
 
-            //var travelReport = new List<TravelReport> {
-            //    new TravelReport
-            //    {
-            //        TravelReportId = 1,
-            //        ApplicationUserId = "0b40f2e3-4393-4e42-abd0-5bc5c6a43e21",
-            //        TravelReportName = "2016-001",
-            //        Destination = "Flen",
-            //        Purpose = "Utbildning",
-            //        DepartureDate = DateTime.Parse("2016-04-20 00:00:00"),
-            //        DepartureTime = DateTime.Parse("2016-04-19 13:00:00"),
-            //        ReturnDate = DateTime.Parse("2016-04-22 00:00:00"),
-            //        ReturnTime = DateTime.Parse("2016-04-19 16:00:00"),
-            //        DepartureHoursExtra = 1 ,
-            //        ReturnHoursExtra = 2,
-            //        FullDay = 0,
-            //        HalfDay = 0,
-            //        Night = 0,
-            //        BreakfastReduction = 0,
-            //        LunchReduction = 0,
-            //        DinnerReduction = 0,
-            //        Status = null,
-            //        Comment = null
-            //     },
-            //    new TravelReport
-            //    {
-            //        TravelReportId = 2,
-            //        ApplicationUserId = "0b40f2e3-4393-4e42-abd0-5bc5c6a43e21",
-            //        TravelReportName = "2016-002",
-            //        Destination = "Malmö",
-            //        Purpose = "Studiebesök",
-            //        DepartureDate = DateTime.Parse("2016-04-23 00:00:00"),
-            //        DepartureTime = DateTime.Parse("2016-04-22 08:30:00"),
-            //        ReturnDate = DateTime.Parse("2016-04-27 00:00:00"),
-            //        ReturnTime = DateTime.Parse("2016-04-22 20:00:00"),
-            //        DepartureHoursExtra = 1 ,
-            //        ReturnHoursExtra = 2,
-            //        FullDay = 0,
-            //        HalfDay = 0,
-            //        Night = 0,
-            //        BreakfastReduction = 0,
-            //        LunchReduction = 1,
-            //        DinnerReduction = 0,
-            //        Status = null,
-            //        Comment = null
-            //     },
-            //    new TravelReport
-            //    {
-            //        TravelReportId = 3,
-            //        ApplicationUserId = "2c5fea77-70bd-4daf-8681-b8221c5fedb1",
-            //        TravelReportName = "2016-001",
-            //        Destination = "Uppsala",
-            //        Purpose = "Läger",
-            //        DepartureDate = DateTime.Parse("2016-04-20 00:00:00"),
-            //        DepartureTime = DateTime.Parse("2016-04-19 17:45:00"),
-            //        ReturnDate = DateTime.Parse("2016-04-22 00:00:00"),
-            //        ReturnTime = DateTime.Parse("2016-04-19 07:30:00"),
-            //        DepartureHoursExtra = 2 ,
-            //        ReturnHoursExtra = 0,
-            //        FullDay = 0,
-            //        HalfDay = 0,
-            //        Night = 0,
-            //        BreakfastReduction = 0,
-            //        LunchReduction = 0,
-            //        DinnerReduction = 0,
-            //        Status = null,
-            //        Comment = null
-            //     },
-            //    new TravelReport
-            //    {
-            //        TravelReportId = 4,
-            //        ApplicationUserId = "2c5fea77-70bd-4daf-8681-b8221c5fedb1",
-            //        TravelReportName = "2016-002",
-            //        Destination = "Sundsvall",
-            //        Purpose = "Besöka släkt över Valborrg",
-            //        DepartureDate = DateTime.Parse("2016-04-29 00:00:00"),
-            //        DepartureTime = DateTime.Parse("2016-04-19 11:59:00"),
-            //        ReturnDate = DateTime.Parse("2016-05-01 00:00:00"),
-            //        ReturnTime = DateTime.Parse("2016-04-19 18:30:00"),
-            //        DepartureHoursExtra = 2 ,
-            //        ReturnHoursExtra = 0,
-            //        FullDay = 0,
-            //        HalfDay = 0,
-            //        Night = 0,
-            //        BreakfastReduction = 0,
-            //        LunchReduction = 0,
-            //        DinnerReduction = 0,
-            //        Status = null,
-            //        Comment = null
-            //     },
-            //     new TravelReport
-            //    {
-            //        TravelReportId = 5,
-            //        ApplicationUserId = "e8b994e0-6b5b-47e3-9fbb-27a7547c6bc4",
-            //        TravelReportName = "2016-001",
-            //        Destination = "Göteborg",
-            //        Purpose = "Besök på Liseberg",
-            //        DepartureDate = DateTime.Parse("2016-04-24 00:00:00"),
-            //        DepartureTime = DateTime.Parse("2016-04-19 06:00:00"),
-            //        ReturnDate = DateTime.Parse("2016-04-27 00:00:00"),
-            //        ReturnTime = DateTime.Parse("2016-04-19 17:00:00"),
-            //        DepartureHoursExtra = 0 ,
-            //        ReturnHoursExtra = 2,
-            //        FullDay = 0,
-            //        HalfDay = 0,
-            //        Night = 0,
-            //        BreakfastReduction = 0,
-            //        LunchReduction = 0,
-            //        DinnerReduction = 0,
-            //        Status = null,
-            //        Comment = null
-            //     },
-            //    new TravelReport
-            //    {
-            //        TravelReportId = 6,
-            //        ApplicationUserId = "e8b994e0-6b5b-47e3-9fbb-27a7547c6bc4",
-            //        TravelReportName = "2016-002",
-            //        Destination = "Västerås",
-            //        Purpose = "Bandymatch",
-            //        DepartureDate = DateTime.Parse("2016-04-28 00:00:00"),
-            //        DepartureTime = DateTime.Parse("2016-04-22 08:30:00"),
-            //        ReturnDate = DateTime.Parse("2016-04-29 00:00:00"),
-            //        ReturnTime = DateTime.Parse("2016-04-22 18:30:00"),
-            //        DepartureHoursExtra = 1 ,
-            //        ReturnHoursExtra = 2,
-            //        FullDay = 0,
-            //        HalfDay = 0,
-            //        Night = 0,
-            //        BreakfastReduction = 0,
-            //        LunchReduction = 1,
-            //        DinnerReduction = 0,
-            //        Status = null,
-            //        Comment = null
-            //     },
-            //    new TravelReport
-            //    {
-            //        TravelReportId = 7,
-            //        ApplicationUserId = "f8ca48ed-c61a-48f0-919b-2e2b74325b2a",
-            //        TravelReportName = "2016-001",
-            //        Destination = "Enköping",
-            //        Purpose = "Studiebesök boende",
-            //        DepartureDate = DateTime.Parse("2016-04-26 00:00:00"),
-            //        DepartureTime = DateTime.Parse("2016-04-19 17:45:00"),
-            //        ReturnDate = DateTime.Parse("2016-04-27 00:00:00"),
-            //        ReturnTime = DateTime.Parse("2016-04-19 07:30:00"),
-            //        DepartureHoursExtra = 2 ,
-            //        ReturnHoursExtra = 0,
-            //        FullDay = 0,
-            //        HalfDay = 0,
-            //        Night = 0,
-            //        BreakfastReduction = 0,
-            //        LunchReduction = 0,
-            //        DinnerReduction = 0,
-            //        Status = null,
-            //        Comment = null
-            //     },
-            //    new TravelReport
-            //    {
-            //        TravelReportId = 8,
-            //        ApplicationUserId = "f8ca48ed-c61a-48f0-919b-2e2b74325b2a",
-            //        TravelReportName = "2016-002",
-            //        Destination = "Sundsvall",
-            //        Purpose = "Besöka släkt",
-            //        DepartureDate = DateTime.Parse("2016-05-02 00:00:00"),
-            //        DepartureTime = DateTime.Parse("2016-04-19 10:30:00"),
-            //        ReturnDate = DateTime.Parse("2016-05-07 00:00:00"),
-            //        ReturnTime = DateTime.Parse("2016-04-19 19:30:00"),
-            //        DepartureHoursExtra = 0,
-            //        ReturnHoursExtra = 2,
-            //        FullDay = 0,
-            //        HalfDay = 0,
-            //        Night = 0,
-            //        BreakfastReduction = 0,
-            //        LunchReduction = 0,
-            //        DinnerReduction = 0,
-            //        Status = null,
-            //        Comment = null
-            //     }
-            //    };
+            var travelReport = new List<TravelReport> {
+                new TravelReport
+                {
+                    TravelReportId = 1,
+                   // ApplicationUserId = "7bce74df-983d-4b45-81d5-530634133665",
+                    ApplicationUserId = NewUserList[2].Id,
+                    TravelReportName = "2016-001",
+                    Destination = "Flen",
+                    Purpose = "Utbildning",
+                    DepartureDate = DateTime.Parse("2016-04-20 00:00:00"),
+                    DepartureTime = TimeSpan.Parse("13:00:00"),
+                    ReturnDate = DateTime.Parse("2016-04-22 00:00:00"),
+                    ReturnTime = TimeSpan.Parse("16:00:00"),
+                    DepartureHoursExtra = 1 ,
+                    ReturnHoursExtra = 2,
+                    FullDay = 0,
+                    HalfDay = 0,
+                    Night = 0,
+                    BreakfastReduction = 0,
+                    LunchReduction = 0,
+                    DinnerReduction = 0,
+                    StatusTypeId = 1,
+                    Comment = null
+                 },
+                new TravelReport
+                {
+                    TravelReportId = 2,
+                    //ApplicationUserId = "7bce74df-983d-4b45-81d5-530634133665",
+                    ApplicationUserId = NewUserList[1].Id,
+                    TravelReportName = "2016-002",
+                    Destination = "Malmö",
+                    Purpose = "Studiebesök",
+                    DepartureDate = DateTime.Parse("2016-04-23 00:00:00"),
+                    DepartureTime = TimeSpan.Parse("08:30:00"),
+                    ReturnDate = DateTime.Parse("2016-04-27 00:00:00"),
+                    ReturnTime = TimeSpan.Parse("20:00:00"),
+                    DepartureHoursExtra = 1 ,
+                    ReturnHoursExtra = 2,
+                    FullDay = 0,
+                    HalfDay = 0,
+                    Night = 0,
+                    BreakfastReduction = 0,
+                    LunchReduction = 1,
+                    DinnerReduction = 0,
+                    StatusTypeId = 1,
+                    Comment = null
+                 },
+                new TravelReport
+                {
+                    TravelReportId = 3,
+                    //ApplicationUserId = "855555ef-8f46-4281-9161-5777699b4d2d",
+                    ApplicationUserId = NewUserList[3].Id,
+                    TravelReportName = "2016-001",
+                    Destination = "Uppsala",
+                    Purpose = "Läger",
+                    DepartureDate = DateTime.Parse("2016-04-20 00:00:00"),
+                    DepartureTime = TimeSpan.Parse("17:45:00"),
+                    ReturnDate = DateTime.Parse("2016-04-22 00:00:00"),
+                    ReturnTime = TimeSpan.Parse("07:30:00"),
+                    DepartureHoursExtra = 2 ,
+                    ReturnHoursExtra = 0,
+                    FullDay = 0,
+                    HalfDay = 0,
+                    Night = 0,
+                    BreakfastReduction = 0,
+                    LunchReduction = 0,
+                    DinnerReduction = 0,
+                    StatusTypeId = 1,
+                    Comment = null
+                 },
+                new TravelReport
+                {
+                    TravelReportId = 4,
+                    //ApplicationUserId = "855555ef-8f46-4281-9161-5777699b4d2d",
+                    ApplicationUserId = NewUserList[2].Id,
+                    TravelReportName = "2016-002",
+                    Destination = "Sundsvall",
+                    Purpose = "Besöka släkt över Valborrg",
+                    DepartureDate = DateTime.Parse("2016-04-29 00:00:00"),
+                    DepartureTime = TimeSpan.Parse("11:59:00"),
+                    ReturnDate = DateTime.Parse("2016-05-01 00:00:00"),
+                    ReturnTime = TimeSpan.Parse("18:30:00"),
+                    DepartureHoursExtra = 2 ,
+                    ReturnHoursExtra = 0,
+                    FullDay = 0,
+                    HalfDay = 0,
+                    Night = 0,
+                    BreakfastReduction = 0,
+                    LunchReduction = 0,
+                    DinnerReduction = 0,
+                    StatusTypeId = 1,
+                    Comment = null
+                 },
+                 new TravelReport
+                {
+                    TravelReportId = 5,
+                    //ApplicationUserId = "cb791d4e-92a8-41ba-aeb3-be2d3000af15",
+                    ApplicationUserId = NewUserList[1].Id,
+                    TravelReportName = "2016-001",
+                    Destination = "Göteborg",
+                    Purpose = "Besök på Liseberg",
+                    DepartureDate = DateTime.Parse("2016-04-24 00:00:00"),
+                    DepartureTime = TimeSpan.Parse("06:00:00"),
+                    ReturnDate = DateTime.Parse("2016-04-27 00:00:00"),
+                    ReturnTime = TimeSpan.Parse("17:00:00"),
+                    DepartureHoursExtra = 0 ,
+                    ReturnHoursExtra = 2,
+                    FullDay = 0,
+                    HalfDay = 0,
+                    Night = 0,
+                    BreakfastReduction = 0,
+                    LunchReduction = 0,
+                    DinnerReduction = 0,
+                    StatusTypeId = 1,
+                    Comment = null
+                 },
+                new TravelReport
+                {
+                    TravelReportId = 6,
+                    //ApplicationUserId = "cb791d4e-92a8-41ba-aeb3-be2d3000af15",
+                    ApplicationUserId = NewUserList[1].Id,
+                    TravelReportName = "2016-002",
+                    Destination = "Västerås",
+                    Purpose = "Bandymatch",
+                    DepartureDate = DateTime.Parse("2016-04-28 00:00:00"),
+                    DepartureTime = TimeSpan.Parse("08:30:00"),
+                    ReturnDate = DateTime.Parse("2016-04-29 00:00:00"),
+                    ReturnTime = TimeSpan.Parse("18:30:00"),
+                    DepartureHoursExtra = 1 ,
+                    ReturnHoursExtra = 2,
+                    FullDay = 0,
+                    HalfDay = 0,
+                    Night = 0,
+                    BreakfastReduction = 0,
+                    LunchReduction = 1,
+                    DinnerReduction = 0,
+                    StatusTypeId = 1,
+                    Comment = null
+                 },
+                new TravelReport
+                {
+                    TravelReportId = 7,
+                    //ApplicationUserId = "f77513f6-4c8b-4eb2-9896-b292dd9a294e",
+                    ApplicationUserId = NewUserList[3].Id,
+                    TravelReportName = "2016-001",
+                    Destination = "Enköping",
+                    Purpose = "Studiebesök boende",
+                    DepartureDate = DateTime.Parse("2016-04-26 00:00:00"),
+                    DepartureTime = TimeSpan.Parse("17:45:00"),
+                    ReturnDate = DateTime.Parse("2016-04-27 00:00:00"),
+                    ReturnTime = TimeSpan.Parse("07:30:00"),
+                    DepartureHoursExtra = 2 ,
+                    ReturnHoursExtra = 0,
+                    FullDay = 0,
+                    HalfDay = 0,
+                    Night = 0,
+                    BreakfastReduction = 0,
+                    LunchReduction = 0,
+                    DinnerReduction = 0,
+                    StatusTypeId = 1,
+                    Comment = null
+                 },
+                new TravelReport
+                {
+                    TravelReportId = 8,
+                    //ApplicationUserId = "f77513f6-4c8b-4eb2-9896-b292dd9a294e",
+                    ApplicationUserId = NewUserList[3].Id,
+                    TravelReportName = "2016-002",
+                    Destination = "Sundsvall",
+                    Purpose = "Besöka släkt",
+                    DepartureDate = DateTime.Parse("2016-05-02 00:00:00"),
+                    DepartureTime = TimeSpan.Parse("10:30:00"),
+                    ReturnDate = DateTime.Parse("2016-05-07 00:00:00"),
+                    ReturnTime = TimeSpan.Parse("19:30:00"),
+                    DepartureHoursExtra = 0,
+                    ReturnHoursExtra = 2,
+                    FullDay = 0,
+                    HalfDay = 0,
+                    Night = 0,
+                    BreakfastReduction = 0,
+                    LunchReduction = 0,
+                    DinnerReduction = 0,
+                    StatusTypeId = 2,
+                    Comment = null
+                 }
+                };
 
 
 
-            //foreach (var tr in travelReport)
-            //{
-            //    context.TravelReports.AddOrUpdate(t => t.TravelReportId, tr);
-            //    //context.ExpenseTypes.AddOrUpdate(et);
+            foreach (var tr in travelReport)
+            {
+                context.TravelReports.AddOrUpdate(t => t.TravelReportId, tr);
+                //context.ExpenseTypes.AddOrUpdate(et);
 
-            //}
-
-
-            //var expenses = new List<Expense> {
-            //        new Expense
-            //        {
-            //            ExpenseId = 1,
-            //            ExpenseTypeId = 16,
-            //            ExpenseInformation = null,
-            //            ExpenseDate = DateTime.Parse("2016-04-20"),
-            //            ExpenseAmount = 345,
-            //            ExpenseMilage = 0,
-            //            TravelReportId = 1
-
-            //        },
-            //         new Expense
-            //        {
-            //            ExpenseId = 2,
-            //            ExpenseTypeId = 18,
-            //            ExpenseInformation = null,
-            //            ExpenseDate = DateTime.Parse("2014-04-20"),
-            //            ExpenseAmount = 345,
-            //            ExpenseMilage = 0,
-            //            TravelReportId = 1
-
-            //        },
-            //          new Expense
-            //        {
-            //            ExpenseId = 3,
-            //            ExpenseTypeId = 17,
-            //            ExpenseInformation = null,
-            //            ExpenseDate = DateTime.Parse("2014-04-23"),
-            //            ExpenseAmount = 2550,
-            //            ExpenseMilage = 0,
-            //            TravelReportId =2
-
-            //        },
-            //        new Expense
-            //        {
-            //            ExpenseId = 4,
-            //            ExpenseTypeId= 17,
-            //            ExpenseInformation = null,
-            //            ExpenseDate = DateTime.Parse("2014-04-29"),
-            //            ExpenseAmount = 3100,
-            //            ExpenseMilage = 0,
-            //            TravelReportId = 4,
-
-            //        },
-            //        new Expense
-            //        {
-            //            ExpenseId = 5,
-            //            ExpenseTypeId = 19,
-            //            ExpenseInformation = null,
-            //            ExpenseDate = DateTime.Parse("2014-04-25"),
-            //            ExpenseAmount = 0,
-            //            ExpenseMilage = 485,
-            //            TravelReportId = 5,
-            //        },
-            //             new Expense
-            //        {
-            //            ExpenseId = 6,
-            //            ExpenseTypeId = 19,
-            //            ExpenseInformation = null,
-            //            ExpenseDate = DateTime.Parse("2014-04-27"),
-            //            ExpenseAmount = 0,
-            //            ExpenseMilage = 485,
-            //            TravelReportId = 5,
+            }
 
 
-            //        },
-            //             new Expense
-            //        {
-            //            ExpenseId = 7,
-            //            ExpenseTypeId = 17,
-            //            ExpenseInformation = null,
-            //            ExpenseDate = DateTime.Parse("2014-05-02"),
-            //            ExpenseAmount = 5630,
-            //            ExpenseMilage = 0,
-            //            TravelReportId = 8,
+            var expenses = new List<Expense> {
+                    new Expense
+                    {
+                        ExpenseId = 1,
+                        ExpenseTypeId = 1,
+                        ExpenseInformation = null,
+                        ExpenseDate = DateTime.Parse("2016-04-20"),
+                        ExpenseAmount = 345,
+                        ExpenseMilage = 0,
+                        TravelReportId = 1
+
+                    },
+                     new Expense
+                    {
+                        ExpenseId = 2,
+                        ExpenseTypeId = 3,
+                        ExpenseInformation = null,
+                        ExpenseDate = DateTime.Parse("2014-04-20"),
+                        ExpenseAmount = 345,
+                        ExpenseMilage = 0,
+                        TravelReportId = 1
+
+                    },
+                      new Expense
+                    {
+                        ExpenseId = 3,
+                        ExpenseTypeId = 2,
+                        ExpenseInformation = null,
+                        ExpenseDate = DateTime.Parse("2014-04-23"),
+                        ExpenseAmount = 2550,
+                        ExpenseMilage = 0,
+                        TravelReportId =2
+
+                    },
+                    new Expense
+                    {
+                        ExpenseId = 4,
+                        ExpenseTypeId= 2,
+                        ExpenseInformation = null,
+                        ExpenseDate = DateTime.Parse("2014-04-29"),
+                        ExpenseAmount = 3100,
+                        ExpenseMilage = 0,
+                        TravelReportId = 5,
+
+                    },
+                    new Expense
+                    {
+                        ExpenseId = 5,
+                        ExpenseTypeId = 4,
+                        ExpenseInformation = null,
+                        ExpenseDate = DateTime.Parse("2014-04-25"),
+                        ExpenseAmount = 0,
+                        ExpenseMilage = 485,
+                        TravelReportId = 5,
+                    },
+                         new Expense
+                    {
+                        ExpenseId = 6,
+                        ExpenseTypeId = 4,
+                        ExpenseInformation = null,
+                        ExpenseDate = DateTime.Parse("2014-04-27"),
+                        ExpenseAmount = 0,
+                        ExpenseMilage = 375,
+                        TravelReportId = 6,
 
 
-            //        },
-            //              new Expense
-            //        {
-            //            ExpenseId = 8,
-            //            ExpenseTypeId = 18,
-            //            ExpenseInformation = null,
-            //            ExpenseDate = DateTime.Parse("2014-05-02"),
-            //            ExpenseAmount = 367,
-            //            ExpenseMilage = 0,
-            //            TravelReportId = 8,
+                    },
+                         new Expense
+                    {
+                        ExpenseId = 7,
+                        ExpenseTypeId = 2,
+                        ExpenseInformation = null,
+                        ExpenseDate = DateTime.Parse("2014-05-02"),
+                        ExpenseAmount = 5630,
+                        ExpenseMilage = 0,
+                        TravelReportId = 8,
 
 
-            //        },
-            //              new Expense
-            //        {
-            //            ExpenseId = 7,
-            //            ExpenseTypeId = 16,
-            //            ExpenseInformation = null,
-            //            ExpenseDate = DateTime.Parse("2014-05-07"),
-            //            ExpenseAmount = 569,
-            //            ExpenseMilage = 0,
-            //            TravelReportId = 8,
+                    },
+                          new Expense
+                    {
+                        ExpenseId = 8,
+                        ExpenseTypeId = 3,
+                        ExpenseInformation = null,
+                        ExpenseDate = DateTime.Parse("2014-05-02"),
+                        ExpenseAmount = 367,
+                        ExpenseMilage = 0,
+                        TravelReportId = 8,
 
 
-            //        },
-            //              new Expense
-            //        {
-            //            ExpenseId = 8,
-            //            ExpenseTypeId = 18,
-            //            ExpenseInformation = null,
-            //            ExpenseDate = DateTime.Parse("2014-05-07"),
-            //            ExpenseAmount = 235,
-            //            ExpenseMilage = 0,
-            //            TravelReportId = 8,
+        },
+                          new Expense
+                    {
+                        ExpenseId = 7,
+                        ExpenseTypeId = 1,
+                        ExpenseInformation = null,
+                        ExpenseDate = DateTime.Parse("2014-05-07"),
+                        ExpenseAmount = 569,
+                        ExpenseMilage = 0,
+                        TravelReportId = 8,
 
 
-            //        }
-            //    };
+                    },
+                          new Expense
+                    {
+                        ExpenseId = 8,
+                        ExpenseTypeId = 3,
+                        ExpenseInformation = null,
+                        ExpenseDate = DateTime.Parse("2014-05-07"),
+                        ExpenseAmount = 235,
+                        ExpenseMilage = 0,
+                        TravelReportId = 8,
 
-            //foreach (var ex in expenses)
-            //{
-            //    context.Expenses.AddOrUpdate(e => e.ExpenseId, ex);
-            //    //context.ExpenseTypes.AddOrUpdate(et);
 
-            //}
+                    }
+                };
+
+            foreach (var ex in expenses)
+            {
+                context.Expenses.AddOrUpdate(e => e.ExpenseId, ex);
+                //context.ExpenseTypes.AddOrUpdate(et);
+
+            }
 
 
             context.SaveChanges();
