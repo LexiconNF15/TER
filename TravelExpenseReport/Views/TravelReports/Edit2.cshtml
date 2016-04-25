@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
-    int travelReportId =0;
+    int travelReportId = 0;
     if (ViewBag.TravelReportId != null)
     {
         travelReportId = (int)ViewBag.TravelReportId;
@@ -16,7 +16,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Reseräkning: @ViewBag.TravelReportName1</h4>
         <hr />
@@ -194,9 +194,12 @@
 </div>*@
 
 <div>
-    @{Html.RenderAction("Index", "Expenses");}
+ @*@{Html.RenderAction("Index", "Expenses");}*@
    @*@{Html.RenderAction("Index", "Expenses",new { id = travelReportId });}*@
-    @*@{Html.RenderAction("Create", "Expenses");}*@
+    @*@{Html.RenderAction("Create", "Expenses"); }*@
+        @Html.ActionLink("Mata in utgifter", "Create", "Expenses", new {tId = travelReportId}, null)
+
+
 </div>
 
 <div>

@@ -58,19 +58,20 @@ namespace TravelExpenseReport.Controllers
         }
 
         // GET: Expenses/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create(int tId)
         {
-
-            if (id != null)
-            {
-                //
-            }
-                ViewBag.ActualTravelReportId = id;
-                Expense ex = new Expense();
-                ex.TravelReportId = id;
-                //TravelReport travelReport = db.TravelReports.Find(tId);
-            //}
+            Expense ex = new Expense();
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
+
+            if (tId > 0)
+            {
+                ViewBag.ActualTravelReportId = tId;
+                
+                ex.TravelReportId = tId;
+                return View(ex);
+            }
+                
+            //ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
             //ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", "TravelReportName");
             //ViewBag.ActualTravelReportId = id;
             return View(ex);
