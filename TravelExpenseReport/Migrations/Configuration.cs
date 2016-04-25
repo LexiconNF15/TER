@@ -435,9 +435,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseAmount = 0,
                         ExpenseMilage = 375,
                         TravelReportId = 6,
-
-
-                    },
+                     },
                          new Expense
                     {
                         ExpenseId = 7,
@@ -447,7 +445,6 @@ namespace TravelExpenseReport.Migrations
                         ExpenseAmount = 5630,
                         ExpenseMilage = 0,
                         TravelReportId = 8,
-
 
                     },
                           new Expense
@@ -459,9 +456,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseAmount = 367,
                         ExpenseMilage = 0,
                         TravelReportId = 8,
-
-
-        },
+                     },
                           new Expense
                     {
                         ExpenseId = 7,
@@ -471,8 +466,6 @@ namespace TravelExpenseReport.Migrations
                         ExpenseAmount = 569,
                         ExpenseMilage = 0,
                         TravelReportId = 8,
-
-
                     },
                           new Expense
                     {
@@ -483,8 +476,6 @@ namespace TravelExpenseReport.Migrations
                         ExpenseAmount = 235,
                         ExpenseMilage = 0,
                         TravelReportId = 8,
-
-
                     }
                 };
 
