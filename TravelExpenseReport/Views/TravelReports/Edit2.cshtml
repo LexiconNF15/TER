@@ -9,6 +9,7 @@
         travelReportId = (int)ViewBag.TravelReportId;
     }
 }
+}
 
 <h2>Edit2</h2>
 
@@ -184,8 +185,23 @@
     </div>
 }
 
+@*<div>
+    @Html.Partial("_ListExpensePartial",);
+</div>
 <div>
-    @Html.ActionLink("Mata in utgifter", "Index", "Expenses1", new { id = travelReportId }, null)
+    @{
+        Html.RenderPartial("_CreateExpensePartial",);
+    }
+</div>*@
+
+<div>
+    @{Html.RenderAction("Index", "Expenses");}
+   @*@{Html.RenderAction("Index", "Expenses",new { id = travelReportId });}*@
+    @*@{Html.RenderAction("Create", "Expenses");}*@
+</div>
+
+<div>
+    @Html.ActionLink("Mata in utgifter", "Index", "Expenses", new { id = travelReportId }, null)
 </div>
 <div>
     @Html.ActionLink("Beräkna utan kvitton", "Calculate", new { id = travelReportId }, null)

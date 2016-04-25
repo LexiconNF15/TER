@@ -199,7 +199,6 @@
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\ExpenseTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JourneysController.cs" />
     <Compile Include="Controllers\LegalAmountsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
@@ -291,11 +290,6 @@
     <Content Include="Views\ExpenseTypes\Details.cshtml" />
     <Content Include="Views\ExpenseTypes\Edit.cshtml" />
     <Content Include="Views\ExpenseTypes\Index.cshtml" />
-    <Content Include="Views\Expenses\Create.cshtml" />
-    <Content Include="Views\Expenses\Delete.cshtml" />
-    <Content Include="Views\Expenses\Details.cshtml" />
-    <Content Include="Views\Expenses\Edit.cshtml" />
-    <Content Include="Views\Expenses\Index.cshtml" />
     <Content Include="Views\TravelReports\Create.cshtml" />
     <Content Include="Views\TravelReports\Delete.cshtml" />
     <Content Include="Views\TravelReports\Details.cshtml" />
@@ -310,16 +304,11 @@
     <Content Include="Views\TravelReports\Create2.cshtml" />
     <Content Include="Views\TravelReports\Edit2.cshtml" />
     <Content Include="Views\TravelReports\Calculate.cshtml" />
-    <Content Include="Views\Journeys\Create.cshtml" />
-    <Content Include="Views\Journeys\Delete.cshtml" />
-    <Content Include="Views\Journeys\Details.cshtml" />
-    <Content Include="Views\Journeys\Edit.cshtml" />
-    <Content Include="Views\Journeys\Index.cshtml" />
-    <Content Include="Views\TravelReports1\Create.cshtml" />
-    <Content Include="Views\TravelReports1\Delete.cshtml" />
-    <Content Include="Views\TravelReports1\Details.cshtml" />
-    <Content Include="Views\TravelReports1\Edit.cshtml" />
-    <Content Include="Views\TravelReports1\Index.cshtml" />
+    <Content Include="Views\Expenses\Create.cshtml" />
+    <Content Include="Views\Expenses\Delete.cshtml" />
+    <Content Include="Views\Expenses\Details.cshtml" />
+    <Content Include="Views\Expenses\Edit.cshtml" />
+    <Content Include="Views\Expenses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
