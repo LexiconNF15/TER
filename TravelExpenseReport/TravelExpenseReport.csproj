@@ -315,6 +315,11 @@
     <Content Include="Views\Journeys\Details.cshtml" />
     <Content Include="Views\Journeys\Edit.cshtml" />
     <Content Include="Views\Journeys\Index.cshtml" />
+    <Content Include="Views\TravelReports1\Create.cshtml" />
+    <Content Include="Views\TravelReports1\Delete.cshtml" />
+    <Content Include="Views\TravelReports1\Details.cshtml" />
+    <Content Include="Views\TravelReports1\Edit.cshtml" />
+    <Content Include="Views\TravelReports1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

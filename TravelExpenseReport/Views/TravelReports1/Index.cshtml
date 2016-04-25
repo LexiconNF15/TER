@@ -62,7 +62,7 @@
         <th>
             @Html.DisplayNameFor(model => model.DinnerReduction)
         </th>
-                <th>
+        <th>
             @Html.DisplayNameFor(model => model.Comment)
         </th>
         <th></th>
@@ -125,7 +125,7 @@
             @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
-            @Html.ActionLink("Beräkna igen", "Edit2", new { id=item.TravelReportId }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.TravelReportId }) |
             @Html.ActionLink("Details", "Details", new { id=item.TravelReportId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.TravelReportId })
         </td>

@@ -54,21 +54,27 @@ namespace TravelExpenseReport.Models
         public int? ReturnHoursExtra { get; set; }
 
         [DisplayName("Heldag")]
+        [Range(0, int.MaxValue)]
         public int? FullDay { get; set; }
 
         [DisplayName("Halvdag")]
+        [Range(0, int.MaxValue)]
         public int? HalfDay { get; set; }
 
         [DisplayName("Natt")]
+        [Range(0, int.MaxValue)]
         public int? Night { get; set; }
 
         [DisplayName("Avdrag frukost")]
+        [Range(0, int.MaxValue)]
         public int? BreakfastReduction { get; set; }
 
         [DisplayName("Avdrag lunch")]
+        [Range(0, int.MaxValue)]
         public int? LunchReduction { get; set; }
 
         [DisplayName("Avdrag middag")]
+        [Range(0, int.MaxValue)]
         public int? DinnerReduction { get; set; }
 
         [DisplayName("Status")]
