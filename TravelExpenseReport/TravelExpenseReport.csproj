@@ -202,6 +202,7 @@
     <Compile Include="Controllers\LegalAmountsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
+    <Compile Include="Controllers\TravelReports4Controller.cs" />
     <Compile Include="Controllers\TravelReportsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -211,7 +212,6 @@
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Journey.cs" />
     <Compile Include="Models\LegalAmount.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Patient.cs" />
@@ -301,7 +301,6 @@
     <Content Include="Views\LegalAmounts\Edit.cshtml" />
     <Content Include="Views\LegalAmounts\Index.cshtml" />
     <Content Include="Views\TravelReports\_CreatePartial.cshtml" />
-    <Content Include="Views\TravelReports\Create2.cshtml" />
     <Content Include="Views\TravelReports\Edit2.cshtml" />
     <Content Include="Views\TravelReports\Calculate.cshtml" />
     <Content Include="Views\Expenses\Create.cshtml" />
@@ -309,6 +308,11 @@
     <Content Include="Views\Expenses\Details.cshtml" />
     <Content Include="Views\Expenses\Edit.cshtml" />
     <Content Include="Views\Expenses\Index.cshtml" />
+    <Content Include="Views\TravelReports4\Create.cshtml" />
+    <Content Include="Views\TravelReports4\Delete.cshtml" />
+    <Content Include="Views\TravelReports4\Details.cshtml" />
+    <Content Include="Views\TravelReports4\Edit.cshtml" />
+    <Content Include="Views\TravelReports4\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

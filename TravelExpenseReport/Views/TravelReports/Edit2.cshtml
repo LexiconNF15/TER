@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Edit";
     int travelReportId =0;
-    int maxReduction = 10;
     if (ViewBag.TravelReportId != null)
     {
         travelReportId = (int)ViewBag.TravelReportId;
@@ -176,6 +175,8 @@
             </div>
         </div>
 
+        
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Beräkna utan kvitton" class="btn btn-default" />
@@ -183,6 +184,13 @@
         </div>
  
     </div>
+    <dt>
+        @Html.DisplayNameFor(model => model.StatusType.StatusName)
+    </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusType.StatusName)
+        </dd>
 }
 
 @*<div>

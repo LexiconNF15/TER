@@ -49,7 +49,5 @@ namespace TravelExpenseReport.Models
         public System.Data.Entity.DbSet<TravelExpenseReport.Models.ExpenseType> ExpenseTypes { get; set; }
 
         public System.Data.Entity.DbSet<TravelExpenseReport.Models.StatusType> StatusTypes { get; set; }
-
-        public System.Data.Entity.DbSet<TravelExpenseReport.Models.Journey> Journeys { get; set; }
     }
 }

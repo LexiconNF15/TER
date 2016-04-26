@@ -46,35 +46,35 @@ namespace TravelExpenseReport.Models
         public TimeSpan ReturnTime { get; set; }
 
         [DisplayName("Avresa extra timmar")]
-        [Range(0, 72)]
+        [Range(0, 72, ErrorMessage = "Måste vara minst 0")]
         public int? DepartureHoursExtra { get; set; }
 
         [DisplayName("Hemresa extra timmar")]
-        [Range(0, 72)]
+        [Range(0, 72, ErrorMessage = "Måste vara minst 0")]
         public int? ReturnHoursExtra { get; set; }
 
         [DisplayName("Heldag")]
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? FullDay { get; set; }
 
         [DisplayName("Halvdag")]
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? HalfDay { get; set; }
 
         [DisplayName("Natt")]
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? Night { get; set; }
 
         [DisplayName("Avdrag frukost")]
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? BreakfastReduction { get; set; }
 
         [DisplayName("Avdrag lunch")]
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? LunchReduction { get; set; }
 
         [DisplayName("Avdrag middag")]
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? DinnerReduction { get; set; }
 
         [DisplayName("Status")]
@@ -108,6 +108,7 @@ namespace TravelExpenseReport.Models
             DinnerReduction = 0;
             DepartureHoursExtra = 0;
             ReturnHoursExtra = 0;
+            StatusTypeId = 4;
         }
     }
 }
