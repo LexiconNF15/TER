@@ -140,6 +140,7 @@ namespace TravelExpenseReport.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
             return View(travelReport);
         }
 
@@ -158,7 +159,8 @@ namespace TravelExpenseReport.Controllers
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
             //ViewBag.TravelReportName1 = "2016-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
-            travelReport.TravelReportName = "2016-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
+            string travelYear = travelReport.DepartureDate.Year.ToString();
+            travelReport.TravelReportName = travelYear + "-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
             TimeSpan differense = travelReport.ReturnDate - travelReport.DepartureDate;
 
             travelReport.Night = differense.Days;
