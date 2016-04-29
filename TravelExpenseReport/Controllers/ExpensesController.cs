@@ -21,8 +21,11 @@ namespace TravelExpenseReport.Controllers
         {
             var activeUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
             var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport).Where(e => e.TravelReportId == tId);
+            TravelReport tr = db.TravelReports.Find(tId);
             ViewBag.ActiveUser = activeUser;
             ViewBag.ActualTravelReportId = tId;
+            ViewBag.ActualTravelName = tr.TravelReportName;
+            ViewBag.ActualTravelReportInfo = tr;
             return View(expenses.ToList());
         }
 
@@ -50,6 +53,7 @@ namespace TravelExpenseReport.Controllers
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
             //ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId","TravelReportName");
             ViewBag.ActualTravelReportId = tId;
+            ViewBag.ActualTravelReportInfo = activeTravelReport;
             return View();
         }
         
@@ -64,7 +68,7 @@ namespace TravelExpenseReport.Controllers
             {
                 db.Expenses.Add(expense);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { tId = expense.TravelReportId, id = expense.ExpenseId });
+                return RedirectToAction("Index", new { tId = expense.TravelReportId});
             }
 
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
