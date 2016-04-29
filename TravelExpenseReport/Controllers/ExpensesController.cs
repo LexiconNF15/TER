@@ -10,36 +10,20 @@ using TravelExpenseReport.Models;
 using Microsoft.AspNet.Identity;
 
 namespace TravelExpenseReport.Controllers
-{   [Authorize]
+{
+    [Authorize]
     public class ExpensesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Expenses
-        public ActionResult Index(int? id)
+        public ActionResult Index(int tId)
         {
-            
             var activeUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
-
-            if (User.IsInRole("Assistant"))
-            {
-                var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport).Where(e => e.TravelReport.ApplicationUserId == activeUser.Id);
-                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Where(t => t.ApplicationUserId == activeUser.Id);
-                return View(expenses.ToList());
-            }
-            else
-            {
-                var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport);
-                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser);
-                return View(expenses.ToList());
-            };
-
-            
-            //var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport);
-            //ViewBag.ActualTravelReportId = expenses.FirstOrDefault().TravelReportId;
-            //return View(expenses.ToList());
-
-
+            var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport).Where(e => e.TravelReportId == tId);
+            ViewBag.ActiveUser = activeUser;
+            ViewBag.ActualTravelReportId = tId;
+            return View(expenses.ToList());
         }
 
         // GET: Expenses/Details/5
@@ -54,48 +38,38 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ActualTravelReportId = expense.TravelReportId;
             return View(expense);
         }
 
         // GET: Expenses/Create
         public ActionResult Create(int tId)
         {
-            Expense ex = new Expense();
+            var activeTravelReport = db.TravelReports.Where(tr => tr.TravelReportId == tId);
+
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
-
-            if (tId > 0)
-            {
-                ViewBag.ActualTravelReportId = tId;
-                
-                ex.TravelReportId = tId;
-                return View(ex);
-            }
-                
-            //ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
-            //ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", "TravelReportName");
-            //ViewBag.ActualTravelReportId = id;
-            return View(ex);
-          
+            //ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId","TravelReportName");
+            ViewBag.ActualTravelReportId = tId;
+            return View();
         }
-
-
+        
         // POST: Expenses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId")] Expense ex)
+        public ActionResult Create([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId")] Expense expense)
         {
             if (ModelState.IsValid)
             {
-                db.Expenses.Add(ex);
+                db.Expenses.Add(expense);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { tId = expense.TravelReportId, id = expense.ExpenseId });
             }
 
-            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", ex.ExpenseTypeId);
-            //ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
-            return View(ex);
+            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
+            //iewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", ex.TravelReportId);
+            return View(expense);
         }
 
         // GET: Expenses/Edit/5
@@ -105,16 +79,16 @@ namespace TravelExpenseReport.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Expense ex = db.Expenses.Find(id);
-            if (ex == null)
+            Expense expense = db.Expenses.Find(id);
+            if (expense == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", ex.ExpenseTypeId);
-            //ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
+            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
+            ViewBag.ActualTravelReportId = expense.TravelReportId;
+            //ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", ex.TravelReportId);
             //ViewBag.CurrentUserId = new SelectList(db.Users, "ApplicationUserId", "FullName");
-            //ViewBag.TestId = new SelectList(db.TravelReports, " TravelReportId", "TravelReportName");
-            return View(ex);
+            return View(expense);
         }
 
         // POST: Expenses/Edit/5
@@ -122,18 +96,17 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId,TravelReportName,FullName")] Expense ex)
+        public ActionResult Edit([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId,TravelReportName,FullName")] Expense expense)
         {
-
             if (ModelState.IsValid)
             {
-                db.Entry(ex).State = EntityState.Modified;
+                db.Entry(expense).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { tId = expense.TravelReportId });
             }
-            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", ex.ExpenseTypeId);
+            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseId);
             //ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
-            return View(ex);
+            return View(expense);
         }
 
         // GET: Expenses/Delete/5
@@ -148,6 +121,7 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ActualTravelReportId = expense.TravelReportId;
             return View(expense);
         }
 
@@ -157,9 +131,10 @@ namespace TravelExpenseReport.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Expense expense = db.Expenses.Find(id);
+            int? actualTravelReportId = expense.TravelReportId;
             db.Expenses.Remove(expense);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            db.SaveChanges(); 
+            return RedirectToAction("Index",new { tId = actualTravelReportId});
         }
 
         protected override void Dispose(bool disposing)
@@ -172,4 +147,3 @@ namespace TravelExpenseReport.Controllers
         }
     }
 }
-

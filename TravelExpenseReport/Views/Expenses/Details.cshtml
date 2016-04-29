@@ -7,14 +7,16 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Expense</h4>
+    <h4>Utgiftsinformation</h4>
 
     <h4>
-        
-            @Html.DisplayFor(model => model.TravelReport.TravelReportName)
-        
-            @Html.DisplayFor(model => model.TravelReport.ApplicationUser.FullName)
-        
+
+        @Html.DisplayFor(model => model.TravelReport.TravelReportName)
+
+        @Html.DisplayFor(model => model.TravelReport.ApplicationUser.FullName)
+
+        @Html.HiddenFor(model => model.TravelReportId, new { @Value = @ViewBag.ActualTravelReportId, @readonly = "true" })
+
     </h4>
     <hr />
     <dl class="dl-horizontal">
@@ -25,17 +27,6 @@
         <dd>
             @Html.DisplayFor(model => model.ExpenseType.ExpenseTypeName)
         </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.TravelReport.ApplicationUserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TravelReport.ApplicationUserId)
-        </dd>
-        <dd>
-            @Html.DisplayFor(model => model.TravelReport.TravelReportName)
-        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.ExpenseInformation)
@@ -72,6 +63,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ExpenseId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Ändra", "Edit", new { id = Model.ExpenseId }) |
+    @Html.ActionLink("Tillbaka", "Index", new { tId = Model.TravelReportId })
 </p>

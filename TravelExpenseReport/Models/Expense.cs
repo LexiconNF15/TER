@@ -15,7 +15,7 @@ namespace TravelExpenseReport.Models
         [DisplayName("Utgiftstyp")]
         public int ExpenseTypeId { get; set; }
 
-        [DisplayName("Information")]
+        [DisplayName("Beskrivning")]
         public string ExpenseInformation { get; set; }
 
         [DisplayName("Datum")]

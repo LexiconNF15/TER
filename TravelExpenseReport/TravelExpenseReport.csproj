@@ -211,7 +211,6 @@
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Journey.cs" />
     <Compile Include="Models\LegalAmount.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Patient.cs" />

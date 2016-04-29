@@ -147,7 +147,7 @@ namespace TravelExpenseReport.Migrations
                     FullDayAmount = 210,
                     HalfDayAmount = 100,
                     NightAmount = 100,
-                    MilageAmount = 175,
+                    MilageAmount = 1.75m,
                     BreakfastReductionAmount = 42,
                     LunchReductionAmount = 75,
                     DinnerReductionAmount =75
@@ -160,7 +160,7 @@ namespace TravelExpenseReport.Migrations
                     FullDayAmount = 220,
                     HalfDayAmount = 110,
                     NightAmount = 110,
-                    MilageAmount = 185,
+                    MilageAmount = 1.85m,
                     BreakfastReductionAmount = 44,
                     LunchReductionAmount = 77,
                     DinnerReductionAmount =77
@@ -249,12 +249,12 @@ namespace TravelExpenseReport.Migrations
                     TravelReportId = 4,
                     //ApplicationUserId = "855555ef-8f46-4281-9161-5777699b4d2d",
                     ApplicationUserId = NewUserList[2].Id,
-                    TravelReportName = "2016-002",
+                    TravelReportName = "2015-001",
                     Destination = "Sundsvall",
                     Purpose = "Besöka släkt över Valborrg",
-                    DepartureDate = DateTime.Parse("2016-04-29 00:00:00"),
+                    DepartureDate = DateTime.Parse("2015-06-29 00:00:00"),
                     DepartureTime = TimeSpan.Parse("11:59:00"),
-                    ReturnDate = DateTime.Parse("2016-05-01 00:00:00"),
+                    ReturnDate = DateTime.Parse("2015-08-01 00:00:00"),
                     ReturnTime = TimeSpan.Parse("18:30:00"),
                     DepartureHoursExtra = 2 ,
                     ReturnHoursExtra = 0,
@@ -388,7 +388,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseId = 2,
                         ExpenseTypeId = 3,
                         ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2014-04-20"),
+                        ExpenseDate = DateTime.Parse("2016-04-20"),
                         ExpenseAmount = 345,
                         ExpenseMilage = 0,
                         TravelReportId = 1
@@ -399,7 +399,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseId = 3,
                         ExpenseTypeId = 2,
                         ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2014-04-23"),
+                        ExpenseDate = DateTime.Parse("2016-04-23"),
                         ExpenseAmount = 2550,
                         ExpenseMilage = 0,
                         TravelReportId =2
@@ -410,7 +410,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseId = 4,
                         ExpenseTypeId= 2,
                         ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2014-04-29"),
+                        ExpenseDate = DateTime.Parse("2016-04-29"),
                         ExpenseAmount = 3100,
                         ExpenseMilage = 0,
                         TravelReportId = 5,
@@ -421,7 +421,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseId = 5,
                         ExpenseTypeId = 4,
                         ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2014-04-25"),
+                        ExpenseDate = DateTime.Parse("2016-04-25"),
                         ExpenseAmount = 0,
                         ExpenseMilage = 485,
                         TravelReportId = 5,
@@ -431,7 +431,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseId = 6,
                         ExpenseTypeId = 4,
                         ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2014-04-27"),
+                        ExpenseDate = DateTime.Parse("2016-04-27"),
                         ExpenseAmount = 0,
                         ExpenseMilage = 375,
                         TravelReportId = 6,
@@ -441,7 +441,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseId = 7,
                         ExpenseTypeId = 2,
                         ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2014-05-02"),
+                        ExpenseDate = DateTime.Parse("2016-05-02"),
                         ExpenseAmount = 5630,
                         ExpenseMilage = 0,
                         TravelReportId = 8,
@@ -452,7 +452,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseId = 8,
                         ExpenseTypeId = 3,
                         ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2014-05-02"),
+                        ExpenseDate = DateTime.Parse("2016-05-02"),
                         ExpenseAmount = 367,
                         ExpenseMilage = 0,
                         TravelReportId = 8,
@@ -462,7 +462,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseId = 7,
                         ExpenseTypeId = 1,
                         ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2014-05-07"),
+                        ExpenseDate = DateTime.Parse("2016-05-07"),
                         ExpenseAmount = 569,
                         ExpenseMilage = 0,
                         TravelReportId = 8,
@@ -472,10 +472,10 @@ namespace TravelExpenseReport.Migrations
                         ExpenseId = 8,
                         ExpenseTypeId = 3,
                         ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2014-05-07"),
+                        ExpenseDate = DateTime.Parse("2015-07-07"),
                         ExpenseAmount = 235,
                         ExpenseMilage = 0,
-                        TravelReportId = 8,
+                        TravelReportId = 4,
                     }
                 };
 
@@ -486,98 +486,9 @@ namespace TravelExpenseReport.Migrations
 
             }
 
-
             context.SaveChanges();
 
-            var travelReport = new List<TravelReport> {
-                new TravelReport
-                {
-                    TravelReportId = 1,
-                    ApplicationUserId = NewUserList[2].Id,
-                    //ApplicationUserId = "0b40f2e3-4393-4e42-abd0-5bc5c6a43e21",
-                    TravelReportName = "2016-001",
-                    Destination = "Flen",
-                    Purpose = "Utbildning",
-                    DepartureDate = DateTime.Parse("2016-04-20 00:00:00"),
-                    DepartureTime = TimeSpan.Parse("13:00:00"),
-                    ReturnDate = DateTime.Parse("2016-04-22 00:00:00"),
-                    ReturnTime = TimeSpan.Parse("16:00:00"),
-                    DepartureHoursExtra = 1 ,
-                    ReturnHoursExtra = 2,
-                    FullDay = 0,
-                    HalfDay = 0,
-                    Night = 0,
-                    BreakfastReduction = 0,
-                    LunchReduction = 0,
-                    DinnerReduction = 0,
-                    StatusTypeId = 1,
-                    Comment = null
-                 },
-                new TravelReport
-                {
-                    TravelReportId = 2,
-                    ApplicationUserId = NewUserList[2].Id,
-                    TravelReportName = "2016-002",
-                    Destination = "Malmö",
-                    Purpose = "Studiebesök",
-                    DepartureDate = DateTime.Parse("2016-04-23 00:00:00"),
-                    DepartureTime = TimeSpan.Parse("08:30:00"),
-                    ReturnDate = DateTime.Parse("2016-04-27 00:00:00"),
-                    ReturnTime = TimeSpan.Parse("20:00:00"),
-                    DepartureHoursExtra = 1 ,
-                    ReturnHoursExtra = 2,
-                    FullDay = 0,
-                    HalfDay = 0,
-                    Night = 0,
-                    BreakfastReduction = 0,
-                    LunchReduction = 1,
-                    DinnerReduction = 0,
-                    StatusTypeId = 1,
-                    Comment = null
-                 }
-            };
-
-            foreach (var tr in travelReport)
-            {
-                context.TravelReports.AddOrUpdate(t => t.TravelReportId, tr);
-                //context.ExpenseTypes.AddOrUpdate(et);
-
-            }
-
-
-            var expenses = new List<Expense> {
-                    new Expense
-                    {
-                        ExpenseId = 1,
-                        ExpenseTypeId = 1,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2016-04-20"),
-                        ExpenseAmount = 345,
-                        ExpenseMilage = 0,
-                        TravelReportId = 1
-
-                    },
-                     new Expense
-                    {
-                        ExpenseId = 2,
-                        ExpenseTypeId = 3,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2014-04-20"),
-                        ExpenseAmount = 345,
-                        ExpenseMilage = 0,
-                        TravelReportId = 1
-                     }
-                     };
-
-            foreach (var ex in expenses)
-            {
-                context.Expenses.AddOrUpdate(e => e.ExpenseId, ex);
-                //context.ExpenseTypes.AddOrUpdate(et);
-
-            }
-
-
-
+   
         }
 
     }

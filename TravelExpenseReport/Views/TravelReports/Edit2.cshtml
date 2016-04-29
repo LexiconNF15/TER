@@ -3,13 +3,12 @@
 @{
     ViewBag.Title = "Edit";
     int travelReportId =0;
-    int maxReduction = 10;
     if (ViewBag.TravelReportId != null)
     {
         travelReportId = (int)ViewBag.TravelReportId;
     }
 }
-}
+
 
 <h2>Edit2</h2>
 
@@ -195,16 +194,14 @@
 </div>*@
 
 <div>
- @*@{Html.RenderAction("Index", "Expenses");}*@
-   @*@{Html.RenderAction("Index", "Expenses",new { id = travelReportId });}*@
-    @*@{Html.RenderAction("Create", "Expenses"); }*@
-        @Html.ActionLink("Mata in utgifter", "Create", "Expenses", new {tId = travelReportId}, null)
-
-
+    @*@{Html.RenderAction("Index", "Expenses",new { id = travelReportId });}*@
 </div>
-
+ 
 <div>
-    @Html.ActionLink("Mata in utgifter", "Index", "Expenses", new { id = travelReportId }, null)
+    @Html.ActionLink("Ny Utgift", "Create", "Expenses", new { tId = travelReportId,}, null)
+</div>
+<div>
+    @Html.ActionLink("Lista Utgifter", "Index", "Expenses", new { tId = travelReportId}, null)
 </div>
 <div>
     @Html.ActionLink("Beräkna utan kvitton", "Calculate", new { id = travelReportId }, null)

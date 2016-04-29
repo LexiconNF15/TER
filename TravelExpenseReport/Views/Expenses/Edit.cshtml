@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Ändra Utgift</h2>
 
 <h4>
 
@@ -14,11 +14,10 @@
 
 </h4>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Expense</h4>
         <hr />
@@ -65,29 +64,24 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.TravelReportId, "TravelReportId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.TravelReportId, "TravelReportId", htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.DropDownList("TravelReportId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.HiddenFor(model => model.TravelReportId, new { @Value = @ViewBag.ActualTravelReportId, @readonly = "true" })
                 @Html.ValidationMessageFor(model => model.TravelReportId, "", new { @class = "text-danger" })
             </div>
-        </div>*@
-
-        @*<p>
-            @Html.DisplayNameFor(model => model.TravelReport.TravelReportName)
-            @Html.DisplayFor(model => model.TravelReport.TravelReportName)
-        </p>*@
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Spara" class="btn btn-default btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Tillbaka", "Index", new { tId = @ViewBag.ActualTravelReportId })
 </div>
 
 @section Scripts {
