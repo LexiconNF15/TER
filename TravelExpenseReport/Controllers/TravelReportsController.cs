@@ -75,6 +75,17 @@ namespace TravelExpenseReport.Controllers
 
             ViewBag.Summa = allowanceSum;
 
+            var expensesThisTravel = db.Expenses.Where(e => e.TravelReportId == travelReport.TravelReportId);
+            int noOfExpenses = expensesThisTravel.Count();
+            float sumOfExpenses = 0;
+            foreach (var e1 in expensesThisTravel)
+            {
+                sumOfExpenses = sumOfExpenses + (float)e1.ExpenseAmount;
+            }
+
+            ViewBag.NoOfExpenses = noOfExpenses;
+            ViewBag.SummaPlus = allowanceSum + sumOfExpenses;
+
             return View(travelReport);
         }
 
@@ -84,7 +95,7 @@ namespace TravelExpenseReport.Controllers
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
 
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName");
+            //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName");
             ViewBag.StatusName = db.StatusTypes.FirstOrDefault().StatusName;
             ViewBag.StatusTypeId1 = db.StatusTypes.Where(stt => stt.StatusName == "Ny").FirstOrDefault().StatusTypeId;
             ViewBag.ApplicationUserId1 = ActiveUser.Id;
@@ -99,6 +110,8 @@ namespace TravelExpenseReport.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,StatusTypeId,Comment")] TravelReport travelReport)
         {
+            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+
             if (ModelState.IsValid)
             {
                 db.TravelReports.Add(travelReport);
@@ -106,8 +119,10 @@ namespace TravelExpenseReport.Controllers
                 return RedirectToAction("Edit2", new { id = travelReport.TravelReportId });
             }
 
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+            ViewBag.StatusName = db.StatusTypes.FirstOrDefault().StatusName;
+            ViewBag.StatusTypeId1 = db.StatusTypes.Where(stt => stt.StatusName == "Ny").FirstOrDefault().StatusTypeId;
+            ViewBag.ApplicationUserId1 = ActiveUser.Id;
+
             return View(travelReport);
         }
 
@@ -123,6 +138,7 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             return View(travelReport);
         }
@@ -145,50 +161,77 @@ namespace TravelExpenseReport.Controllers
             return View(travelReport);
         }
 
-        // GET: TravelReports/Edit/5
+        // GET: TravelReports/Edit2/5
         public ActionResult Edit2(int? id)
         {
+            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+            TravelReport travelReport = db.TravelReports.Find(id);
+            string travelYear = travelReport.DepartureDate.Year.ToString();
+            var TravelReportsSameYear = db.TravelReports.Where(t => t.ApplicationUserId == ActiveUser.Id && t.TravelReportName.Substring(0, 4) == travelYear).OrderByDescending(a => a.TravelReportName);
+            int TravelReportNumber;
+            if (TravelReportsSameYear.Count() == 0)
+            {
+                TravelReportNumber = 1;
+            }
+            else
+            {
+                TravelReportNumber = Int32.Parse(TravelReportsSameYear.FirstOrDefault().TravelReportName.Substring(5, 3));
+                TravelReportNumber = TravelReportNumber + 1;
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TravelReport travelReport = db.TravelReports.Find(id);
             if (travelReport == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            ViewBag.ApplicationUserId1 = ActiveUser.Id;
             ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
-            //ViewBag.TravelReportName1 = "2016-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
-            string travelYear = travelReport.DepartureDate.Year.ToString();
-            travelReport.TravelReportName = travelYear + "-" + travelReport.TravelReportId.ToString().PadLeft(3, '0');
+            travelReport.TravelReportName = travelYear + "-" + TravelReportNumber.ToString().PadLeft(3, '0');
+
             TimeSpan differense = travelReport.ReturnDate - travelReport.DepartureDate;
 
             travelReport.Night = differense.Days;
-            travelReport.HalfDay = 0;
-            travelReport.FullDay = travelReport.Night + 1;
-
-            if (travelReport.DepartureTime.Hours >= 12)
+            if (travelReport.Night == 0)
             {
-                travelReport.HalfDay++;
-                travelReport.FullDay--;
+                travelReport.HalfDay = 0;
+                travelReport.FullDay = 0;
+                ViewBag.Traktamente = false;
             }
-
-            if (travelReport.ReturnTime.Hours <= 18)
+            else
             {
-                travelReport.HalfDay++;
-                travelReport.FullDay--;
-            }
+                travelReport.HalfDay = 0;
+                travelReport.FullDay = travelReport.Night + 1;
+                ViewBag.Traktamente = true;
 
-            if (travelReport.ReturnTime.Hours <= 5)
-            {
-                travelReport.Night--;
-                if (travelReport.Night < 0)
+
+                if (travelReport.DepartureTime.Hours >= 12)
                 {
-                    travelReport.Night = 0;
+                    travelReport.HalfDay++;
+                    travelReport.FullDay--;
+                }
+
+                if (travelReport.ReturnTime.Hours <= 18)
+                {
+                    travelReport.HalfDay++;
+                    travelReport.FullDay--;
+                }
+
+                if (travelReport.ReturnTime.Hours <= 5)
+                {
+                    travelReport.Night--;
+                    if (travelReport.Night < 0)
+                    {
+                        travelReport.Night = 0;
+                    }
                 }
             }
             ViewBag.TravelReportId = travelReport.TravelReportId;
+            ViewBag.TravelReportName1 = travelReport.TravelReportName;
+
 
             return View(travelReport);
         }
@@ -198,12 +241,22 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit2([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,StatusTypeId,Comment")] TravelReport travelReport)
+        public ActionResult Edit2([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,StatusTypeId,Comment")] TravelReport travelReport, string button)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(travelReport).State = EntityState.Modified;
                 db.SaveChanges();
+
+                if (button == "Beräkna utan utgifter")
+                {
+                    return RedirectToAction("Calculate", new { id = travelReport.TravelReportId });
+                }
+                if (button ==  "Lägg till utgifter")
+                {
+                    return RedirectToAction("Create", "Expenses", new { id = travelReport.TravelReportId });
+                }
+
                 //return RedirectToAction("Index");
                 return RedirectToAction("Calculate", new { id = travelReport.TravelReportId });
 

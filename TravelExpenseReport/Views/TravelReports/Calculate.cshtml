@@ -100,54 +100,55 @@
         <dd>
             @Html.DisplayFor(model => model.ReturnHoursExtra)
         </dd>
+        
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FullDay)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.FullDay)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FullDay) a' @ViewBag.LegalAmount.FullDayAmount
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.FullDay) a' @ViewBag.LegalAmount.FullDayAmount
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HalfDay)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.HalfDay)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.HalfDay) a' @ViewBag.LegalAmount.HalfDayAmount
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.HalfDay) a' @ViewBag.LegalAmount.HalfDayAmount
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Night)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Night)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BreakfastReduction)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BreakfastReduction)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BreakfastReduction) a' @ViewBag.LegalAmount.BreakfastReductionAmount
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BreakfastReduction) a' @ViewBag.LegalAmount.BreakfastReductionAmount
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LunchReduction)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.LunchReduction)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LunchReduction) a' @ViewBag.LegalAmount.LunchReductionAmount
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.LunchReduction) a' @ViewBag.LegalAmount.LunchReductionAmount
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DinnerReduction)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.DinnerReduction)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DinnerReduction) a' @ViewBag.LegalAmount.DinnerReductionAmount
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.DinnerReduction) a' @ViewBag.LegalAmount.DinnerReductionAmount
+            </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Comment)
@@ -158,16 +159,24 @@
         </dd>
 
         <dt>
-            Summa
+            Summa utan utgifter
         </dt>
 
         <dd>
             @ViewBag.Summa
         </dd>
 
+        <dt>
+            Summa med utgifter
+        </dt>
+
+        <dd>
+            @ViewBag.SummaPlus för @ViewBag.NoOfExpenses st
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TravelReportId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Ändra", "Edit2", new { id = Model.TravelReportId }) |
+    @Html.ActionLink("Till TR-listan", "Index")
 </p>

@@ -145,12 +145,12 @@ namespace TravelExpenseReport.Migrations
                     LegalAmountId = 1,
                     ValidDate = DateTime.Parse("2014-01-01"),
                     FullDayAmount = 210,
-                    HalfDayAmount = 100,
+                    HalfDayAmount = 105,
                     NightAmount = 100,
                     MilageAmount = 175,
                     BreakfastReductionAmount = 42,
-                    LunchReductionAmount = 75,
-                    DinnerReductionAmount =75
+                    LunchReductionAmount = 74,
+                    DinnerReductionAmount =74
 
                 },
                 new LegalAmount
