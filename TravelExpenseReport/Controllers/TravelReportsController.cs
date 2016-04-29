@@ -22,7 +22,7 @@ namespace TravelExpenseReport.Controllers
 
             if (User.IsInRole("Assistant"))
             {
-                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Where(t => t.ApplicationUserId == ActiveUser.Id);
+                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Where(t => t.ApplicationUserId == ActiveUser.Id);
                 return View(travelReports.ToList());
             }
             else
@@ -85,7 +85,8 @@ namespace TravelExpenseReport.Controllers
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
 
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName");
-            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName");
+            ViewBag.StatusName = db.StatusTypes.FirstOrDefault().StatusName;
+            ViewBag.StatusTypeId1 = db.StatusTypes.Where(stt => stt.StatusName == "Ny").FirstOrDefault().StatusTypeId;
             ViewBag.ApplicationUserId1 = ActiveUser.Id;
 
             return View();
@@ -213,18 +214,18 @@ namespace TravelExpenseReport.Controllers
         }
 
         //
-    //                if (ModelState.IsValid)
-    //        {
-    //            db.TravelReports.Add(travelReport);
-    //            db.SaveChanges();
-    //            return RedirectToAction("Edit2", new { id = travelReport.TravelReportId
-    //});
-    //        }
+        //                if (ModelState.IsValid)
+        //        {
+        //            db.TravelReports.Add(travelReport);
+        //            db.SaveChanges();
+        //            return RedirectToAction("Edit2", new { id = travelReport.TravelReportId
+        //});
+        //        }
 
-//
+        //
 
-// GET: TravelReports/Delete/5
-public ActionResult Delete(int? id)
+        // GET: TravelReports/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
