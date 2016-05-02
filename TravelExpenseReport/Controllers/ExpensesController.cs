@@ -64,6 +64,49 @@ namespace TravelExpenseReport.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId")] Expense expense)
         {
+            //string faultmessage = null;
+
+            //if (expense.ExpenseMilage > 0 && expense.ExpenseTypeId != 4)
+            //{
+            //    // Not allowed to enter Milage unless you ar travelling with own car.
+            //    expense.ExpenseMilage = 0;
+            //}
+
+            //if (expense.ExpenseTypeId == 4) // 4 = Driving own car. 
+            //{
+            //    if (expense.ExpenseMilage > 0)
+            //    {
+            //        // Calulate: ExpenseAmount = ExpenseMilage * Milage from LegalAmount for valid year.
+
+            //        var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate);
+            //        expense.ExpenseAmount = 0;
+            //        DateTime actualValidDate = DateTime.Parse("2014-01-01");
+            //        float actualLegalMilageAmount = 0;
+
+            //        foreach (var i in activeLegalMilage)  // loop to get approriate LegalAmountMilage value 
+            //        {
+            //            if (expense.ExpenseDate >= i.ValidDate)
+            //            {
+            //                actualLegalMilageAmount = i.MilageAmount;
+            //                expense.ExpenseAmount = ((actualLegalMilageAmount) * (expense.ExpenseMilage) / 100);
+            //            }
+            //        }
+            //    }
+            //    else if (expense.ExpenseMilage == 0)
+            //    {
+            //        // Something is wrong. There is no entry in ExpenseMilage or milage is entered in ExpenseAmount. 
+            //        //Need to inform client.
+            //        //Tempdata/ Viewbag? med felmeddelande?
+
+            //        //return RedirectToAction("Index", new { tId = expense.TravelReportId});
+            //        faultmessage = "Resa med bil, ange noll i belopp samt antal i kilometer";
+            //        TempData["Faultmessage"] = faultmessage;
+            //        return View(expense);
+            //    }
+                
+            //}
+            
+        
             if (ModelState.IsValid)
             {
                 db.Expenses.Add(expense);
@@ -71,9 +114,12 @@ namespace TravelExpenseReport.Controllers
                 return RedirectToAction("Index", new { tId = expense.TravelReportId});
             }
 
+            //if (result.Succeeded)
+            //{
+
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
-            //iewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", ex.TravelReportId);
-            return View(expense);
+            ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
+            return View();
         }
 
         // GET: Expenses/Edit/5

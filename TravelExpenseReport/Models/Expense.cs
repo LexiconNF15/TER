@@ -8,7 +8,7 @@ using System.Web;
 
 namespace TravelExpenseReport.Models
 {
-    public class Expense
+    public class Expense : IValidatableObject
     {
         public int ExpenseId { get; set; }
 
@@ -36,5 +36,20 @@ namespace TravelExpenseReport.Models
         public virtual ExpenseType ExpenseType { get; set; }
 
 
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (TravelReportId > 0)
+            {
+                ApplicationDbContext db = new ApplicationDbContext();
+                var ETravel = db.TravelReports.Where(t => t.TravelReportId == TravelReportId).FirstOrDefault();
+
+                if ((ExpenseDate < ETravel.DepartureDate) || (ExpenseDate > ETravel.ReturnDate))
+                {
+                    yield return new ValidationResult("Utgiftsdatum ligger utanför datumperioden för reseräknngen!");
+                }
+
+            }
+
+        }
     }
 }
