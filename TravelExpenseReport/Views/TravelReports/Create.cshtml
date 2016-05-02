@@ -1,10 +1,11 @@
 ﻿@model TravelExpenseReport.Models.TravelReport
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Skapa";
 }
 
-<h2>Create</h2>
+<h2>Lägg in ny reseräkning</h2>
+
 
 
 @using (Html.BeginForm())
@@ -12,7 +13,12 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>TravelReport</h4>
+        <h3>
+            @Html.DisplayNameFor(model => model.StatusType.StatusName): @ViewBag.StatusName
+        </h3>
+
+
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
@@ -160,10 +166,10 @@
             </div>*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StatusTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.StatusTypeId, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.StatusTypeId, new { @Value = @ViewBag.StatusTypeId1, @readonly = "true" })
-                @ViewBag.StatusName
+                @*@ViewBag.StatusName*@
                 @*@Html.DisplayFor(model => model.StatusType.StatusName)*@
                 @Html.ValidationMessageFor(model => model.StatusTypeId, "", new { @class = "text-danger" })
 
@@ -188,16 +194,15 @@
     </div>
 }
 
-<dt>
+@*<dt>
     @Html.DisplayNameFor(model => model.StatusType.StatusName)
 </dt>
 
 <dd>
     @ViewBag.StatusName
-</dd>
+</dd>*@
 <div>
-    @Html.ActionLink("Back to List", "Index")
-    @Html.ActionLink("Edit2", "Edit2", new { id = 3 }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default btn-m" })
 
 </div>
 

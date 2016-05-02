@@ -2,43 +2,47 @@
 
 @{
     ViewBag.Title = "Edit";
-    int travelReportId =0;
+    int travelReportId = 0;
     if (ViewBag.TravelReportId != null)
     {
         travelReportId = (int)ViewBag.TravelReportId;
     }
 }
 
-
-<h2>Edit2</h2>
+<h2>Uträknade traktamentesdagar</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Reseräkning: @ViewBag.TravelReportName1</h4>
+        <h4>@Html.DisplayNameFor(model => model.TravelReportName): @ViewBag.TravelReportName1 </h4>
+        <h4>@Html.DisplayNameFor(model => model.StatusType.StatusName): @Html.DisplayFor(model => model.StatusType.StatusName)</h4>
+
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.TravelReportId)
+        @Html.HiddenFor(model => model.TravelReportName)
+        @Html.HiddenFor(model => model.StatusTypeId)
+
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ApplicationUserId, "ApplicationUserId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.ApplicationUserId, "ApplicationUserId", htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.DropDownList("ApplicationUserId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.HiddenFor(model => model.ApplicationUserId, new { @Value = @ViewBag.ApplicationUserId1, @readonly = "true" })
                 @Html.ValidationMessageFor(model => model.ApplicationUserId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TravelReportName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-@*                @Html.TextBoxFor((model => model.TravelReportName), new { @Value = @ViewBag.TravelreportName1.ToString() })*@
-                @Html.EditorFor(model => model.TravelReportName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TravelReportName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @*<div class="form-group">
+            <div class="col-md-10">*@
+                @*                @Html.TextBoxFor((model => model.TravelReportName), new { @Value = @ViewBag.TravelreportName1.ToString() })*@
+            @*    @Html.HiddenFor(model => model.TravelReportName, new { htmlAttributes = new { @class = "form-control" } })*@
+            @*    @Html.ValidationMessageFor(model => model.TravelReportName, "", new { @class = "text-danger" })*@
+            @*</div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Destination, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -103,69 +107,107 @@
                 @Html.ValidationMessageFor(model => model.ReturnHoursExtra, "", new { @class = "text-danger" })
             </div>
         </div>
+        @if (@ViewBag.Traktamente)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.FullDay, htmlAttributes: new { @class = "control-label col-md-2" }) Max antal heldagsreduktioner = @Model.FullDay
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FullDay, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay } })
+                    @Html.ValidationMessageFor(model => model.FullDay, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
+            <div class="form-group">
+                @Html.LabelFor(model => model.HalfDay, htmlAttributes: new { @class = "control-label col-md-2" }) Max antal halvdagsreduktioner = @Model.HalfDay
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.HalfDay, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.HalfDay } })
+                    @Html.ValidationMessageFor(model => model.HalfDay, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Night, htmlAttributes: new { @class = "control-label col-md-2" }) Max antal nattreduktioner = @Model.Night
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Night, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.Night } })
+                    @Html.ValidationMessageFor(model => model.Night, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BreakfastReduction, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BreakfastReduction, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay + Model.HalfDay } })
+                    @Html.ValidationMessageFor(model => model.BreakfastReduction, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LunchReduction, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LunchReduction, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay + Model.HalfDay } })
+                    @Html.ValidationMessageFor(model => model.LunchReduction, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DinnerReduction, htmlAttributes: new { @class = "control-label col-md-2", min = 0, max = Model.FullDay + Model.HalfDay })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DinnerReduction, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DinnerReduction, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        else
+        {
+            <div>
+                Denna resa ger ej traktamente
+            </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.FullDay, htmlAttributes: new { @class = "control-label col-md-2" }) Max antal heldagsreduktioner = @Model.FullDay
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FullDay, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay } })
+                @Html.HiddenFor(model => model.FullDay, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay } })
                 @Html.ValidationMessageFor(model => model.FullDay, "", new { @class = "text-danger" })
-            </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.HalfDay, htmlAttributes: new { @class = "control-label col-md-2" }) Max antal halvdagsreduktioner = @Model.HalfDay
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HalfDay, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.HalfDay } })
+                @Html.HiddenFor(model => model.HalfDay, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.HalfDay } })
                 @Html.ValidationMessageFor(model => model.HalfDay, "", new { @class = "text-danger" })
-            </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Night, htmlAttributes: new { @class = "control-label col-md-2" }) Max antal nattreduktioner = @Model.Night
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Night, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.Night } })
+                @Html.HiddenFor(model => model.Night, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.Night } })
                 @Html.ValidationMessageFor(model => model.Night, "", new { @class = "text-danger" })
-            </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BreakfastReduction, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BreakfastReduction, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay + Model.HalfDay } })
+                @Html.HiddenFor(model => model.BreakfastReduction, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay + Model.HalfDay } })
                 @Html.ValidationMessageFor(model => model.BreakfastReduction, "", new { @class = "text-danger" })
-            </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LunchReduction, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LunchReduction, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay + Model.HalfDay } })
+                @Html.HiddenFor(model => model.LunchReduction, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay + Model.HalfDay } })
                 @Html.ValidationMessageFor(model => model.LunchReduction, "", new { @class = "text-danger" })
-            </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DinnerReduction, htmlAttributes: new { @class = "control-label col-md-2", min = 0, max = Model.FullDay + Model.HalfDay })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DinnerReduction, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.DinnerReduction, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DinnerReduction, "", new { @class = "text-danger" })
-            </div>
         </div>
+
+        }
 
         @*<div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-        <div class="form-group">
+                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        @*<div class="form-group">
             @Html.LabelFor(model => model.StatusTypeId, "StatusTypeId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("StatusTypeId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.StatusTypeId, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -175,42 +217,46 @@
             </div>
         </div>
 
-        
+
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Beräkna utan kvitton" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-2">
+                <input type="submit" value="Lägg till utgifter" name="button" class="btn btn-default" />
+            </div>
+            <div class="col-md-8">
+                <input type="submit" value="Beräkna utan utgifter" name="button" class="btn btn-default btn-primary" />
             </div>
         </div>
- 
+
     </div>
     <dt>
         @Html.DisplayNameFor(model => model.StatusType.StatusName)
     </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StatusType.StatusName)
-        </dd>
+    <dd>
+        @Html.DisplayFor(model => model.StatusType.StatusName)
+    </dd>
 }
 
 @*<div>
-    @Html.Partial("_ListExpensePartial",);
-</div>
-<div>
-    @{
-        Html.RenderPartial("_CreateExpensePartial",);
-    }
-</div>*@
+        @Html.Partial("_ListExpensePartial",);
+    </div>
+    <div>
+        @{
+            Html.RenderPartial("_CreateExpensePartial",);
+        }
+    </div>*@
+
 
 <div>
     @*@{Html.RenderAction("Index", "Expenses",new { id = travelReportId });}*@
 </div>
- 
+
 <div>
-    @Html.ActionLink("Ny Utgift", "Create", "Expenses", new { tId = travelReportId,}, null)
+    @Html.ActionLink("Ny Utgift", "Create", "Expenses", new { tId = travelReportId, }, null)
 </div>
 <div>
-    @Html.ActionLink("Lista Utgifter", "Index", "Expenses", new { tId = travelReportId}, null)
+    @Html.ActionLink("Lista Utgifter", "Index", "Expenses", new { tId = travelReportId }, null)
 </div>
 <div>
     @Html.ActionLink("Beräkna utan kvitton", "Calculate", new { id = travelReportId }, null)
