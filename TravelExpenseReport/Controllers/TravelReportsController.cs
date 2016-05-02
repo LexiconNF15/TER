@@ -112,6 +112,22 @@ namespace TravelExpenseReport.Controllers
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
 
+            string travelYear = travelReport.DepartureDate.Year.ToString();
+            var TravelReportsSameYear = db.TravelReports.Where(t => t.ApplicationUserId == ActiveUser.Id && t.TravelReportName.Substring(0, 4) == travelYear).OrderByDescending(a => a.TravelReportName);
+            int TravelReportNumber;
+            if (TravelReportsSameYear.Count() == 0)
+            {
+                TravelReportNumber = 1;
+            }
+            else
+            {
+                TravelReportNumber = Int32.Parse(TravelReportsSameYear.FirstOrDefault().TravelReportName.Substring(5, 3));
+                TravelReportNumber = TravelReportNumber + 1;
+            }
+            //travelReport.TravelReportName = "Testarnamn";
+            travelReport.TravelReportName = travelYear + "-" + TravelReportNumber.ToString().PadLeft(3, '0');
+
+
             if (ModelState.IsValid)
             {
                 db.TravelReports.Add(travelReport);
@@ -166,18 +182,18 @@ namespace TravelExpenseReport.Controllers
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
             TravelReport travelReport = db.TravelReports.Find(id);
-            string travelYear = travelReport.DepartureDate.Year.ToString();
-            var TravelReportsSameYear = db.TravelReports.Where(t => t.ApplicationUserId == ActiveUser.Id && t.TravelReportName.Substring(0, 4) == travelYear).OrderByDescending(a => a.TravelReportName);
-            int TravelReportNumber;
-            if (TravelReportsSameYear.Count() == 0)
-            {
-                TravelReportNumber = 1;
-            }
-            else
-            {
-                TravelReportNumber = Int32.Parse(TravelReportsSameYear.FirstOrDefault().TravelReportName.Substring(5, 3));
-                TravelReportNumber = TravelReportNumber + 1;
-            }
+            //string travelYear = travelReport.DepartureDate.Year.ToString();
+            //var TravelReportsSameYear = db.TravelReports.Where(t => t.ApplicationUserId == ActiveUser.Id && t.TravelReportName.Substring(0, 4) == travelYear).OrderByDescending(a => a.TravelReportName);
+            //int TravelReportNumber;
+            //if (TravelReportsSameYear.Count() == 0)
+            //{
+            //    TravelReportNumber = 1;
+            //}
+            //else
+            //{
+            //    TravelReportNumber = Int32.Parse(TravelReportsSameYear.FirstOrDefault().TravelReportName.Substring(5, 3));
+            //    TravelReportNumber = TravelReportNumber + 1;
+            //}
 
             if (id == null)
             {
@@ -190,7 +206,7 @@ namespace TravelExpenseReport.Controllers
             //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.ApplicationUserId1 = ActiveUser.Id;
             ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
-            travelReport.TravelReportName = travelYear + "-" + TravelReportNumber.ToString().PadLeft(3, '0');
+            //travelReport.TravelReportName = travelYear + "-" + TravelReportNumber.ToString().PadLeft(3, '0');
 
             TimeSpan differense = travelReport.ReturnDate - travelReport.DepartureDate;
 
