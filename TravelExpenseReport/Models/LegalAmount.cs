@@ -20,7 +20,7 @@ namespace TravelExpenseReport.Models
         [DisplayName("Natttraktamente")]
         public int? NightAmount { get; set; }
         [DisplayName("Kilometerbelopp")]
-        public int? MilageAmount { get; set; }
+        public decimal MilageAmount { get; set; }
         [DisplayName("Frukostavdrag")]
         public int? BreakfastReductionAmount { get; set; }
         [DisplayName("Lunchavdrag")]

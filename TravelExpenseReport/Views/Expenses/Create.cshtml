@@ -2,31 +2,25 @@
 
 @{
     ViewBag.Title = "Create";
+
 }
-
-<h2>Create</h2>
-
 <h4>
-    
 
-   @*@Html.DisplayFor(model => model.TravelReport.TravelReportName)
+    @Html.DisplayFor(model => model.TravelReport.TravelReportName)
 
-    @Html.DisplayFor(model => model.TravelReport.ApplicationUser.FullName)*@
+    @Html.DisplayFor(model => model.TravelReport.ApplicationUser.FullName)
 
 </h4>
 
+<h2>Ny Utgift</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
         <h4>Expense</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ExpenseId)
-        @Html.HiddenFor(model => model.TravelReportId)
-
         <div class="form-group">
             @Html.LabelFor(model => model.ExpenseTypeId, "ExpenseTypeId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -34,7 +28,6 @@
                 @Html.ValidationMessageFor(model => model.ExpenseTypeId, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.ExpenseInformation, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -54,44 +47,35 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ExpenseAmount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpenseAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ExpenseAmount, new { htmlAttributes = new { @class = "form-control", min = 0 } })
                 @Html.ValidationMessageFor(model => model.ExpenseAmount, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.ExpenseMilage, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpenseMilage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ExpenseMilage, new { htmlAttributes = new { @class = "form-control", min = 0 } })
                 @Html.ValidationMessageFor(model => model.ExpenseMilage, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.TravelReportId, "TravelReportId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.TravelReportId, "TravelReportId", htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @ViewBag.TravelReportId;
+                @Html.HiddenFor(model => model.TravelReportId, new { @Value = @ViewBag.ActualTravelReportId, @readonly = "true" })
+                @Html.ValidationMessageFor(model => model.TravelReportId, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
        
-        <p>
-            @Html.DisplayNameFor(model => model.TravelReport.TravelReportName)
-            @Html.DisplayFor(model => model.TravelReport.TravelReportName)
-        </p>
-
-
-        
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Spara" class="btn btn-default btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+      @Html.ActionLink("Tillbaka", "Index", new { tId = @ViewBag.ActualTravelReportId })
 </div>
 <div>
     @Html.ActionLink("Spara utgiften", "Index")
