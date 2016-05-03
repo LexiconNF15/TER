@@ -64,63 +64,78 @@ namespace TravelExpenseReport.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseInformation,ExpenseDate,ExpenseAmount,ExpenseMilage,TravelReportId")] Expense expense)
         {
-            //string faultmessage = null;
+            string faultmessage = null;
 
-            //if (expense.ExpenseMilage > 0 && expense.ExpenseTypeId != 4)
-            //{
-            //    // Not allowed to enter Milage unless you ar travelling with own car.
-            //    expense.ExpenseMilage = 0;
-            //}
+            if (expense.ExpenseTypeId == 4) // 4 = Driving own car. 
+            {
+                if (expense.ExpenseMilage > 0)
+                {
+                    // Calulate: ExpenseAmount = ExpenseMilage * Milage from LegalAmount for valid year.
+                    ViewBag.ActualTravelReportId = expense.TravelReportId;
+                    var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate);
+                    expense.ExpenseAmount = 0;
+                    DateTime actualValidDate = DateTime.Parse("2013-01-01");
+                    float actualLegalMilageAmount = 0;
 
-            //if (expense.ExpenseTypeId == 4) // 4 = Driving own car. 
-            //{
-            //    if (expense.ExpenseMilage > 0)
-            //    {
-            //        // Calulate: ExpenseAmount = ExpenseMilage * Milage from LegalAmount for valid year.
+                    foreach (var la in activeLegalMilage)  // loop to get approriate LegalAmountMilage value 
+                    {
+                        if (expense.ExpenseDate >= la.ValidDate)
+                        {
+                            actualLegalMilageAmount = la.MilageAmount;
+                            expense.ExpenseAmount = ((actualLegalMilageAmount) * (expense.ExpenseMilage) / 100);
+                        }
+                    }
+                }
+                else if ((expense.ExpenseMilage == 0) || (expense.ExpenseMilage == null))
+                {
+                    // There is no amount in ExpenseMilage. Error message in Tempdata.
+                    expense.ExpenseAmount = 0;
+                    expense.ExpenseMilage = 0;
+                    faultmessage = "Resa med bil, ange antal kilometer";
+                    TempData["Faultmessage"] = faultmessage;
+                    ViewBag.ActualTravelReportId = expense.TravelReportId;
+                    ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
+                    return View(expense);
+                }
 
-            //        var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate);
-            //        expense.ExpenseAmount = 0;
-            //        DateTime actualValidDate = DateTime.Parse("2014-01-01");
-            //        float actualLegalMilageAmount = 0;
+            }
 
-            //        foreach (var i in activeLegalMilage)  // loop to get approriate LegalAmountMilage value 
-            //        {
-            //            if (expense.ExpenseDate >= i.ValidDate)
-            //            {
-            //                actualLegalMilageAmount = i.MilageAmount;
-            //                expense.ExpenseAmount = ((actualLegalMilageAmount) * (expense.ExpenseMilage) / 100);
-            //            }
-            //        }
-            //    }
-            //    else if (expense.ExpenseMilage == 0)
-            //    {
-            //        // Something is wrong. There is no entry in ExpenseMilage or milage is entered in ExpenseAmount. 
-            //        //Need to inform client.
-            //        //Tempdata/ Viewbag? med felmeddelande?
+            if (expense.ExpenseTypeId != 4)
+            {
 
-            //        //return RedirectToAction("Index", new { tId = expense.TravelReportId});
-            //        faultmessage = "Resa med bil, ange noll i belopp samt antal i kilometer";
-            //        TempData["Faultmessage"] = faultmessage;
-            //        return View(expense);
-            //    }
-                
-            //}
-            
-        
+                if ((expense.ExpenseAmount == 0) || (expense.ExpenseAmount == null))
+                {
+                    expense.ExpenseMilage = 0;
+                    expense.ExpenseAmount = 0;
+                    faultmessage = "Ange belopp för utgiften";
+                    TempData["Faultmessage"] = faultmessage;
+                    ViewBag.ActualTravelReportId = expense.TravelReportId;
+                    ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
+                    return View(expense);
+                }
+
+                else if (expense.ExpenseAmount > 0)
+                {
+                    expense.ExpenseMilage = 0;
+                    ViewBag.ActualTravelReportId = expense.TravelReportId;
+
+                }
+            }
+
+
             if (ModelState.IsValid)
             {
                 db.Expenses.Add(expense);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { tId = expense.TravelReportId});
+                return RedirectToAction("Index", new { tId = expense.TravelReportId });
             }
 
-            //if (result.Succeeded)
-            //{
-
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
-            ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", expense.TravelReportId);
-            return View();
+            //iewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId", ex.TravelReportId);
+            //ViewBag.ActualTravelReportId = expense.TravelReportId;
+            return View(expense);
         }
+
 
         // GET: Expenses/Edit/5
         public ActionResult Edit(int? id)
