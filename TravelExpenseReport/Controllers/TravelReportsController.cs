@@ -270,7 +270,7 @@ namespace TravelExpenseReport.Controllers
                 }
                 if (button ==  "Lägg till utgifter")
                 {
-                    return RedirectToAction("Create", "Expenses", new { id = travelReport.TravelReportId });
+                    return RedirectToAction("Create", "Expenses", new { tId = travelReport.TravelReportId });
                 }
 
                 //return RedirectToAction("Index");
