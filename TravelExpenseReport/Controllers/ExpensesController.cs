@@ -21,11 +21,11 @@ namespace TravelExpenseReport.Controllers
         {
             var activeUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
             var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport).Where(e => e.TravelReportId == tId);
-            TravelReport tr = db.TravelReports.Find(tId);
-            ViewBag.ActiveUser = activeUser;
+            ViewBag.TravellerName = expenses.FirstOrDefault().TravelReport.ApplicationUser.FullName;
             ViewBag.ActualTravelReportId = tId;
-            ViewBag.ActualTravelName = tr.TravelReportName;
-            ViewBag.ActualTravelReportInfo = tr;
+            ViewBag.ActualTravelName = expenses.FirstOrDefault().TravelReport.TravelReportName;
+            ViewBag.TravelDepartureDate = expenses.FirstOrDefault().TravelReport.DepartureDate;
+            ViewBag.TravelReturnDate = expenses.FirstOrDefault().TravelReport.ReturnDate;
             return View(expenses.ToList());
         }
 
@@ -72,19 +72,24 @@ namespace TravelExpenseReport.Controllers
                 {
                     // Calulate: ExpenseAmount = ExpenseMilage * Milage from LegalAmount for valid year.
                     ViewBag.ActualTravelReportId = expense.TravelReportId;
-                    var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate);
-                    expense.ExpenseAmount = 0;
+                    //var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate);
+                    var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate).OrderBy(l => l.ValidDate).FirstOrDefault();
                     DateTime actualValidDate = DateTime.Parse("2013-01-01");
                     float actualLegalMilageAmount = 0;
+                    expense.ExpenseAmount = 0;
 
-                    foreach (var la in activeLegalMilage)  // loop to get approriate LegalAmountMilage value 
-                    {
-                        if (expense.ExpenseDate >= la.ValidDate)
-                        {
-                            actualLegalMilageAmount = la.MilageAmount;
-                            expense.ExpenseAmount = ((actualLegalMilageAmount) * (expense.ExpenseMilage) / 100);
-                        }
-                    }
+                    actualLegalMilageAmount = activeLegalMilage.MilageAmount;
+                    expense.ExpenseAmount = ((actualLegalMilageAmount) * (expense.ExpenseMilage) / 100);
+
+
+                    //foreach (var la in activeLegalMilage)  // loop to get approriate LegalAmountMilage value 
+                    //{
+                    //    if (expense.ExpenseDate >= la.ValidDate)
+                    //    {
+                    //        actualLegalMilageAmount = la.MilageAmount;
+                    //        expense.ExpenseAmount = ((actualLegalMilageAmount) * (expense.ExpenseMilage) / 100);
+                    //    }
+                    //}
                 }
                 else if ((expense.ExpenseMilage == 0) || (expense.ExpenseMilage == null))
                 {
