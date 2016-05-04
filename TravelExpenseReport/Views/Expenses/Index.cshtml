@@ -5,7 +5,20 @@
 }
 
         <h4>
-             @Html.ActionLink("Ny Utgift", "Create", new { tId = ViewBag.ActualTravelReportId })
+            @Html.ActionLink("Ny Utgift", "Create", new { tId = ViewBag.ActualTravelReportId })
+        </h4>
+        <h4>
+            @*@Html.Display(Model.FirstOrDefault().TravelReport.TravelReportName)*@
+
+            @ViewBag.ActualTravelName
+
+            @ViewBag.ActiveUser.FullName
+
+           
+            @ViewBag.ActualTravelReportInfo.DepartureDate
+
+            @ViewBag.ActualTravelReportInfo.ReturnDate
+
         </h4>
 
         <h3>Utgifter</h3>
@@ -15,12 +28,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.TravelReport.ApplicationUserId)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.TravelReport.TravelReportName)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.ExpenseInformation)
                 </th>
@@ -42,12 +55,12 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.TravelReport.ApplicationUser.FullName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.TravelReport.TravelReportName)
-                    </td>
+                    </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.ExpenseInformation)
                     </td>
@@ -62,7 +75,8 @@
                     </td>
 
                     <td>
-                        @Html.ActionLink("Ändra", "Edit", new { tId = item.TravelReportId, id = item.ExpenseId }) |
+                        @*@Html.ActionLink("Ändra", "Edit", new { tId = @ViewBag.ActualTravelReportId})*@
+                        @Html.ActionLink("Ändra", "Edit", new { id = item.ExpenseId }) |
                         @Html.ActionLink("Detaljer", "Details", new { id = item.ExpenseId }) |
                         @Html.ActionLink("Radera", "Delete", new { id = item.ExpenseId })
                     </td>
