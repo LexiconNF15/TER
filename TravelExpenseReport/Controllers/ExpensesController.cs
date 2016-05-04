@@ -25,6 +25,7 @@ namespace TravelExpenseReport.Controllers
             ViewBag.ActiveUser = activeUser;
             ViewBag.ActualTravelReportId = tId;
             ViewBag.ActualTravelName = tr.TravelReportName;
+
             ViewBag.ActualTravelReportInfo = tr;
             return View(expenses.ToList());
         }

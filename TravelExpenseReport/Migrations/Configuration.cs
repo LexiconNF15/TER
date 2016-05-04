@@ -298,7 +298,7 @@ namespace TravelExpenseReport.Migrations
                     TravelReportName = "2016-002",
                     Destination = "Västerås",
                     Purpose = "Bandymatch",
-                    DepartureDate = DateTime.Parse("2016-04-28 00:00:00"),
+                    DepartureDate = DateTime.Parse("2016-04-26 00:00:00"),
                     DepartureTime = TimeSpan.Parse("08:30:00"),
                     ReturnDate = DateTime.Parse("2016-04-29 00:00:00"),
                     ReturnTime = TimeSpan.Parse("18:30:00"),
@@ -413,7 +413,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseDate = DateTime.Parse("2016-04-27"),
                         ExpenseAmount = 3100,
                         ExpenseMilage = 0,
-                        TravelReportId = 5,
+                        TravelReportId = 5
 
                     },
                     new Expense
@@ -424,7 +424,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseDate = DateTime.Parse("2016-04-25"),
                         ExpenseAmount = 0,
                         ExpenseMilage = 485,
-                        TravelReportId = 5,
+                        TravelReportId = 5
                     },
                          new Expense
                     {
@@ -434,7 +434,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseDate = DateTime.Parse("2016-04-27"),
                         ExpenseAmount = 0,
                         ExpenseMilage = 375,
-                        TravelReportId = 6,
+                        TravelReportId = 6
                      },
                          new Expense
                     {
@@ -444,7 +444,7 @@ namespace TravelExpenseReport.Migrations
                         ExpenseDate = DateTime.Parse("2016-05-02"),
                         ExpenseAmount = 5630,
                         ExpenseMilage = 0,
-                        TravelReportId = 8,
+                        TravelReportId = 8
 
                     },
                           new Expense
@@ -455,28 +455,9 @@ namespace TravelExpenseReport.Migrations
                         ExpenseDate = DateTime.Parse("2016-05-02"),
                         ExpenseAmount = 367,
                         ExpenseMilage = 0,
-                        TravelReportId = 8,
-                     },
-                          new Expense
-                    {
-                        ExpenseId = 7,
-                        ExpenseTypeId = 1,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2016-05-07"),
-                        ExpenseAmount = 569,
-                        ExpenseMilage = 0,
-                        TravelReportId = 8,
-                    },
-                          new Expense
-                    {
-                        ExpenseId = 8,
-                        ExpenseTypeId = 3,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2015-07-07"),
-                        ExpenseAmount = 235,
-                        ExpenseMilage = 0,
-                        TravelReportId = 4,
-                    }
+                        TravelReportId = 8
+                     }
+
                 };
 
             foreach (var ex in expenses)
@@ -486,7 +467,7 @@ namespace TravelExpenseReport.Migrations
 
             }
 
-            context.SaveChanges();
+            //context.SaveChanges();
 
 
         }
