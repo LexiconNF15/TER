@@ -311,6 +311,8 @@
     <Content Include="Views\Expenses\_ExpenseCreatePartial.cshtml" />
     <Content Include="Views\Shared\_PV.cshtml" />
     <Content Include="Views\Shared\_PartialTest.cshtml" />
+    <Content Include="Views\TravelReports\Edit1.cshtml" />
+    <Content Include="Views\TravelReports\_PartialSum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

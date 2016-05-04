@@ -108,7 +108,7 @@ namespace TravelExpenseReport.Models
             DinnerReduction = 0;
             DepartureHoursExtra = 0;
             ReturnHoursExtra = 0;
-            StatusTypeId = 4;
+            //StatusTypeId = 4;
         }
     }
 }
