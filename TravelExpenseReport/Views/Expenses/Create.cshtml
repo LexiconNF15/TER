@@ -14,14 +14,7 @@
 
     @Html.DisplayFor(model => model.TravelReport.ReturnDate)
 
-    @*@ViewBag.ActualTravelReportInfo.DepartureDate
-
-    @ViewBag.ActualTravelReportInfo.TravelReportName
-
-    @ViewBag.ActualTravelReportInfo.DepartureDate
-
-    @ViewBag.ActualTravelReportInfo.ReturnDate*@
-
+   
 </h4>
 
 <h2>Ny Utgift</h2>
@@ -41,10 +34,10 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ExpenseInformation, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ExpenseDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpenseInformation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ExpenseInformation, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ExpenseDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ExpenseDescription, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -57,14 +50,21 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.ExpenseAmountInfo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ExpenseAmountInfo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ExpenseAmountInfo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+      @*<div class="form-group">
             @Html.LabelFor(model => model.ExpenseAmount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ExpenseAmount, new { htmlAttributes = new {@type = "number", @min = "0", @step = "0,01", @value = "0" }})
-                @*@Html.EditorFor(model => model.ExpenseAmount, new { htmlAttributes = new { @class = "form-control", @min = 0} })*@
-                @*@Html.TextBoxFor(m => m.ExpenseAmount, new { type = "number", min = "0", step = "0.01" })*@
                 @Html.ValidationMessageFor(model => model.ExpenseAmount, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
+
         <div class="form-group">
             @Html.LabelFor(model => model.ExpenseMilage, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

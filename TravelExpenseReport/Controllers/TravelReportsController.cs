@@ -329,7 +329,7 @@ namespace TravelExpenseReport.Controllers
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Create", "Expenses", new { id = travelReport.TravelReportId });
+                    return RedirectToAction("Create", "Expenses", new { tId = travelReport.TravelReportId });
                 }
                 if (button == "Skicka in")
                 {

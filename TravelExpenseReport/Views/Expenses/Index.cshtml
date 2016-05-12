@@ -10,6 +10,7 @@
         <h4>
             @*@Html.Display(Model.FirstOrDefault().TravelReport.TravelReportName)*@
 
+            @*@Html.DisplayNameFor(model => model.DepartureDate): @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime*@
 
             @ViewBag.ActualTravelName
 
@@ -36,7 +37,7 @@
                     @Html.DisplayNameFor(model => model.TravelReport.TravelReportName)
                 </th>*@
                 <th>
-                    @Html.DisplayNameFor(model => model.ExpenseInformation)
+                    @Html.DisplayNameFor(model => model.ExpenseDescription)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ExpenseDate)
@@ -53,17 +54,18 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    @*@Html.Partial("_ExpenseItem", item)*@
                     <td>
                         @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
                     </td>
                     @*<td>
                         @Html.DisplayFor(modelItem => item.TravelReport.ApplicationUser.FullName)
-                    </td>
-                    <td>
+                    </td>*@
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.TravelReport.TravelReportName)
                     </td>*@
                     <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseInformation)
+                        @Html.DisplayFor(modelItem => item.ExpenseDescription)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ExpenseDate)
@@ -76,7 +78,6 @@
                     </td>
 
                     <td>
-                        @*@Html.ActionLink("Ändra", "Edit", new { tId = @ViewBag.ActualTravelReportId})*@
                         @Html.ActionLink("Ändra", "Edit", new { id = item.ExpenseId }) |
                         @Html.ActionLink("Detaljer", "Details", new { id = item.ExpenseId }) |
                         @Html.ActionLink("Radera", "Delete", new { id = item.ExpenseId })

@@ -18,7 +18,8 @@
         @Html.HiddenFor(model => model.TravelReportId, new { @Value = @ViewBag.ActualTravelReportId, @readonly = "true" })
 
     </h4>
-    <hr />
+    @*<hr />*@
+   
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
@@ -29,11 +30,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ExpenseInformation)
+            @Html.DisplayNameFor(model => model.ExpenseDescription)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ExpenseInformation)
+            @Html.DisplayFor(model => model.ExpenseDescription)
         </dd>
 
         <dt>
@@ -61,7 +62,8 @@
         </dd>
 
     </dl>
-</div>
+ </div>
+       
 <p>
     @Html.ActionLink("Ändra", "Edit", new { id = Model.ExpenseId }) |
     @Html.ActionLink("Tillbaka", "Index", new { tId = Model.TravelReportId })
