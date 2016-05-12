@@ -36,12 +36,12 @@ namespace TravelExpenseReport.Controllers
 
             if (User.IsInRole("Assistant"))
             {
-                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Where(t => t.ApplicationUserId == ActiveUser.Id);
+                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Where(t => t.ApplicationUserId == ActiveUser.Id).OrderBy(t => t.TravelReportName);
                 return View(travelReports.ToList());
             }
             else
             {
-                var travelReports = db.TravelReports.Include(t => t.ApplicationUser);
+                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                 return View(travelReports.ToList());
             }
         }
@@ -58,51 +58,6 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
-            return View(travelReport);
-        }
-
-        // GET: TravelReports/Calculate/5
-        //
-        // The view Calculate will present the calculated sum of allowance for expenses
-        //
-        public ActionResult Calculate(int? id, string button)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TravelReport travelReport = db.TravelReports.Find(id);
-            if (travelReport == null)
-            {
-                return HttpNotFound();
-            }
-            var legalAmount = db.LegalAmounts.FirstOrDefault();
-            ViewBag.LegalAmount = legalAmount;
-
-            //int allowanceSum = 0;
-            //allowanceSum = allowanceSum + (int)travelReport.Night * (int)legalAmount.NightAmount;
-            //allowanceSum = allowanceSum + (int)travelReport.FullDay * (int)legalAmount.FullDayAmount;
-            //allowanceSum = allowanceSum + (int)travelReport.HalfDay * (int)legalAmount.HalfDayAmount;
-            //allowanceSum = allowanceSum - (int)travelReport.BreakfastReduction * (int)legalAmount.BreakfastReductionAmount;
-            //allowanceSum = allowanceSum - (int)travelReport.LunchReduction * (int)legalAmount.LunchReductionAmount;
-            //allowanceSum = allowanceSum - (int)travelReport.DinnerReduction * (int)legalAmount.DinnerReductionAmount;
-
-            var sumOfAll = SumOfAllowance(travelReport);
-            ViewBag.Summa = sumOfAll;
-
-            var expensesThisTravel = db.Expenses.Where(e => e.TravelReportId == travelReport.TravelReportId);
-            int noOfExpenses = expensesThisTravel.Count();
-            float sumOfExpenses = 0;
-            foreach (var e1 in expensesThisTravel)
-            {
-                sumOfExpenses = sumOfExpenses + (float)e1.ExpenseAmount;
-            }
-
-            ViewBag.NoOfExpenses = noOfExpenses;
-            ViewBag.SummaPlus = sumOfAll + sumOfExpenses;
-
-            ViewBag.TravelReportId = travelReport.TravelReportId;
-
             return View(travelReport);
         }
 
@@ -236,22 +191,6 @@ namespace TravelExpenseReport.Controllers
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
             TravelReport travelReport = db.TravelReports.Find(id);
 
-            var legalAmount = db.LegalAmounts.FirstOrDefault();
-            ViewBag.LegalAmount = legalAmount;
-
-            //string travelYear = travelReport.DepartureDate.Year.ToString();
-            //var TravelReportsSameYear = db.TravelReports.Where(t => t.ApplicationUserId == ActiveUser.Id && t.TravelReportName.Substring(0, 4) == travelYear).OrderByDescending(a => a.TravelReportName);
-            //int TravelReportNumber;
-            //if (TravelReportsSameYear.Count() == 0)
-            //{
-            //    TravelReportNumber = 1;
-            //}
-            //else
-            //{
-            //    TravelReportNumber = Int32.Parse(TravelReportsSameYear.FirstOrDefault().TravelReportName.Substring(5, 3));
-            //    TravelReportNumber = TravelReportNumber + 1;
-            //}
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -357,6 +296,45 @@ namespace TravelExpenseReport.Controllers
         //        }
 
         //
+
+        // GET: TravelReports/Calculate/5
+        //
+        // The view Calculate will present the calculated sum of allowance for expenses
+        //
+        public ActionResult Calculate(int? id, string button)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TravelReport travelReport = db.TravelReports.Find(id);
+            if (travelReport == null)
+            {
+                return HttpNotFound();
+            }
+            //var legalAmount = db.LegalAmounts.FirstOrDefault();
+            var legalAmount = db.LegalAmounts.Where(l => l.ValidDate <= travelReport.DepartureDate).OrderByDescending(l => l.ValidDate).FirstOrDefault();
+            ViewBag.LegalAmount = legalAmount;
+
+            var sumOfAll = SumOfAllowance(travelReport);
+            ViewBag.Summa = sumOfAll;
+
+            var expensesThisTravel = db.Expenses.Where(e => e.TravelReportId == travelReport.TravelReportId);
+            int noOfExpenses = expensesThisTravel.Count();
+            float sumOfExpenses = 0;
+            foreach (var e1 in expensesThisTravel)
+            {
+                sumOfExpenses = sumOfExpenses + (float)e1.ExpenseAmount;
+            }
+
+            ViewBag.NoOfExpenses = noOfExpenses;
+            ViewBag.SummaPlus = sumOfAll + sumOfExpenses;
+
+            ViewBag.TravelReportId = travelReport.TravelReportId;
+
+            return View(travelReport);
+        }
+
 
         // GET: TravelReports/Delete/5
         public ActionResult Delete(int? id)
