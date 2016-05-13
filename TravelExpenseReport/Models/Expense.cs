@@ -16,14 +16,19 @@ namespace TravelExpenseReport.Models
         public int ExpenseTypeId { get; set; }
 
         [DisplayName("Beskrivning")]
-        public string ExpenseInformation { get; set; }
+        public string ExpenseDescription { get; set; }
 
         [DisplayName("Datum")]
         [DataType(DataType.Date)]
         public DateTime ExpenseDate { get; set; }
 
+        //[Required]
+        [RegularExpression("[0-9]+,?[0-9]?[0-9]?", ErrorMessage = "Ange kostnad som siffror med decimalkomma, ex. 124,50")]
         [DisplayName("Kostnad")]
-        public float? ExpenseAmount { get; set; }
+        public string ExpenseAmountInfo { get; set; }
+
+        [DisplayName("Kostnad")]
+        public decimal? ExpenseAmount { get; set; }
 
         [DisplayName("Kilometer")]
         public int? ExpenseMilage { get; set; }
@@ -35,7 +40,7 @@ namespace TravelExpenseReport.Models
         [ForeignKey("ExpenseTypeId")]
         public virtual ExpenseType ExpenseType { get; set; }
 
-
+   
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (TravelReportId > 0)
@@ -47,9 +52,14 @@ namespace TravelExpenseReport.Models
                 {
                     yield return new ValidationResult("Utgiftsdatum ligger utanför datumperioden för reseräknngen!");
                 }
-
+                if ((ExpenseTypeId == 4) && (ExpenseMilage == 0))
+                {
+                    ExpenseAmountInfo = "0";
+                    yield return new ValidationResult("Ange antal kilometer!");
+                }
+   
             }
 
-        }
+            }
     }
 }

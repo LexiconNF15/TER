@@ -91,7 +91,7 @@ namespace TravelExpenseReport.Migrations
                     ExpenseTypeId = 5,
                     ExpenseTypeName = "Buss, spårvagn, mm"
                 }
-                 };
+               };
 
             foreach (var et in expenseTypes)
             {
@@ -195,7 +195,7 @@ namespace TravelExpenseReport.Migrations
                     Purpose = "Utbildning",
                     DepartureDate = DateTime.Parse("2016-04-20 00:00:00"),
                     DepartureTime = TimeSpan.Parse("13:00:00"),
-                    ReturnDate = DateTime.Parse("2016-04-22 00:00:00"),
+                    ReturnDate = DateTime.Parse("2016-05-22 00:00:00"),
                     ReturnTime = TimeSpan.Parse("16:00:00"),
                     DepartureHoursExtra = 1 ,
                     ReturnHoursExtra = 2,
@@ -241,7 +241,7 @@ namespace TravelExpenseReport.Migrations
                     Purpose = "Läger",
                     DepartureDate = DateTime.Parse("2016-04-20 00:00:00"),
                     DepartureTime = TimeSpan.Parse("17:45:00"),
-                    ReturnDate = DateTime.Parse("2016-05-05 00:00:00"),
+                    ReturnDate = DateTime.Parse("2016-04-25 00:00:00"),
                     ReturnTime = TimeSpan.Parse("07:30:00"),
                     DepartureHoursExtra = 2 ,
                     ReturnHoursExtra = 0,
@@ -261,7 +261,7 @@ namespace TravelExpenseReport.Migrations
                     ApplicationUserId = NewUserList[2].Id,
                     TravelReportName = "2015-001",
                     Destination = "Sundsvall",
-                    Purpose = "Besöka släkt över Valborrg",
+                    Purpose = "Besöka släkt över Valborg",
                     DepartureDate = DateTime.Parse("2015-06-29 00:00:00"),
                     DepartureTime = TimeSpan.Parse("11:59:00"),
                     ReturnDate = DateTime.Parse("2015-08-01 00:00:00"),
@@ -305,12 +305,12 @@ namespace TravelExpenseReport.Migrations
                     TravelReportId = 6,
                     //ApplicationUserId = "cb791d4e-92a8-41ba-aeb3-be2d3000af15",
                     ApplicationUserId = NewUserList[1].Id,
-                    TravelReportName = "2016-002",
+                    TravelReportName = "2016-003",
                     Destination = "Västerås",
                     Purpose = "Bandymatch",
-                    DepartureDate = DateTime.Parse("2016-04-26 00:00:00"),
+                    DepartureDate = DateTime.Parse("2016-04-19 00:00:00"),
                     DepartureTime = TimeSpan.Parse("08:30:00"),
-                    ReturnDate = DateTime.Parse("2016-04-29 00:00:00"),
+                    ReturnDate = DateTime.Parse("2016-05-29 00:00:00"),
                     ReturnTime = TimeSpan.Parse("18:30:00"),
                     DepartureHoursExtra = 1 ,
                     ReturnHoursExtra = 2,
@@ -328,12 +328,12 @@ namespace TravelExpenseReport.Migrations
                     TravelReportId = 7,
                     //ApplicationUserId = "f77513f6-4c8b-4eb2-9896-b292dd9a294e",
                     ApplicationUserId = NewUserList[3].Id,
-                    TravelReportName = "2016-001",
+                    TravelReportName = "2016-003",
                     Destination = "Enköping",
                     Purpose = "Studiebesök boende",
-                    DepartureDate = DateTime.Parse("2016-04-25 00:00:00"),
+                    DepartureDate = DateTime.Parse("2016-04-26 00:00:00"),
                     DepartureTime = TimeSpan.Parse("17:45:00"),
-                    ReturnDate = DateTime.Parse("2016-04-30 00:00:00"),
+                    ReturnDate = DateTime.Parse("2016-04-29 00:00:00"),
                     ReturnTime = TimeSpan.Parse("07:30:00"),
                     DepartureHoursExtra = 2 ,
                     ReturnHoursExtra = 0,
@@ -356,7 +356,7 @@ namespace TravelExpenseReport.Migrations
                     Purpose = "Besöka släkt",
                     DepartureDate = DateTime.Parse("2016-05-02 00:00:00"),
                     DepartureTime = TimeSpan.Parse("10:30:00"),
-                    ReturnDate = DateTime.Parse("2016-05-07 00:00:00"),
+                    ReturnDate = DateTime.Parse("2016-06-07 00:00:00"),
                     ReturnTime = TimeSpan.Parse("19:30:00"),
                     DepartureHoursExtra = 0,
                     ReturnHoursExtra = 2,
@@ -372,7 +372,6 @@ namespace TravelExpenseReport.Migrations
                 };
 
 
-
             foreach (var tr in travelReport)
             {
                 context.TravelReports.AddOrUpdate(t => t.TravelReportId, tr);
@@ -382,93 +381,95 @@ namespace TravelExpenseReport.Migrations
 
 
             var expenses = new List<Expense> {
-                    new Expense
-                    {
-                        ExpenseId = 1,
-                        ExpenseTypeId = 1,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2016-04-20"),
-                        ExpenseAmount = 345,
-                        ExpenseMilage = 0,
-                        TravelReportId = 1
-
-                    },
-                     new Expense
-                    {
-                        ExpenseId = 2,
-                        ExpenseTypeId = 3,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2016-04-20"),
-                        ExpenseAmount = 345,
-                        ExpenseMilage = 0,
-                        TravelReportId = 1
-
-                    },
-                      new Expense
-                    {
-                        ExpenseId = 3,
-                        ExpenseTypeId = 2,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2016-04-23"),
-                        ExpenseAmount = 2550,
-                        ExpenseMilage = 0,
-                        TravelReportId =2
-
-                    },
-                    new Expense
-                    {
-                        ExpenseId = 4,
-                        ExpenseTypeId= 2,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2016-04-27"),
-                        ExpenseAmount = 3100,
-                        ExpenseMilage = 0,
-                        TravelReportId = 5
-
-                    },
-                    new Expense
-                    {
-                        ExpenseId = 5,
-                        ExpenseTypeId = 4,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2016-04-25"),
-                        ExpenseAmount = 0,
-                        ExpenseMilage = 485,
-                        TravelReportId = 5
-                    },
-                         new Expense
-                    {
-                        ExpenseId = 6,
-                        ExpenseTypeId = 4,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2016-04-27"),
-                        ExpenseAmount = 0,
-                        ExpenseMilage = 375,
-                        TravelReportId = 6
-                     },
-                         new Expense
-                    {
-                        ExpenseId = 7,
-                        ExpenseTypeId = 2,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2016-05-02"),
-                        ExpenseAmount = 5630,
-                        ExpenseMilage = 0,
-                        TravelReportId = 8
-
-                    },
-                          new Expense
-                    {
-                        ExpenseId = 8,
-                        ExpenseTypeId = 3,
-                        ExpenseInformation = null,
-                        ExpenseDate = DateTime.Parse("2016-05-02"),
-                        ExpenseAmount = 367,
-                        ExpenseMilage = 0,
-                        TravelReportId = 8
-                     }
-
-                };
+                            new Expense
+                            {
+                                ExpenseId = 1,
+                                ExpenseTypeId = 1,
+                                ExpenseDescription = null,
+                                ExpenseDate = DateTime.Parse("2016-04-20"),
+                                ExpenseAmountInfo = "140,15",
+                                ExpenseAmount = 140,
+                                ExpenseMilage = 0,
+                                TravelReportId = 1
+                            },
+                             new Expense
+                            {
+                                ExpenseId = 2,
+                                ExpenseTypeId = 3,
+                                ExpenseDescription = null,
+                                ExpenseDate = DateTime.Parse("2016-04-20"),
+                                ExpenseAmountInfo = "345,45",
+                                ExpenseAmount = 345,
+                                ExpenseMilage = 0,
+                                TravelReportId = 1
+                            },
+                              new Expense
+                            {
+                                ExpenseId = 3,
+                                ExpenseTypeId = 2,
+                                ExpenseDescription = null,
+                                ExpenseDate = DateTime.Parse("2016-04-23"),
+                                ExpenseAmountInfo = "350,45",
+                                ExpenseAmount = 350,
+                                ExpenseMilage = 0,
+                                TravelReportId = 2
+                            },
+                             new Expense
+                            {
+                                ExpenseId = 4,
+                                ExpenseTypeId= 2,
+                                ExpenseDescription = null,
+                                ExpenseDate = DateTime.Parse("2016-04-27"),
+                                ExpenseAmountInfo = "3100,00",
+                                ExpenseAmount = 3100,
+                                ExpenseMilage = 0,
+                                TravelReportId = 5
+                            },
+                            new Expense
+                            {
+                                ExpenseId = 5,
+                                ExpenseTypeId = 4,
+                                ExpenseDescription = null,
+                                ExpenseDate = DateTime.Parse("2016-04-25"),
+                                ExpenseAmountInfo = "485,95",
+                                ExpenseAmount = 0,
+                                ExpenseMilage = 485,
+                                TravelReportId = 5
+                            },
+                             new Expense
+                            {
+                                ExpenseId = 6,
+                                ExpenseTypeId = 4,
+                                ExpenseDescription  = null,
+                                ExpenseDate = DateTime.Parse("2016-04-27"),
+                                ExpenseAmountInfo = "766,98",
+                                ExpenseAmount = 0,
+                                ExpenseMilage = 375,
+                                TravelReportId = 6
+                            },
+                             new Expense
+                            {
+                                 ExpenseId = 7,
+                                 ExpenseTypeId = 2,
+                                 ExpenseDescription = null,
+                                 ExpenseDate = DateTime.Parse("2016-05-09"),
+                                 ExpenseAmountInfo = "5630,00",
+                                 ExpenseAmount = 5630,
+                                 ExpenseMilage = 0,
+                                TravelReportId = 8
+                            },
+                            new Expense
+                            {
+                                ExpenseId = 8,
+                                ExpenseTypeId = 3,
+                                ExpenseDescription = null,
+                                ExpenseDate = DateTime.Parse("2016-05-07"),
+                                ExpenseAmountInfo = "367,50",
+                                ExpenseAmount = 367,
+                                ExpenseMilage = 0,
+                                TravelReportId = 8
+                             }
+            };
 
             foreach (var ex in expenses)
             {
