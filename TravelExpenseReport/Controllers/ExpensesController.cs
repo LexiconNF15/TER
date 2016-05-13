@@ -50,11 +50,13 @@ namespace TravelExpenseReport.Controllers
         public ActionResult Create(int tId)
         {
             var activeTravelReport = db.TravelReports.Where(tr => tr.TravelReportId == tId);
+            string faultMessage = null;
 
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
             //ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId","TravelReportName");
             ViewBag.ActualTravelReportId = tId;
             ViewBag.ActualTravelReportInfo = activeTravelReport;
+            ViewBag.ErrorMsg = faultMessage;
             return View();
         }
         
@@ -65,7 +67,7 @@ namespace TravelExpenseReport.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseDescription,ExpenseDate,ExpenseAmountInfo,ExpenseAmount,ExpenseMilage,TravelReportId")] Expense expense)
         {
-            string faultmessage = null;
+            string faultMessage = null;
 
 
             if (expense.ExpenseTypeId == 4) // 4 = Driving own car. 
@@ -89,8 +91,9 @@ namespace TravelExpenseReport.Controllers
                     expense.ExpenseAmount = 0;
                     expense.ExpenseAmountInfo = null;
                     expense.ExpenseMilage = 0;
-                    faultmessage = "Resa med bil, ange antal kilometer";
-                    TempData["Faultmessage"] = faultmessage;
+                    faultMessage = "Resa med bil, ange antal kilometer";
+                    ViewBag.ErrorMsg = faultMessage;
+                    //TempData["Faultmessage"] = faultmessage;
                     ViewBag.ActualTravelReportId = expense.TravelReportId;
                     ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
                     return View(expense);
@@ -106,8 +109,9 @@ namespace TravelExpenseReport.Controllers
                 {
                     expense.ExpenseMilage = 0;
                     expense.ExpenseAmount = 0;
-                    faultmessage = "Ange kostnad för utgiften";
-                    TempData["Faultmessage"] = faultmessage;
+                    faultMessage = "Ange kostnad för utgiften";
+                    ViewBag.ErrorMsg = faultMessage;
+                    //TempData["Faultmessage"] = faultmessage;
                     ViewBag.ActualTravelReportId = expense.TravelReportId;
                     ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
                     return View(expense);
@@ -175,7 +179,7 @@ namespace TravelExpenseReport.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseDescription,ExpenseDate,ExpenseAmountInfo,ExpenseAmount,ExpenseMilage,TravelReportId,,TravelReportName,FullName")] Expense expense)
         {
-            string faultmessage = null;
+            string faultMessage = null;
 
             if (expense.ExpenseTypeId == 4) // 4 = Driving own car. 
             {
@@ -197,9 +201,11 @@ namespace TravelExpenseReport.Controllers
                     expense.ExpenseAmount = 0;
                     expense.ExpenseAmountInfo = null;
                     expense.ExpenseMilage = 0;
-                    faultmessage = "Resa med bil, ange antal kilometer";
-                    TempData["Faultmessage"] = faultmessage;
+                    faultMessage = "Resa med bil, ange antal kilometer";
+                    //TravelReport tr = db.TravelReports.Find(expense.TravelReportId);
+                    ViewBag.ErrorMsg = faultMessage;
                     ViewBag.ActualTravelReportId = expense.TravelReportId;
+                    //ViewBag.ActualTravelReport = tr;
                     //ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
                     ViewBag.ActualExpenseTypeId = expense.ExpenseTypeId;
                     return View(expense);
@@ -215,8 +221,9 @@ namespace TravelExpenseReport.Controllers
                 {
                     expense.ExpenseMilage = 0;
                     expense.ExpenseAmount = 0;
-                    faultmessage = "Ange kostnad för utgiften";
-                    TempData["Faultmessage"] = faultmessage;
+                    faultMessage = "Ange kostnad för utgiften";
+                    //TempData["Faultmessage"] = faultmessage;
+                    ViewBag.ErrorMsg = faultMessage;
                     ViewBag.ActualTravelReportId = expense.TravelReportId;
                     ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
                     ViewBag.ActualExpenseTypeId = expense.ExpenseTypeId;

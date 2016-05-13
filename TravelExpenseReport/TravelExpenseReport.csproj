@@ -300,12 +300,14 @@
     <Content Include="Views\LegalAmounts\Edit.cshtml" />
     <Content Include="Views\LegalAmounts\Index.cshtml" />
     <Content Include="Views\TravelReports\Edit2.cshtml" />
+    <Content Include="Views\TravelReports\Calculate.cshtml" />
     <Content Include="Views\Expenses\Create.cshtml" />
     <Content Include="Views\Expenses\Delete.cshtml" />
     <Content Include="Views\Expenses\Details.cshtml" />
     <Content Include="Views\Expenses\Edit.cshtml" />
     <Content Include="Views\Expenses\Index.cshtml" />
     <Content Include="Views\TravelReports\Edit1.cshtml" />
+    <Content Include="Views\TravelReports\_PartialSum.cshtml" />
     <Content Include="Views\TravelReports\Calc.cshtml" />
     <Content Include="Views\Shared\_ExpView.cshtml" />
   </ItemGroup>
