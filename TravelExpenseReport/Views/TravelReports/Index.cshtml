@@ -6,9 +6,16 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (!User.IsInRole("Assistant"))
+{
+
+    using (Html.BeginForm())
+    {
+        @Html.DropDownList("ApplicationUserId", null, htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Filtrera" name="button" class="btn btn-default btn-primary" />
+    }
+}
+
 <table class="table">
     <tr>
         <th>
@@ -62,74 +69,75 @@
         <th>
             @Html.DisplayNameFor(model => model.DinnerReduction)
         </th>
-                <th>
+        <th>
             @Html.DisplayNameFor(model => model.Comment)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StatusType.StatusName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TravelReportName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Destination)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Purpose)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartureDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartureTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReturnDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReturnTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartureHoursExtra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReturnHoursExtra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullDay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HalfDay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Night)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BreakfastReduction)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LunchReduction)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DinnerReduction)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comment)
-        </td>
-        <td>
-            @Html.ActionLink("Beräkna igen", "Edit2", new { id=item.TravelReportId }) |
-            @Html.ActionLink("Summera", "Calc", new { id=item.TravelReportId }) |
-            @Html.ActionLink("Tag bort", "Delete", new { id=item.TravelReportId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusType.StatusName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TravelReportName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purpose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureHoursExtra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnHoursExtra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HalfDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Night)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BreakfastReduction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LunchReduction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DinnerReduction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.ActionLink("Beräkna igen", "Edit2", new { id = item.TravelReportId }) |
+                @Html.ActionLink("Summera", "Calc", new { id = item.TravelReportId }) |
+                @Html.ActionLink("Tag bort", "Delete", new { id = item.TravelReportId })
+            </td>
+        </tr>
+    }
 
 </table>

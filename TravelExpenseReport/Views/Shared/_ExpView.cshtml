@@ -9,7 +9,7 @@
             @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExpenseInformation)
+            @Html.DisplayNameFor(model => model.ExpenseDescription)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ExpenseDate)
@@ -29,18 +29,13 @@
             @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ExpenseInformation)
+            @Html.DisplayFor(modelItem => item.ExpenseDescription)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ExpenseDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ExpenseMilage)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ExpenseId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ExpenseId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ExpenseId })
         </td>
     </tr>
 }

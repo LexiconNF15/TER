@@ -112,9 +112,9 @@
                 @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
             </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.BreakfastReduction)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BreakfastReduction)
+            </dt>
 
                 <dd>
                     @Html.DisplayFor(model => model.BreakfastReduction) a' @ViewBag.LegalAmount.BreakfastReductionAmount
@@ -161,9 +161,9 @@
             @ViewBag.Summa
         </dd>
         <dt>
+            <input type="submit" value="Ändra traktamente" name="button" class="btn btn-default btn-primary" />
         </dt>
         <dd>
-            <input type="submit" value="Ändra traktamente" name="button" class="btn btn-default btn-primary" />
         </dd>
 
         <dt>
@@ -173,23 +173,31 @@
             @{Html.RenderPartial("_ExpView", Model.Expenses);}
         </dd>
         <dt>
+            <input type="submit" value="Lägg till utgifter" name="button" class="btn btn-default btn-primary" />
+        </dt>
+        <dd>        </dd>
+        <dt>
+            Summa utgifter för @ViewBag.NoOfExpenses st
+        </dt>
+        <dd>
+            @ViewBag.SumOfExpenses
+        </dd>
+
+        <dt>
             Summa med utgifter
         </dt>
 
         <dd>
-            @ViewBag.SummaPlus för @ViewBag.NoOfExpenses st
+            @ViewBag.SummaPlus
         </dd>
 
     </dl>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-2">
-            <input type="submit" value="Lägg till utgifter" name="button" class="btn btn-default btn-primary" />
-        </div>
-        <div class="col-md-2">
             <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-primary" />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
         </div>
     </div>

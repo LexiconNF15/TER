@@ -14,7 +14,7 @@ namespace TravelExpenseReport.Controllers
 [Authorize]
     public class TravelReportsController : Controller
     {
-        public float SumOfAllowance(TravelReport travelReport)
+        public decimal SumOfAllowance(TravelReport travelReport)
         {
             var legalAmount = db.LegalAmounts.FirstOrDefault();
             int allowanceSum = 0;
@@ -24,7 +24,7 @@ namespace TravelExpenseReport.Controllers
             allowanceSum = allowanceSum - (int)travelReport.BreakfastReduction * (int)legalAmount.BreakfastReductionAmount;
             allowanceSum = allowanceSum - (int)travelReport.LunchReduction * (int)legalAmount.LunchReductionAmount;
             allowanceSum = allowanceSum - (int)travelReport.DinnerReduction * (int)legalAmount.DinnerReductionAmount;
-            return (float)allowanceSum;
+            return (decimal)allowanceSum;
         }
 
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -42,6 +42,9 @@ namespace TravelExpenseReport.Controllers
             else
             {
                 var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", ActiveUser.Id);
+                //ViewBag.Uuuu = new SelectList(db.TravelReports, "TravelReportId", "Reseräkningsnummer");
+
                 return View(travelReports.ToList());
             }
         }
@@ -246,13 +249,15 @@ namespace TravelExpenseReport.Controllers
 
             var expensesThisTravel = db.Expenses.Where(e => e.TravelReportId == travelReport.TravelReportId);
             int noOfExpenses = expensesThisTravel.Count();
-            float sumOfExpenses = 0;
+            decimal sumOfExpenses = 0;
             foreach (var e1 in expensesThisTravel)
             {
-                sumOfExpenses = sumOfExpenses + (float)e1.ExpenseAmount;
+                sumOfExpenses = sumOfExpenses + (decimal)e1.ExpenseAmount;
             }
 
             ViewBag.NoOfExpenses = noOfExpenses;
+            ViewBag.SumOfExpenses = sumOfExpenses;
+
             ViewBag.SummaPlus = sumOfAll + sumOfExpenses;
 
             ViewBag.TravelReportId = travelReport.TravelReportId;
@@ -454,10 +459,10 @@ namespace TravelExpenseReport.Controllers
 
             var expensesThisTravel = db.Expenses.Where(e => e.TravelReportId == travelReport.TravelReportId);
             int noOfExpenses = expensesThisTravel.Count();
-            float sumOfExpenses = 0;
+            decimal sumOfExpenses = 0;
             foreach (var e1 in expensesThisTravel)
             {
-                sumOfExpenses = sumOfExpenses + (float)e1.ExpenseAmount;
+                sumOfExpenses = sumOfExpenses + (decimal)e1.ExpenseAmount;
             }
 
             ViewBag.NoOfExpenses = noOfExpenses;
