@@ -6,18 +6,14 @@
 }
 <h4>
 
-    @Html.DisplayFor(model => model.TravelReport.TravelReportName)
+    @ViewBag.ActiveTravelReport.TravelReportName
+    @ViewBag.ActiveTravelReport.ApplicationUser.FullName
+    @ViewBag.ActiveTravelReport.DepartureDate.Date.ToString("yyyy-MM-dd")
+    @ViewBag.ActiveTravelReport.ReturnDate.Date.ToString("yyyy-MM-dd")
 
-    @Html.DisplayFor(model => model.TravelReport.ApplicationUser.FullName)
-
-    @Html.DisplayFor(model => model.TravelReport.DepartureDate)
-
-    @Html.DisplayFor(model => model.TravelReport.ReturnDate)
-
-   
 </h4>
 
-<h2>Ny Utgift</h2>
+<h3>Ny Utgift</h3>
 <h5 class="text-danger"> @ViewBag.ErrorMsg</h5>
 @using (Html.BeginForm())
 {

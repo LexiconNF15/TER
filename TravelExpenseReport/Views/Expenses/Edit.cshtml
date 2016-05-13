@@ -4,22 +4,21 @@
     ViewBag.Title = "Edit";
 }
 
-<h4>Ändra Utgift
-
-    @Html.DisplayFor(model => model.TravelReport.TravelReportName) 
-
-    @Html.DisplayFor(model => model.TravelReport.ApplicationUser.FullName)
+<h4>
+    @ViewBag.ActiveTravelReport.TravelReportName
+    @ViewBag.ActiveTravelReport.ApplicationUser.FullName
+    @ViewBag.ActiveTravelReport.DepartureDate.Date.ToString("yyyy-MM-dd")
+    @ViewBag.ActiveTravelReport.ReturnDate.Date.ToString("yyyy-MM-dd")
+   
 
 </h4>
-
+<h3>Ändra utgift för: @ViewBag.ExpenseTypeName </h3>
 <h5 class="text-danger"> @ViewBag.ErrorMsg</h5>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <h4>@Html.DisplayFor(model => model.ExpenseType.ExpenseTypeName)</h4>
-    @*<h5 class="text-danger"> @ViewBag.ErrorMsg</h5>*@
-     <div class="form-horizontal">
+    
+      <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ExpenseId)
