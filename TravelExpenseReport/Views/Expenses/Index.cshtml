@@ -8,18 +8,10 @@
             @Html.ActionLink("Ny Utgift", "Create", new { tId = ViewBag.ActualTravelReportId })
         </h4>
         <h4>
-            @*@Html.Display(Model.FirstOrDefault().TravelReport.TravelReportName)*@
-
-            @*@Html.DisplayNameFor(model => model.DepartureDate): @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime*@
-
-            @ViewBag.ActualTravelName
-
-            @ViewBag.TravellerName
-
-           
-            @ViewBag.TravelDepartureDate
-
-            @ViewBag.TravelReturnDate
+            @ViewBag.ActiveTravelReport.TravelReportName
+            @ViewBag.ActiveTravelReport.ApplicationUser.FullName
+            @ViewBag.ActiveTravelReport.DepartureDate.Date.ToString("yyyy-MM-dd")
+            @ViewBag.ActiveTravelReport.ReturnDate.Date.ToString("yyyy-MM-dd")
 
         </h4>
 
@@ -86,3 +78,4 @@
             }
 
         </table>
+                    @Html.ActionLink("Summera", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, null)

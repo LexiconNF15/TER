@@ -17,16 +17,34 @@ namespace TravelExpenseReport.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Expenses
-        public ActionResult Index(int tId)
+        //CHeck ExpenseAmountInfo
+        public decimal AmountCheck(string expenseAmountInfo)
+        {
+
+            String AmountRegex = @"[0-9]+,?[0-9]?[0-9]?";
+            if (Regex.IsMatch(expenseAmountInfo, AmountRegex))
+            {
+                // "Amount is valid convert from string to decimal
+                //expense.ExpenseAmount = Decimal.Parse(expense.ExpenseAmountInfo);
+                return Decimal.Parse(expenseAmountInfo);
+            }
+            else
+            {
+                // "Amount is invalid
+                //expense.ExpenseAmount = 0;
+                return 0;
+            }
+        }
+
+// GET: Expenses
+public ActionResult Index(int tId)
         {
             var activeUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
-            var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport).Where(e => e.TravelReportId == tId);
             ViewBag.ActualTravelReportId = tId;
-            ViewBag.TravellerName = expenses.FirstOrDefault().TravelReport.ApplicationUser.FullName;
-            ViewBag.ActualTravelName = expenses.FirstOrDefault().TravelReport.TravelReportName;
-            ViewBag.TravelDepartureDate = expenses.FirstOrDefault().TravelReport.DepartureDate;
-            ViewBag.TravelReturnDate = expenses.FirstOrDefault().TravelReport.ReturnDate;
+            var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport).Where(e => e.TravelReportId == tId);
+            TravelReport activeTravelReport = db.TravelReports.Find(tId);
+            ViewBag.ActiveTravelReport = activeTravelReport;
+            //ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");                                      
             return View(expenses.ToList());
         }
 
@@ -49,12 +67,13 @@ namespace TravelExpenseReport.Controllers
         // GET: Expenses/Create
         public ActionResult Create(int tId)
         {
-            var activeTravelReport = db.TravelReports.Where(tr => tr.TravelReportId == tId);
+            string faultMessage = null;
 
+            TravelReport activeTravelReport = db.TravelReports.Find(tId); ;
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
-            //ViewBag.TravelReportId = new SelectList(db.TravelReports, "TravelReportId", "ApplicationUserId","TravelReportName");
-            ViewBag.ActualTravelReportId = tId;
-            ViewBag.ActualTravelReportInfo = activeTravelReport;
+            ViewBag.ActualTravelReportId = tId;             
+            ViewBag.ActiveTravelReport = activeTravelReport;
+            ViewBag.ErrorMsg = faultMessage;
             return View();
         }
         
@@ -65,7 +84,12 @@ namespace TravelExpenseReport.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseDescription,ExpenseDate,ExpenseAmountInfo,ExpenseAmount,ExpenseMilage,TravelReportId")] Expense expense)
         {
-            string faultmessage = null;
+            string faultMessage = null;
+
+            TravelReport activeTravelReport = db.TravelReports.Find(expense.TravelReportId); ;
+            ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
+            ViewBag.ActualTravelReportId = expense.TravelReportId;
+            ViewBag.ActiveTravelReport = activeTravelReport;
 
 
             if (expense.ExpenseTypeId == 4) // 4 = Driving own car. 
@@ -73,7 +97,7 @@ namespace TravelExpenseReport.Controllers
                 if (expense.ExpenseMilage > 0)
                 {
                     // Calulate: ExpenseAmount = ExpenseMilage * Milage from LegalAmount for valid year.
-                    ViewBag.ActualTravelReportId = expense.TravelReportId;
+                    //ViewBag.ActualTravelReportId = expense.TravelReportId;
                     //var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate);
                     var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate).OrderBy(l => l.ValidDate).FirstOrDefault();
                     DateTime actualValidDate = DateTime.Parse("2013-01-01");
@@ -89,9 +113,8 @@ namespace TravelExpenseReport.Controllers
                     expense.ExpenseAmount = 0;
                     expense.ExpenseAmountInfo = null;
                     expense.ExpenseMilage = 0;
-                    faultmessage = "Resa med bil, ange antal kilometer";
-                    TempData["Faultmessage"] = faultmessage;
-                    ViewBag.ActualTravelReportId = expense.TravelReportId;
+                    faultMessage = "Resa med bil, ange antal kilometer";
+                    ViewBag.ErrorMsg = faultMessage;                   
                     ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
                     return View(expense);
                 }
@@ -100,38 +123,20 @@ namespace TravelExpenseReport.Controllers
 
             if (expense.ExpenseTypeId != 4)
             {
-
-                //if ((expense.ExpenseAmount == 0) || (expense.ExpenseAmount == null))
-                if ((expense.ExpenseAmountInfo == null))
+                 if ((expense.ExpenseAmountInfo == null))
                 {
                     expense.ExpenseMilage = 0;
                     expense.ExpenseAmount = 0;
-                    faultmessage = "Ange kostnad för utgiften";
-                    TempData["Faultmessage"] = faultmessage;
-                    ViewBag.ActualTravelReportId = expense.TravelReportId;
+                    faultMessage = "Ange kostnad för utgiften";
+                    ViewBag.ErrorMsg = faultMessage;
                     ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
                     return View(expense);
                 }
-
-                //else if (expense.ExpenseAmount > 0)
                 else if (expense.ExpenseAmountInfo != null)
                 {
                     expense.ExpenseMilage = 0;
 
-                    //anrop till check amount()
-
-                    String AmountRegex = @"[0-9]+,?[0-9]?[0-9]?";
-                    if (Regex.IsMatch(expense.ExpenseAmountInfo, AmountRegex))
-                    {
-                        // "Amount is valid convert from string to decimal
-                        expense.ExpenseAmount = Decimal.Parse(expense.ExpenseAmountInfo);
-                    }
-                    else
-                    {
-                        // "Amount is invalid
-                        expense.ExpenseAmount = 0;
-                    }
-                    ViewBag.ActualTravelReportId = expense.TravelReportId;
+                    expense.ExpenseAmount = AmountCheck(expense.ExpenseAmountInfo);
 
                 }
             }
@@ -142,9 +147,7 @@ namespace TravelExpenseReport.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", new { tId = expense.TravelReportId });
             }
-
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
-           
             return View(expense);
         }
 
@@ -157,6 +160,7 @@ namespace TravelExpenseReport.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Expense expense = db.Expenses.Find(id);
+            TravelReport activeTravelReport = db.TravelReports.Find(expense.TravelReportId);
             if (expense == null)
             {
                 return HttpNotFound();
@@ -164,7 +168,9 @@ namespace TravelExpenseReport.Controllers
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
             ViewBag.ActualTravelReportId = expense.TravelReportId;
             ViewBag.ActualExpenseTypeId = expense.ExpenseTypeId;
-           
+            ViewBag.ActiveTravelReport = activeTravelReport;
+            var actualExpenseTypeName = db.ExpenseTypes.Where(e => e.ExpenseTypeId == expense.ExpenseTypeId).FirstOrDefault();
+            ViewBag.ExpenseTypeName = actualExpenseTypeName.ExpenseTypeName;
             return View(expense);
         }
 
@@ -175,14 +181,19 @@ namespace TravelExpenseReport.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ExpenseId,ExpenseTypeId,ExpenseDescription,ExpenseDate,ExpenseAmountInfo,ExpenseAmount,ExpenseMilage,TravelReportId,,TravelReportName,FullName")] Expense expense)
         {
-            string faultmessage = null;
+            string faultMessage = null;
+
+            ViewBag.ActualTravelReportId = expense.TravelReportId;
+            var actualExpenseTypeName = db.ExpenseTypes.Where(e => e.ExpenseTypeId == expense.ExpenseTypeId).FirstOrDefault();
+            ViewBag.ExpenseTypeName = actualExpenseTypeName.ExpenseTypeName;
+            TravelReport activeTravelReport = db.TravelReports.Find(expense.TravelReportId);
+            ViewBag.ActiveTravelReport = activeTravelReport;
 
             if (expense.ExpenseTypeId == 4) // 4 = Driving own car. 
             {
                 if (expense.ExpenseMilage > 0)
                 {
                     // Calulate: ExpenseAmount = ExpenseMilage * Milage from LegalAmount for valid year.
-                    ViewBag.ActualTravelReportId = expense.TravelReportId;
                     var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate).OrderBy(l => l.ValidDate).FirstOrDefault();
                     DateTime actualValidDate = DateTime.Parse("2013-01-01");
                     float actualLegalMilageAmount = 0;
@@ -193,60 +204,38 @@ namespace TravelExpenseReport.Controllers
                 }
                 else if ((expense.ExpenseMilage == 0) || (expense.ExpenseMilage == null))
                 {
-                    // There is no amount in ExpenseMilage. Error message in Tempdata.
+                    // There is no amount in ExpenseMilage. Error message.
                     expense.ExpenseAmount = 0;
                     expense.ExpenseAmountInfo = null;
                     expense.ExpenseMilage = 0;
-                    faultmessage = "Resa med bil, ange antal kilometer";
-                    TempData["Faultmessage"] = faultmessage;
-                    ViewBag.ActualTravelReportId = expense.TravelReportId;
-                    //ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
-                    ViewBag.ActualExpenseTypeId = expense.ExpenseTypeId;
+                    faultMessage = "Resa med bil, ange antal kilometer";
+                    ViewBag.ErrorMsg = faultMessage;
                     return View(expense);
                 }
-
             }
 
             if (expense.ExpenseTypeId != 4)
             {
-
-                //if ((expense.ExpenseAmount == 0) || (expense.ExpenseAmount == null))
                 if ((expense.ExpenseAmountInfo == null))
                 {
                     expense.ExpenseMilage = 0;
                     expense.ExpenseAmount = 0;
-                    faultmessage = "Ange kostnad för utgiften";
-                    TempData["Faultmessage"] = faultmessage;
-                    ViewBag.ActualTravelReportId = expense.TravelReportId;
+                    faultMessage = "Ange kostnad för utgiften";
+                    ViewBag.ErrorMsg = faultMessage;
                     ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
-                    ViewBag.ActualExpenseTypeId = expense.ExpenseTypeId;
                     return View(expense);
                 }
 
-                //else if (expense.ExpenseAmount > 0)
                 else if (expense.ExpenseAmountInfo != null)
                 {
                     expense.ExpenseMilage = 0;
 
-                    //anrop till check amount()
-
-                    String AmountRegex = @"[0-9]+,?[0-9]?[0-9]?";
-                    if (Regex.IsMatch(expense.ExpenseAmountInfo, AmountRegex))
-                    {
-                        // "Amount is valid convert from string to decimal
-                        expense.ExpenseAmount = Decimal.Parse(expense.ExpenseAmountInfo);
-                    }
-                    else
-                    {
-                        // "Amount is invalid
-                        expense.ExpenseAmount = 0;
-                    }
-                    ViewBag.ActualTravelReportId = expense.TravelReportId;
-                    ViewBag.ActualExpenseTypeId = expense.ExpenseTypeId;
+                    expense.ExpenseAmount = AmountCheck(expense.ExpenseAmountInfo);
+               
+                    //ViewBag.ActualTravelReportId = expense.TravelReportId;
+                    //ViewBag.ActualExpenseTypeId = expense.ExpenseTypeId;
                 }
             }
-
-
 
             if (ModelState.IsValid)
             {
