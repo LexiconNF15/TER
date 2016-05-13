@@ -99,6 +99,43 @@ namespace TravelExpenseReport.Controllers
             //travelReport.TravelReportName = "Testarnamn";
             travelReport.TravelReportName = travelYear + "-" + TravelReportNumber.ToString().PadLeft(3, '0');
 
+            TimeSpan differense = travelReport.ReturnDate - travelReport.DepartureDate;
+
+            travelReport.Night = differense.Days;
+            if (travelReport.Night == 0)
+            {
+                travelReport.HalfDay = 0;
+                travelReport.FullDay = 0;
+                ViewBag.Traktamente = false;
+            }
+            else
+            {
+                travelReport.HalfDay = 0;
+                travelReport.FullDay = travelReport.Night + 1;
+                ViewBag.Traktamente = true;
+
+
+                if (travelReport.DepartureTime.Hours >= 12)
+                {
+                    travelReport.HalfDay++;
+                    travelReport.FullDay--;
+                }
+
+                if (travelReport.ReturnTime.Hours <= 18)
+                {
+                    travelReport.HalfDay++;
+                    travelReport.FullDay--;
+                }
+
+                if (travelReport.ReturnTime.Hours <= 5)
+                {
+                    travelReport.Night--;
+                    if (travelReport.Night < 0)
+                    {
+                        travelReport.Night = 0;
+                    }
+                }
+            }
 
             if (ModelState.IsValid)
             {
@@ -185,6 +222,96 @@ namespace TravelExpenseReport.Controllers
             return View(travelReport);
         }
 
+        // GET: TravelReports/Calc/5
+        //
+        // The view Calculate will present the calculated sum of allowance for expenses
+        //
+        public ActionResult Calc(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TravelReport travelReport = db.TravelReports.Find(id);
+            if (travelReport == null)
+            {
+                return HttpNotFound();
+            }
+            //var legalAmount = db.LegalAmounts.FirstOrDefault();
+            var legalAmount = db.LegalAmounts.Where(l => l.ValidDate <= travelReport.DepartureDate).OrderByDescending(l => l.ValidDate).FirstOrDefault();
+            ViewBag.LegalAmount = legalAmount;
+
+            var sumOfAll = SumOfAllowance(travelReport);
+            ViewBag.Summa = sumOfAll;
+
+            var expensesThisTravel = db.Expenses.Where(e => e.TravelReportId == travelReport.TravelReportId);
+            int noOfExpenses = expensesThisTravel.Count();
+            float sumOfExpenses = 0;
+            foreach (var e1 in expensesThisTravel)
+            {
+                sumOfExpenses = sumOfExpenses + (float)e1.ExpenseAmount;
+            }
+
+            ViewBag.NoOfExpenses = noOfExpenses;
+            ViewBag.SummaPlus = sumOfAll + sumOfExpenses;
+
+            ViewBag.TravelReportId = travelReport.TravelReportId;
+
+            ViewBag.Traktamente = (travelReport.Night != 0);
+
+
+                return View(travelReport);
+        }
+
+
+        // POST: TravelReports/Calc/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Calc([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,StatusTypeId,Comment")] TravelReport travelReport, string button)
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (button == "Ändra traktamente")
+                {
+                    db.Entry(travelReport).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Edit2", new { id = travelReport.TravelReportId });
+                }
+                if (button == "Lägg till utgifter")
+                {
+                    db.Entry(travelReport).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Create", "Expenses", new { tId = travelReport.TravelReportId });
+                }
+                if (button == "Skicka in")
+                {
+                    travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Inskickad").FirstOrDefault().StatusTypeId;
+                    db.Entry(travelReport).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                if (button == "Till listan")
+                {
+                    return RedirectToAction("Index");
+                }
+                if (button == "Ändra datum/tid")
+                {
+                    db.Entry(travelReport).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Edit1", new { id = travelReport.TravelReportId });
+                }
+
+                return RedirectToAction("Calc", new { id = travelReport.TravelReportId });
+
+            }
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+            return View(travelReport);
+        }
+
         // GET: TravelReports/Edit2/5
         public ActionResult Edit2(int? id)
         {
@@ -262,13 +389,13 @@ namespace TravelExpenseReport.Controllers
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Calculate", new { id = travelReport.TravelReportId });
+                    return RedirectToAction("Calc", new { id = travelReport.TravelReportId });
                 }
                 if (button ==  "Lägg till utgifter")
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Create", "Expenses", new { id = travelReport.TravelReportId });
+                    return RedirectToAction("Create", "Expenses", new { tId = travelReport.TravelReportId });
                 }
                 if (button == "Skicka in")
                 {
@@ -277,8 +404,14 @@ namespace TravelExpenseReport.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                if (button == "Ändra datum/tid")
+                {
+                    db.Entry(travelReport).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Edit1");
+                }
 
-                return RedirectToAction("Calculate", new { id = travelReport.TravelReportId });
+                return RedirectToAction("Index");
 
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
@@ -301,7 +434,7 @@ namespace TravelExpenseReport.Controllers
         //
         // The view Calculate will present the calculated sum of allowance for expenses
         //
-        public ActionResult Calculate(int? id, string button)
+        public ActionResult Calculate(int? id)
         {
             if (id == null)
             {
@@ -334,6 +467,53 @@ namespace TravelExpenseReport.Controllers
 
             return View(travelReport);
         }
+
+                // POST: TravelReports/Calculate/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Calculate([Bind(Include = "TravelReportId,ApplicationUserId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastReduction,LunchReduction,DinnerReduction,StatusTypeId,Comment")] TravelReport travelReport, string button)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                if (button == "Summera")
+                {
+                    db.Entry(travelReport).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Calculate", new { id = travelReport.TravelReportId });
+                }
+                if (button ==  "Lägg till utgifter")
+                {
+                    db.Entry(travelReport).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Create", "Expenses", new { tId = travelReport.TravelReportId });
+                }
+                if (button == "Skicka in")
+                {
+                    travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Inskickad").FirstOrDefault().StatusTypeId;
+                    db.Entry(travelReport).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return RedirectToAction("Calculate", new { id = travelReport.TravelReportId });
+
+            }
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+            return View(travelReport);
+        }
+
+        //
+        //                if (ModelState.IsValid)
+        //        {
+        //            db.TravelReports.Add(travelReport);
+        //            db.SaveChanges();
+        //            return RedirectToAction("Edit2", new { id = travelReport.TravelReportId
+        //});
+        //        }
 
 
         // GET: TravelReports/Delete/5

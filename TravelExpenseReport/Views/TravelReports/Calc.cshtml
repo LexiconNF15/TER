@@ -1,0 +1,201 @@
+﻿@model TravelExpenseReport.Models.TravelReport
+
+@{
+    ViewBag.Title = "Summera";
+    int travelReportId = 0;
+    if (ViewBag.TravelReportId != null)
+    {
+        travelReportId = (int)ViewBag.TravelReportId;
+    }
+}
+
+<h2>Summerad reseräkning</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@Html.DisplayNameFor(model => model.ApplicationUser.FullName): @Html.DisplayFor(model => model.ApplicationUser.FullName)  </h4>
+        <h4>@Html.DisplayNameFor(model => model.TravelReportName): @Html.DisplayFor(model => model.TravelReportName) </h4>
+        <h4>@Html.DisplayNameFor(model => model.StatusType.StatusName): @Html.DisplayFor(model => model.StatusType.StatusName)</h4>
+
+        <h4>@Html.DisplayNameFor(model => model.DepartureDate): @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)</h4>
+        <h4>@Html.DisplayNameFor(model => model.ReturnDate): @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)</h4>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-2">
+                <input type="submit" value="Ändra datum/tid" name="button" class="btn btn-default btn-primary" />
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ApplicationUserId)
+
+
+    @Html.HiddenFor(model => model.TravelReportId)
+    @Html.HiddenFor(model => model.TravelReportName)
+    @Html.HiddenFor(model => model.TravelReportId)
+    @Html.HiddenFor(model => model.TravelReportName)
+    @Html.HiddenFor(model => model.DepartureDate)
+    @Html.HiddenFor(model => model.DepartureTime)
+    @Html.HiddenFor(model => model.ReturnDate)
+    @Html.HiddenFor(model => model.ReturnTime)
+    @Html.HiddenFor(model => model.StatusTypeId)
+    @Html.HiddenFor(model => model.Destination)
+    @Html.HiddenFor(model => model.Purpose)
+    @Html.HiddenFor(model => model.FullDay)
+    @Html.HiddenFor(model => model.HalfDay)
+    @Html.HiddenFor(model => model.Night)
+
+
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Destination)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Destination)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Purpose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Purpose)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartureHoursExtra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartureHoursExtra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnHoursExtra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnHoursExtra)
+        </dd>
+
+        @if (@ViewBag.Traktamente)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.FullDay)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FullDay) a' @ViewBag.LegalAmount.FullDayAmount
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.HalfDay)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.HalfDay) a' @ViewBag.LegalAmount.HalfDayAmount
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Night)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
+            </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BreakfastReduction)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BreakfastReduction) a' @ViewBag.LegalAmount.BreakfastReductionAmount
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LunchReduction)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LunchReduction) a' @ViewBag.LegalAmount.LunchReductionAmount
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DinnerReduction)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DinnerReduction) a' @ViewBag.LegalAmount.DinnerReductionAmount
+                </dd>
+        }
+        else
+        {
+            <dt>
+                Traktamente
+            </dt>
+            <dd>
+                Denna resa ger ej traktamente
+            </dd>
+        }
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            Summa utan utgifter
+        </dt>
+
+        <dd>
+            @ViewBag.Summa
+        </dd>
+        <dt>
+        </dt>
+        <dd>
+            <input type="submit" value="Ändra traktamente" name="button" class="btn btn-default btn-primary" />
+        </dd>
+
+        <dt>
+            Utgifter
+        </dt>
+        <dd>
+            @{Html.RenderPartial("_ExpView", Model.Expenses);}
+        </dd>
+        <dt>
+            Summa med utgifter
+        </dt>
+
+        <dd>
+            @ViewBag.SummaPlus för @ViewBag.NoOfExpenses st
+        </dd>
+
+    </dl>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-2">
+            <input type="submit" value="Lägg till utgifter" name="button" class="btn btn-default btn-primary" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-primary" />
+        </div>
+        <div class="col-md-6">
+            <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
+        </div>
+    </div>
+
+                }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -221,40 +221,17 @@
             <div class="col-md-2">
                 <input type="submit" value="Summera" name="button" class="btn btn-default btn-primary" />
             </div>
-            @*<div class="col-md-6">
+           @*<div class="col-md-2">
                 <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-primary" />
             </div>*@
+            <div class="col-md-4">
+                <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
+            </div>
         </div>
 
     </div>
 
 }
-
-
-@*<div>
-    @Html.Partial("_PartialSum");
-</div>*@
-
-@*    <div>
-    @{
-             Html.RenderPartial("_CreateExpensePartial",);
-         }
-     </div>*@
-
-
-@*<div>
-    @{Html.RenderAction("Index", "Expenses", new { tId = travelReportId });}
-</div>*@
-
-<div>
-    @Html.ActionLink("Ny Utgift", "Create", "Expenses", new { tId = travelReportId, }, null)
-</div>
-<div>
-    @Html.ActionLink("Lista Utgifter", "Index", "Expenses", new { tId = travelReportId }, null)
-</div>
-<div>
-    @Html.ActionLink("Beräkna utan kvitton", "Calculate", new { id = travelReportId }, null)
-</div>
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
