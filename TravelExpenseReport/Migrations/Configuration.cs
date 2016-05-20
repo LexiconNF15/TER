@@ -380,105 +380,105 @@ namespace TravelExpenseReport.Migrations
             }
 
 
-            var expenses = new List<Expense> {
-                            new Expense
-                            {
-                                ExpenseId = 1,
-                                ExpenseTypeId = 1,
-                                ExpenseDescription = null,
-                                ExpenseDate = DateTime.Parse("2016-04-20"),
-                                ExpenseAmountInfo = "140,15",
-                                ExpenseAmount = 140,
-                                ExpenseMilage = 0,
-                                TravelReportId = 1
-                            },
-                             new Expense
-                            {
-                                ExpenseId = 2,
-                                ExpenseTypeId = 3,
-                                ExpenseDescription = null,
-                                ExpenseDate = DateTime.Parse("2016-04-20"),
-                                ExpenseAmountInfo = "345,45",
-                                ExpenseAmount = 345,
-                                ExpenseMilage = 0,
-                                TravelReportId = 1
-                            },
-                              new Expense
-                            {
-                                ExpenseId = 3,
-                                ExpenseTypeId = 2,
-                                ExpenseDescription = null,
-                                ExpenseDate = DateTime.Parse("2016-04-23"),
-                                ExpenseAmountInfo = "350,45",
-                                ExpenseAmount = 350,
-                                ExpenseMilage = 0,
-                                TravelReportId = 2
-                            },
-                             new Expense
-                            {
-                                ExpenseId = 4,
-                                ExpenseTypeId= 2,
-                                ExpenseDescription = null,
-                                ExpenseDate = DateTime.Parse("2016-04-27"),
-                                ExpenseAmountInfo = "3100,00",
-                                ExpenseAmount = 3100,
-                                ExpenseMilage = 0,
-                                TravelReportId = 5
-                            },
-                            new Expense
-                            {
-                                ExpenseId = 5,
-                                ExpenseTypeId = 4,
-                                ExpenseDescription = null,
-                                ExpenseDate = DateTime.Parse("2016-04-25"),
-                                ExpenseAmountInfo = "485,95",
-                                ExpenseAmount = 0,
-                                ExpenseMilage = 485,
-                                TravelReportId = 5
-                            },
-                             new Expense
-                            {
-                                ExpenseId = 6,
-                                ExpenseTypeId = 4,
-                                ExpenseDescription  = null,
-                                ExpenseDate = DateTime.Parse("2016-04-27"),
-                                ExpenseAmountInfo = "766,98",
-                                ExpenseAmount = 0,
-                                ExpenseMilage = 375,
-                                TravelReportId = 6
-                            },
-                             new Expense
-                            {
-                                 ExpenseId = 7,
-                                 ExpenseTypeId = 2,
-                                 ExpenseDescription = null,
-                                 ExpenseDate = DateTime.Parse("2016-05-09"),
-                                 ExpenseAmountInfo = "5630,00",
-                                 ExpenseAmount = 5630,
-                                 ExpenseMilage = 0,
-                                TravelReportId = 8
-                            },
-                            new Expense
-                            {
-                                ExpenseId = 8,
-                                ExpenseTypeId = 3,
-                                ExpenseDescription = null,
-                                ExpenseDate = DateTime.Parse("2016-05-07"),
-                                ExpenseAmountInfo = "367,50",
-                                ExpenseAmount = 367,
-                                ExpenseMilage = 0,
-                                TravelReportId = 8
-                             }
-            };
+            //var expenses = new List<Expense> {
+            //                new Expense
+            //                {
+            //                    ExpenseId = 1,
+            //                    ExpenseTypeId = 1,
+            //                    ExpenseDescription = null,
+            //                    ExpenseDate = DateTime.Parse("2016-04-20"),
+            //                    ExpenseAmountInfo = "140,15",
+            //                    ExpenseAmount = 140,
+            //                    ExpenseMilage = 0,
+            //                    TravelReportId = 1
+            //                },
+            //                 new Expense
+            //                {
+            //                    ExpenseId = 2,
+            //                    ExpenseTypeId = 3,
+            //                    ExpenseDescription = null,
+            //                    ExpenseDate = DateTime.Parse("2016-04-20"),
+            //                    ExpenseAmountInfo = "345,45",
+            //                    ExpenseAmount = 345,
+            //                    ExpenseMilage = 0,
+            //                    TravelReportId = 1
+            //                },
+            //                  new Expense
+            //                {
+            //                    ExpenseId = 3,
+            //                    ExpenseTypeId = 2,
+            //                    ExpenseDescription = null,
+            //                    ExpenseDate = DateTime.Parse("2016-04-23"),
+            //                    ExpenseAmountInfo = "350,45",
+            //                    ExpenseAmount = 350,
+            //                    ExpenseMilage = 0,
+            //                    TravelReportId = 2
+            //                },
+            //                 new Expense
+            //                {
+            //                    ExpenseId = 4,
+            //                    ExpenseTypeId= 2,
+            //                    ExpenseDescription = null,
+            //                    ExpenseDate = DateTime.Parse("2016-04-27"),
+            //                    ExpenseAmountInfo = "3100,00",
+            //                    ExpenseAmount = 3100,
+            //                    ExpenseMilage = 0,
+            //                    TravelReportId = 5
+            //                },
+            //                new Expense
+            //                {
+            //                    ExpenseId = 5,
+            //                    ExpenseTypeId = 4,
+            //                    ExpenseDescription = null,
+            //                    ExpenseDate = DateTime.Parse("2016-04-25"),
+            //                    ExpenseAmountInfo = "485,95",
+            //                    ExpenseAmount = 0,
+            //                    ExpenseMilage = 485,
+            //                    TravelReportId = 5
+            //                },
+            //                 new Expense
+            //                {
+            //                    ExpenseId = 6,
+            //                    ExpenseTypeId = 4,
+            //                    ExpenseDescription  = null,
+            //                    ExpenseDate = DateTime.Parse("2016-04-27"),
+            //                    ExpenseAmountInfo = "766,98",
+            //                    ExpenseAmount = 0,
+            //                    ExpenseMilage = 375,
+            //                    TravelReportId = 6
+            //                },
+            //                 new Expense
+            //                {
+            //                     ExpenseId = 7,
+            //                     ExpenseTypeId = 2,
+            //                     ExpenseDescription = null,
+            //                     ExpenseDate = DateTime.Parse("2016-05-09"),
+            //                     ExpenseAmountInfo = "5630,00",
+            //                     ExpenseAmount = 5630,
+            //                     ExpenseMilage = 0,
+            //                    TravelReportId = 8
+            //                },
+            //                new Expense
+            //                {
+            //                    ExpenseId = 8,
+            //                    ExpenseTypeId = 3,
+            //                    ExpenseDescription = null,
+            //                    ExpenseDate = DateTime.Parse("2016-05-07"),
+            //                    ExpenseAmountInfo = "367,50",
+            //                    ExpenseAmount = 367,
+            //                    ExpenseMilage = 0,
+            //                    TravelReportId = 8
+            //                 }
+            //};
 
-            foreach (var ex in expenses)
-            {
-                context.Expenses.AddOrUpdate(e => e.ExpenseId, ex);
-                //context.ExpenseTypes.AddOrUpdate(et);
+            //foreach (var ex in expenses)
+            //{
+            //    context.Expenses.AddOrUpdate(e => e.ExpenseId, ex);
+            //    //context.ExpenseTypes.AddOrUpdate(et);
 
-            }
+            //}
 
-            //context.SaveChanges();
+            ////context.SaveChanges();
 
 
         }

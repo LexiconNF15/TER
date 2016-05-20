@@ -1,79 +1,100 @@
-﻿@model TravelExpenseReport.ViewModels.TravelReportViewModel1
+﻿@model IEnumerable<TravelExpenseReport.Models.TravelReport>
 
 @{
     ViewBag.Title = "Index";
 }
 
-    <h2>Lista över reseräkningar</h2>
-
+    <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Lägg till", "Create", null, new { @class = "btn btn-default btn-primary" })
+    @Html.ActionLink("Create New", "Create")
 </p>
 
+@*@if (!User.IsInRole("Assistant"))
+{
 
+    using (Html.BeginForm())
+    {
+        @Html.DropDownListFor(m => m.SelectedTravelItem, Model.TravelItems)
+        @Html.ValidationMessageFor(m => m.SelectedTravelItem)
+
+        @*Html.DropDownList("SelectUserId", null, htmlAttributes: new { @class = "form-control" })*@
+
+        @*@Html.DropDownListFor("SelectUserId", null, htmlAttributes: new { @class = "form-control" })*@
+        @*@Html.ActionLink("Filter", "Index4", new { terVM = this.Model })
+        @Html.ActionLink("FilterVM", "Index4", this.Model)*@
+
+        @*<input type="submit" value="Filter2" name= "SelectedUserId" class="btn btn-default btn-primary" />*@
+
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="OK" name="SelectedTravelItem" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}*@
+@*@{Html.RenderPartial("_SelectedUserPartialView", );}*@
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.FullName)
-            @Html.Partial("_SelectPartialView")
+            @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().StatusType.StatusName)
+            @Html.DisplayNameFor(model => model.StatusType.StatusName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().TravelReportName)
+            @Html.DisplayNameFor(model => model.TravelReportName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Destination)
+            @Html.DisplayNameFor(model => model.Destination)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Purpose)
+            @Html.DisplayNameFor(model => model.Purpose)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().DepartureDate)
+            @Html.DisplayNameFor(model => model.DepartureDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().DepartureTime)
+            @Html.DisplayNameFor(model => model.DepartureTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ReturnDate)
+            @Html.DisplayNameFor(model => model.ReturnDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ReturnTime)
+            @Html.DisplayNameFor(model => model.ReturnTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().DepartureHoursExtra)
+            @Html.DisplayNameFor(model => model.DepartureHoursExtra)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ReturnHoursExtra)
+            @Html.DisplayNameFor(model => model.ReturnHoursExtra)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().FullDay)
+            @Html.DisplayNameFor(model => model.FullDay)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().HalfDay)
+            @Html.DisplayNameFor(model => model.HalfDay)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Night)
+            @Html.DisplayNameFor(model => model.Night)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().BreakfastReduction)
+            @Html.DisplayNameFor(model => model.BreakfastReduction)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().LunchReduction)
+            @Html.DisplayNameFor(model => model.LunchReduction)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().DinnerReduction)
+            @Html.DisplayNameFor(model => model.DinnerReduction)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Comment)
+            @Html.DisplayNameFor(model => model.Comment)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model.SelectedTRUser)
+    @foreach (var item in Model)
     {
         <tr>
             <td>
@@ -139,10 +160,7 @@
     }
 
 </table>
-@if (!User.IsInRole("Assistant"))
-{
-@Html.ActionLink("Visa alla", "Index", null, new { @class = "btn btn-default btn-primary" })
-}
+
 
 
 

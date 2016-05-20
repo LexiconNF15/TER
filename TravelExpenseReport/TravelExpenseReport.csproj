@@ -218,6 +218,8 @@
     <Compile Include="Models\TravelReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\TravelReportViewModel1.cs" />
+    <Compile Include="ViewModels\TravelReportViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -293,7 +295,7 @@
     <Content Include="Views\TravelReports\Delete.cshtml" />
     <Content Include="Views\TravelReports\Details.cshtml" />
     <Content Include="Views\TravelReports\Edit.cshtml" />
-    <Content Include="Views\TravelReports\Index.cshtml" />
+    <Content Include="Views\TravelReports\IndexOld.cshtml" />
     <Content Include="Views\LegalAmounts\Create.cshtml" />
     <Content Include="Views\LegalAmounts\Delete.cshtml" />
     <Content Include="Views\LegalAmounts\Details.cshtml" />
@@ -310,6 +312,8 @@
     <Content Include="Views\TravelReports\_PartialSum.cshtml" />
     <Content Include="Views\TravelReports\Calc.cshtml" />
     <Content Include="Views\Shared\_ExpView.cshtml" />
+    <Content Include="Views\Shared\_SelectPartialView.cshtml" />
+    <Content Include="Views\TravelReports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

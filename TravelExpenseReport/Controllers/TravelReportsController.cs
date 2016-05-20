@@ -7,11 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TravelExpenseReport.Models;
+using TravelExpenseReport.ViewModels;
 
 namespace TravelExpenseReport.Controllers
 {
-    
-[Authorize]
+
+    [Authorize]
     public class TravelReportsController : Controller
     {
         public decimal SumOfAllowance(TravelReport travelReport)
@@ -30,7 +31,7 @@ namespace TravelExpenseReport.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: TravelReports
-        public ActionResult Index()
+        public ActionResult IndexOld()
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
 
@@ -42,12 +43,47 @@ namespace TravelExpenseReport.Controllers
             else
             {
                 var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", ActiveUser.Id);
-                //ViewBag.Uuuu = new SelectList(db.TravelReports, "TravelReportId", "Reseräkningsnummer");
-
+                var selection = new TravelReportViewModel();
+                ViewBag.SelectUserId = new SelectList(db.Users, "Id", "FullName", ActiveUser.Id);
                 return View(travelReports.ToList());
+
             }
         }
+
+        public ActionResult Index(TravelReportViewModel1 selection)
+        {
+            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+            var _selection = selection;
+            if (User.IsInRole("Assistant"))
+            {
+                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Where(t => t.ApplicationUserId == ActiveUser.Id).OrderBy(t => t.TravelReportName);
+                _selection.SelectedTRUser = travelReports;
+                return View(selection);
+            }
+            else
+            {
+                if (selection.UserList == null)
+                {
+                    var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                    _selection.SelectedTRUser = travelReports;
+                    var _selectiont1 = new TravelReportViewModel();
+
+                    _selectiont1.TravelUsers = new SelectList(db.Users, "Id", "FullName", ActiveUser.Id);
+
+                    _selection.UserList = _selectiont1;
+
+                }
+                else
+                {
+                    var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                    _selection.SelectedTRUser = travelReports;
+                    _selection.UserList.TravelUsers = new SelectList(db.Users, "Id", "FullName", ActiveUser.Id);
+                }
+                return View(_selection);
+
+            }
+        }
+
 
         // GET: TravelReports/Details/5
         public ActionResult Details(int? id)
@@ -265,7 +301,7 @@ namespace TravelExpenseReport.Controllers
             ViewBag.Traktamente = (travelReport.Night != 0);
 
 
-                return View(travelReport);
+            return View(travelReport);
         }
 
 
@@ -389,14 +425,14 @@ namespace TravelExpenseReport.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 if (button == "Summera")
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Calc", new { id = travelReport.TravelReportId });
                 }
-                if (button ==  "Lägg till utgifter")
+                if (button == "Lägg till utgifter")
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
@@ -473,7 +509,7 @@ namespace TravelExpenseReport.Controllers
             return View(travelReport);
         }
 
-                // POST: TravelReports/Calculate/5
+        // POST: TravelReports/Calculate/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -482,14 +518,14 @@ namespace TravelExpenseReport.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 if (button == "Summera")
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Calculate", new { id = travelReport.TravelReportId });
                 }
-                if (button ==  "Lägg till utgifter")
+                if (button == "Lägg till utgifter")
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();

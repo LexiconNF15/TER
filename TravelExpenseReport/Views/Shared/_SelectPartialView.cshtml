@@ -1,0 +1,17 @@
+﻿@model TravelExpenseReport.ViewModels.TravelReportViewModel1
+
+@if (!User.IsInRole("Assistant"))
+{
+
+    using (Html.BeginForm())
+    {
+        @Html.DropDownListFor(m => m.UserList.SelectedTravelUser, Model.UserList.TravelUsers)
+        @Html.ValidationMessageFor(m => m.UserList.SelectedTravelUser)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Filtrera" name="SelectedTravelItem" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
