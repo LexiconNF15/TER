@@ -317,6 +317,7 @@ namespace TravelExpenseReport.Controllers
 
                 if (button == "Ändra traktamente")
                 {
+                    travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Ny/Beräknad").FirstOrDefault().StatusTypeId;
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Edit2", new { id = travelReport.TravelReportId });
@@ -330,6 +331,20 @@ namespace TravelExpenseReport.Controllers
                 if (button == "Skicka in")
                 {
                     travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Inskickad").FirstOrDefault().StatusTypeId;
+                    db.Entry(travelReport).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                if (button == "Godkänd")
+                {
+                    travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Godkänd").FirstOrDefault().StatusTypeId;
+                    db.Entry(travelReport).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                if (button == "Ej godkänd")
+                {
+                    travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Ej godkänd").FirstOrDefault().StatusTypeId;
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
