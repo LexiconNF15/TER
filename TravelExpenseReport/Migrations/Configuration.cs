@@ -81,7 +81,6 @@ namespace TravelExpenseReport.Migrations
                 userManager.AddToRole(user.Id, "Patient");
             }
             
-
             var expenseTypes = new List<ExpenseType> {
                 new ExpenseType
                 {

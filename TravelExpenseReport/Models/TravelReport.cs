@@ -27,7 +27,6 @@ namespace TravelExpenseReport.Models
         [Required]
         public string Purpose { get; set; }
 
-       
         [DisplayName("Avresa datum")]
         [DataType(DataType.Date)]
         public DateTime DepartureDate { get; set; }
