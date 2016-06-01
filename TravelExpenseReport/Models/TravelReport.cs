@@ -14,6 +14,8 @@ namespace TravelExpenseReport.Models
 
         public string ApplicationUserId { get; set; }
 
+        public int PatientId { get; set; }
+
         [DisplayName("Reseräkningsnummer")]
         public string TravelReportName { get; set; }
 
@@ -87,6 +89,9 @@ namespace TravelExpenseReport.Models
 
         [ForeignKey("ApplicationUserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        //[ForeignKey("PatientId")]
+        //public virtual Patient Patient { get; set; }
 
         [ForeignKey("StatusTypeId")]
         public virtual StatusType StatusType { get; set; }

@@ -13,6 +13,8 @@ namespace TravelExpenseReport.Models
     {
         [DisplayName("Namn")]
         public string FullName { get; set; }
+        public int CustomerId { get; set; }
+        public string EmployeeNo { get; set; }
 
         public virtual ICollection<TravelReport> TravelReports { get; set; }
 
@@ -50,5 +52,11 @@ namespace TravelExpenseReport.Models
 
         public System.Data.Entity.DbSet<TravelExpenseReport.Models.StatusType> StatusTypes { get; set; }
 
-   }
+        public System.Data.Entity.DbSet<TravelExpenseReport.Models.StaffRole> StaffRoles { get; set; }
+
+        public System.Data.Entity.DbSet<TravelExpenseReport.Models.PatientUser> PatientUsers { get; set; }
+
+    
+
+    }
 }

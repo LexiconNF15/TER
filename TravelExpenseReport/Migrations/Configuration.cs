@@ -21,7 +21,7 @@ namespace TravelExpenseReport.Migrations
             var roleStore = new RoleStore<IdentityRole>(context);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            foreach (string roleName in new[] { "Assistant", "WorkAdministrator" })
+            foreach (string roleName in new[] { "Assistant", "WorkAdministrator", "Patient" })
             {
                 if (!context.Roles.Any(r => r.Name == roleName))
                 {
@@ -31,13 +31,13 @@ namespace TravelExpenseReport.Migrations
 
             }
 
-
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
             var users = new List<ApplicationUser> {
-                new ApplicationUser {FullName = "Oscar Antonsson", Email = "oscar.antonsson@ab.se", UserName = "oscar.antonsson@ab.se"},
-                new ApplicationUser {FullName = "Allan Persson", Email = "allan.persson@ab.se", UserName = "allan.persson@ab.se"}
+                new ApplicationUser {FullName = "Oscar Antonsson", Email = "oscar.antonsson@ab.se", UserName = "oscar.antonsson@ab.se",CustomerId = 1},
+                new ApplicationUser {FullName = "Sara Björn", Email = "sara.bjorn@test.se", UserName = "sara.bjorn@test.se",CustomerId = 2},
+                new ApplicationUser {FullName = "Allan Persson", Email = "allan.persson@ab.se", UserName = "allan.persson@ab.se",CustomerId = 1}
 
             };
 
@@ -53,8 +53,9 @@ namespace TravelExpenseReport.Migrations
 
 
             var users2 = new List<ApplicationUser> {
-                new ApplicationUser {FullName = "Lena Källgren", Email = "lena.kallgren@ab.se", UserName = "lena.kallgren@ab.se"},
-                new ApplicationUser {FullName = "Rickard Nilsson", Email = "rickard.nilsson@ab.se", UserName = "rickard.nilsson@ab.se"}
+                new ApplicationUser {FullName = "Lena Källgren", Email = "lena.kallgren@ab.se", UserName = "lena.kallgren@ab.se", CustomerId = 1},
+                new ApplicationUser {FullName = "Bella Ax", Email = "bella.ax@test.se", UserName = "bella.ax@test.se", CustomerId = 2},
+                new ApplicationUser {FullName = "Rickard Nilsson", Email = "rickard.nilsson@ab.se", UserName = "rickard.nilsson@ab.se", CustomerId = 1}
             };
 
             foreach (var u in users2)
@@ -64,6 +65,22 @@ namespace TravelExpenseReport.Migrations
                 NewUserList.Add(user);
                 userManager.AddToRole(user.Id, "Assistant");
             }
+
+            var users3 = new List<ApplicationUser> {
+                new ApplicationUser {FullName = "Nicklas Sten", Email = "nicklas.sten@ab.se", UserName = "nicklas.sten@ab.se", CustomerId = 1},
+                new ApplicationUser {FullName = "Carmen Sanchez", Email = "carmen.sanchez@test.se", UserName = "carmen.sanchez@test.se", CustomerId = 2},
+                new ApplicationUser {FullName = "Diana Westman", Email = "diana.westman@test.se", UserName = "diana.westma@test.se", CustomerId = 2},
+                new ApplicationUser {FullName = "Eros Venti", Email = "eros.venti@ab.se", UserName = "eros.venti@ab.se", CustomerId = 1}
+            };
+
+            foreach (var u in users3)
+            {
+                userManager.Create(u, "foobar");
+                var user = userManager.FindByEmail(u.Email);
+                NewUserList.Add(user);
+                userManager.AddToRole(user.Id, "Patient");
+            }
+            
 
             var expenseTypes = new List<ExpenseType> {
                 new ExpenseType
@@ -149,6 +166,7 @@ namespace TravelExpenseReport.Migrations
 
             }
 
+          
             var legalAmount = new List<LegalAmount> {
                 new LegalAmount
                 {
@@ -190,6 +208,7 @@ namespace TravelExpenseReport.Migrations
                     TravelReportId = 1,
                    // ApplicationUserId = "7bce74df-983d-4b45-81d5-530634133665",
                     ApplicationUserId = NewUserList[2].Id,
+                    PatientId = 4,
                     TravelReportName = "2016-001",
                     Destination = "Flen",
                     Purpose = "Utbildning",
@@ -199,9 +218,9 @@ namespace TravelExpenseReport.Migrations
                     ReturnTime = TimeSpan.Parse("16:00:00"),
                     DepartureHoursExtra = 1 ,
                     ReturnHoursExtra = 2,
-                    FullDay = 0,
-                    HalfDay = 0,
-                    Night = 0,
+                    FullDay = 33,
+                    HalfDay = 2,
+                    Night = 33,
                     BreakfastReduction = 0,
                     LunchReduction = 0,
                     DinnerReduction = 0,
@@ -213,7 +232,8 @@ namespace TravelExpenseReport.Migrations
                     TravelReportId = 2,
                     //ApplicationUserId = "7bce74df-983d-4b45-81d5-530634133665",
                     ApplicationUserId = NewUserList[1].Id,
-                    TravelReportName = "2016-002",
+                    PatientId = 3,
+                    TravelReportName = "2016-001",
                     Destination = "Malmö",
                     Purpose = "Studiebesök",
                     DepartureDate = DateTime.Parse("2016-04-23 00:00:00"),
@@ -222,9 +242,9 @@ namespace TravelExpenseReport.Migrations
                     ReturnTime = TimeSpan.Parse("20:00:00"),
                     DepartureHoursExtra = 1 ,
                     ReturnHoursExtra = 2,
-                    FullDay = 0,
+                    FullDay = 4,
                     HalfDay = 0,
-                    Night = 0,
+                    Night = 5,
                     BreakfastReduction = 0,
                     LunchReduction = 1,
                     DinnerReduction = 0,
@@ -236,6 +256,7 @@ namespace TravelExpenseReport.Migrations
                     TravelReportId = 3,
                     //ApplicationUserId = "855555ef-8f46-4281-9161-5777699b4d2d",
                     ApplicationUserId = NewUserList[3].Id,
+                    PatientId = 1,
                     TravelReportName = "2016-001",
                     Destination = "Uppsala",
                     Purpose = "Läger",
@@ -245,9 +266,9 @@ namespace TravelExpenseReport.Migrations
                     ReturnTime = TimeSpan.Parse("07:30:00"),
                     DepartureHoursExtra = 2 ,
                     ReturnHoursExtra = 0,
-                    FullDay = 0,
-                    HalfDay = 0,
-                    Night = 0,
+                    FullDay = 4,
+                    HalfDay = 2,
+                    Night = 5,
                     BreakfastReduction = 0,
                     LunchReduction = 0,
                     DinnerReduction = 0,
@@ -259,6 +280,7 @@ namespace TravelExpenseReport.Migrations
                     TravelReportId = 4,
                     //ApplicationUserId = "855555ef-8f46-4281-9161-5777699b4d2d",
                     ApplicationUserId = NewUserList[2].Id,
+                    PatientId = 1,
                     TravelReportName = "2015-001",
                     Destination = "Sundsvall",
                     Purpose = "Besöka släkt över Valborg",
@@ -268,9 +290,9 @@ namespace TravelExpenseReport.Migrations
                     ReturnTime = TimeSpan.Parse("18:30:00"),
                     DepartureHoursExtra = 2 ,
                     ReturnHoursExtra = 0,
-                    FullDay = 0,
-                    HalfDay = 0,
-                    Night = 0,
+                    FullDay = 31,
+                    HalfDay = 2,
+                    Night = 32,
                     BreakfastReduction = 0,
                     LunchReduction = 0,
                     DinnerReduction = 0,
@@ -281,7 +303,8 @@ namespace TravelExpenseReport.Migrations
                 {
                     TravelReportId = 5,
                     //ApplicationUserId = "cb791d4e-92a8-41ba-aeb3-be2d3000af15",
-                    ApplicationUserId = NewUserList[1].Id,
+                    ApplicationUserId = NewUserList[5].Id,
+                    PatientId = 4,
                     TravelReportName = "2016-001",
                     Destination = "Göteborg",
                     Purpose = "Besök på Liseberg",
@@ -291,9 +314,9 @@ namespace TravelExpenseReport.Migrations
                     ReturnTime = TimeSpan.Parse("17:00:00"),
                     DepartureHoursExtra = 0 ,
                     ReturnHoursExtra = 2,
-                    FullDay = 0,
-                    HalfDay = 0,
-                    Night = 0,
+                    FullDay = 3,
+                    HalfDay = 1,
+                    Night = 3,
                     BreakfastReduction = 0,
                     LunchReduction = 0,
                     DinnerReduction = 0,
@@ -305,7 +328,8 @@ namespace TravelExpenseReport.Migrations
                     TravelReportId = 6,
                     //ApplicationUserId = "cb791d4e-92a8-41ba-aeb3-be2d3000af15",
                     ApplicationUserId = NewUserList[1].Id,
-                    TravelReportName = "2016-003",
+                    TravelReportName = "2016-002",
+                    PatientId = 3,
                     Destination = "Västerås",
                     Purpose = "Bandymatch",
                     DepartureDate = DateTime.Parse("2016-04-19 00:00:00"),
@@ -314,9 +338,9 @@ namespace TravelExpenseReport.Migrations
                     ReturnTime = TimeSpan.Parse("18:30:00"),
                     DepartureHoursExtra = 1 ,
                     ReturnHoursExtra = 2,
-                    FullDay = 0,
-                    HalfDay = 0,
-                    Night = 0,
+                    FullDay = 40,
+                    HalfDay = 1,
+                    Night = 40,
                     BreakfastReduction = 0,
                     LunchReduction = 1,
                     DinnerReduction = 0,
@@ -328,7 +352,8 @@ namespace TravelExpenseReport.Migrations
                     TravelReportId = 7,
                     //ApplicationUserId = "f77513f6-4c8b-4eb2-9896-b292dd9a294e",
                     ApplicationUserId = NewUserList[3].Id,
-                    TravelReportName = "2016-003",
+                    PatientId = 4,
+                    TravelReportName = "2016-002",
                     Destination = "Enköping",
                     Purpose = "Studiebesök boende",
                     DepartureDate = DateTime.Parse("2016-04-26 00:00:00"),
@@ -337,9 +362,9 @@ namespace TravelExpenseReport.Migrations
                     ReturnTime = TimeSpan.Parse("07:30:00"),
                     DepartureHoursExtra = 2 ,
                     ReturnHoursExtra = 0,
-                    FullDay = 0,
-                    HalfDay = 0,
-                    Night = 0,
+                    FullDay = 2,
+                    HalfDay = 2,
+                    Night = 3,
                     BreakfastReduction = 0,
                     LunchReduction = 0,
                     DinnerReduction = 0,
@@ -350,8 +375,9 @@ namespace TravelExpenseReport.Migrations
                 {
                     TravelReportId = 8,
                     //ApplicationUserId = "f77513f6-4c8b-4eb2-9896-b292dd9a294e",
-                    ApplicationUserId = NewUserList[3].Id,
-                    TravelReportName = "2016-002",
+                    ApplicationUserId = NewUserList[4].Id,
+                    PatientId = 2,
+                    TravelReportName = "2016-001",
                     Destination = "Sundsvall",
                     Purpose = "Besöka släkt",
                     DepartureDate = DateTime.Parse("2016-05-02 00:00:00"),
@@ -360,9 +386,9 @@ namespace TravelExpenseReport.Migrations
                     ReturnTime = TimeSpan.Parse("19:30:00"),
                     DepartureHoursExtra = 0,
                     ReturnHoursExtra = 2,
-                    FullDay = 0,
+                    FullDay = 37,
                     HalfDay = 0,
-                    Night = 0,
+                    Night = 36,
                     BreakfastReduction = 0,
                     LunchReduction = 0,
                     DinnerReduction = 0,
@@ -478,8 +504,143 @@ namespace TravelExpenseReport.Migrations
 
             //}
 
-            ////context.SaveChanges();
+            
+            var patients = new List<Patient> {
+                new Patient
+                {
+                    PatientId = 1,
+                    Name = NewUserList[6].FullName,
+                    UserId= NewUserList[6].Id,
+                    CustomerId = NewUserList[6].CustomerId
+                      },
+                new Patient
+                {
+                    PatientId = 2,
+                    Name = NewUserList[7].FullName,
+                    UserId= NewUserList[7].Id,
+                    CustomerId = NewUserList[7].CustomerId
+                      },
+                 new Patient
+                {
+                    PatientId = 3,
+                    Name = NewUserList[8].FullName,
+                    UserId= NewUserList[8].Id,
+                    CustomerId = NewUserList[8].CustomerId
+                 },
+                  new Patient
+                {
+                    PatientId = 4,
+                    Name = NewUserList[9].FullName,
+                    UserId= NewUserList[9].Id,
+                    CustomerId = NewUserList[9].CustomerId
+                 }
+             };
 
+            foreach (var pt in patients)
+            {
+                context.Patients.AddOrUpdate(p => p.PatientId, pt);
+                //context.ExpenseTypes.AddOrUpdate(et);
+
+            }
+
+            var staffRoles = new List<StaffRole> {
+                new StaffRole
+                {
+                    StaffRoleId=1,
+                    Name = "Assistent"
+                },
+                new StaffRole
+                {
+                    StaffRoleId=2,
+                    Name = "Arbetsledare"
+                },
+                new StaffRole
+                {
+                    StaffRoleId=3,
+                    Name = "Administratör"
+                }
+
+            };
+
+            foreach (var sr in staffRoles)
+            {
+                context.StaffRoles.AddOrUpdate(s => s.StaffRoleId, sr);
+
+            }
+
+
+            var patientUsers = new List<PatientUser> {
+                new PatientUser
+                {
+                    PatientUserId = 1,
+                    PatientId = 1,
+                    StaffUserId = NewUserList[3].Id,
+                    StaffRoleId =1
+                 },
+                new PatientUser
+                {
+                    PatientUserId = 2,
+                    PatientId = 2,
+                    StaffUserId= NewUserList[4].Id,
+                    StaffRoleId =1
+                      },
+                 new PatientUser
+                {
+                    PatientUserId = 3,
+                    PatientId = 3,
+                    StaffUserId= NewUserList[4].Id,
+                    StaffRoleId =1
+                 },
+                 new PatientUser
+                {
+                    PatientUserId = 4,
+                    PatientId = 1,
+                    StaffUserId= NewUserList[2].Id,
+                    StaffRoleId =2
+                      },
+                new PatientUser
+                {
+                    PatientUserId = 5,
+                    PatientId = 2,
+                    StaffUserId= NewUserList[1].Id,
+                    StaffRoleId =2
+                      },
+                 new PatientUser
+                {
+                    PatientUserId = 6,
+                    PatientId = 3,
+                    StaffUserId= NewUserList[1].Id,
+                    StaffRoleId =2
+                 },
+                  new PatientUser
+                {
+                    PatientUserId = 7,
+                    PatientId = 4,
+                    StaffUserId= NewUserList[5].Id,
+                    StaffRoleId = 1
+                      },
+                new PatientUser
+                {
+                    PatientUserId = 8,
+                    PatientId = 4,
+                    StaffUserId= NewUserList[2].Id,
+                    StaffRoleId = 2
+                      },
+                 new PatientUser
+                {
+                    PatientUserId = 9,
+                    PatientId = 4,
+                    StaffUserId= NewUserList[3].Id,
+                    StaffRoleId = 1
+                  }
+             };
+
+            foreach (var pu in patientUsers)
+            {
+                context.PatientUsers.AddOrUpdate(p => p.PatientUserId, pu);
+                //context.ExpenseTypes.AddOrUpdate(et);
+
+            }
 
         }
 
