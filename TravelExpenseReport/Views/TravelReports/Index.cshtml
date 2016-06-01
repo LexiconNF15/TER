@@ -15,6 +15,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.PatientId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.FullName)
             @Html.Partial("_SelectPartialView")
         </th>
@@ -76,6 +79,9 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.PatientId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
             </td>
             <td>
@@ -135,7 +141,7 @@
                     @Html.ActionLink("Beräkna igen", "Edit2", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
                     @Html.ActionLink("Summera", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
                     @if (item.StatusType.StatusName == "Ny")
-                    {                   
+                    {
                         @Html.ActionLink("Tag bort", "Delete", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
                     }
                 </td>

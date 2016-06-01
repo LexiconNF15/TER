@@ -19,10 +19,10 @@
     <div class="form-horizontal">
         <h4>@Html.DisplayNameFor(model => model.ApplicationUser.FullName): @Html.DisplayFor(model => model.ApplicationUser.FullName)  </h4>
         <h4>@Html.DisplayNameFor(model => model.TravelReportName): @Html.DisplayFor(model => model.TravelReportName) </h4>
-        <h4>@Html.DisplayNameFor(model => model.StatusType.StatusName): @Html.DisplayFor(model => model.StatusType.StatusName)</h4>
-
+        <h4>@Html.DisplayNameFor(model => model.PatientId): @Html.DisplayFor(model => model.PatientId)</h4>
         <h4>@Html.DisplayNameFor(model => model.DepartureDate): @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)</h4>
         <h4>@Html.DisplayNameFor(model => model.ReturnDate): @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)</h4>
+        <h4>@Html.DisplayNameFor(model => model.StatusType.StatusName): @Html.DisplayFor(model => model.StatusType.StatusName)</h4>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-2">
@@ -36,10 +36,10 @@
     @Html.HiddenFor(model => model.ApplicationUserId)
 
 
+   
     @Html.HiddenFor(model => model.TravelReportId)
     @Html.HiddenFor(model => model.TravelReportName)
-    @Html.HiddenFor(model => model.TravelReportId)
-    @Html.HiddenFor(model => model.TravelReportName)
+    @Html.HiddenFor(model => model.PatientId)
     @Html.HiddenFor(model => model.DepartureDate)
     @Html.HiddenFor(model => model.DepartureTime)
     @Html.HiddenFor(model => model.ReturnDate)
