@@ -15,6 +15,7 @@ namespace TravelExpenseReport.Models
         public string FullName { get; set; }
         public int CustomerId { get; set; }
         public string EmployeeNo { get; set; }
+        public int PatientId { get; set; }
 
         public virtual ICollection<TravelReport> TravelReports { get; set; }
 

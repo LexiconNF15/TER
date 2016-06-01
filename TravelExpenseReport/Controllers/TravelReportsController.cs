@@ -64,11 +64,12 @@ namespace TravelExpenseReport.Controllers
             {
                 if (selection.UserList == null)
                 {
-                    var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                    //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                    var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Where(t=>t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                     _selection.SelectedTRUser = travelReports;
                     var _selectiont1 = new TravelReportViewModel();
 
-                    _selectiont1.TravelUsers = new SelectList(db.Users, "Id", "FullName", ActiveUser.Id);
+                    _selectiont1.TravelUsers = new SelectList(db.Users.Where(t =>t.CustomerId == ActiveUser.CustomerId), "Id", "FullName", ActiveUser.Id);
 
                     _selection.UserList = _selectiont1;
 
@@ -77,7 +78,7 @@ namespace TravelExpenseReport.Controllers
                 {
                     var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                     _selection.SelectedTRUser = travelReports;
-                    _selection.UserList.TravelUsers = new SelectList(db.Users, "Id", "FullName", ActiveUser.Id);
+                    _selection.UserList.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId), "Id", "FullName", ActiveUser.Id);
                 }
                 return View(_selection);
 

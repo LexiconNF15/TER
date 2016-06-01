@@ -67,10 +67,10 @@ namespace TravelExpenseReport.Migrations
             }
 
             var users3 = new List<ApplicationUser> {
-                new ApplicationUser {FullName = "Nicklas Sten", Email = "nicklas.sten@ab.se", UserName = "nicklas.sten@ab.se", CustomerId = 1},
-                new ApplicationUser {FullName = "Carmen Sanchez", Email = "carmen.sanchez@test.se", UserName = "carmen.sanchez@test.se", CustomerId = 2},
-                new ApplicationUser {FullName = "Diana Westman", Email = "diana.westman@test.se", UserName = "diana.westma@test.se", CustomerId = 2},
-                new ApplicationUser {FullName = "Eros Venti", Email = "eros.venti@ab.se", UserName = "eros.venti@ab.se", CustomerId = 1}
+                new ApplicationUser {FullName = "Nicklas Sten", Email = "nicklas.sten@ab.se", UserName = "nicklas.sten@ab.se", CustomerId = 1, PatientId = 1},
+                new ApplicationUser {FullName = "Carmen Sanchez", Email = "carmen.sanchez@test.se", UserName = "carmen.sanchez@test.se", CustomerId = 2, PatientId = 2},
+                new ApplicationUser {FullName = "Diana Westman", Email = "diana.westman@test.se", UserName = "diana.westma@test.se", CustomerId = 2, PatientId = 3},
+                new ApplicationUser {FullName = "Eros Venti", Email = "eros.venti@ab.se", UserName = "eros.venti@ab.se", CustomerId = 1, PatientId = 4}
             };
 
             foreach (var u in users3)
