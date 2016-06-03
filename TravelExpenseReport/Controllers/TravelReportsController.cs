@@ -113,7 +113,17 @@ namespace TravelExpenseReport.Controllers
             ViewBag.StatusTypeId1 = db.StatusTypes.Where(stt => stt.StatusName == "Ny").FirstOrDefault().StatusTypeId;
             ViewBag.ApplicationUserId1 = ActiveUser.Id;
             //var patients = db.Patients, "Id", "FullName", travelReport.ApplicationUserId);
+            //ViewBag.StatusTypeId = new SelectList(db.Patients.Where(p => p.PatientId == ActiveUser.Id)., "StatusTypeId", "StatusName", travelReport.StatusTypeId);
 
+            //var patients = db.TravelReports.Include(t => t.    Where(p => p.StaffUserId == ActiveUser.Id);
+            //var pausers = db.Users.Where(pu => pu.)
+            //var sellist = new SelectList[0];
+            //var i = 0;
+            //foreach (var pa in patients)
+            //{
+            //    sellist.i[i] = 
+            //}
+            //var pa1 = patients.ToList().ForEach()
             ViewBag.SelectPatient = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id), "PatientId", "Name");
 
             return View();
