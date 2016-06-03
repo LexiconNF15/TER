@@ -508,28 +508,28 @@ namespace TravelExpenseReport.Migrations
                 new Patient
                 {
                     PatientId = 1,
-                    Name = NewUserList[6].FullName,
+                    PatientName = NewUserList[6].FullName,
                     UserId= NewUserList[6].Id,
                     CustomerId = NewUserList[6].CustomerId
                       },
                 new Patient
                 {
                     PatientId = 2,
-                    Name = NewUserList[7].FullName,
+                    PatientName = NewUserList[7].FullName,
                     UserId= NewUserList[7].Id,
                     CustomerId = NewUserList[7].CustomerId
                       },
                  new Patient
                 {
                     PatientId = 3,
-                    Name = NewUserList[8].FullName,
+                    PatientName = NewUserList[8].FullName,
                     UserId= NewUserList[8].Id,
                     CustomerId = NewUserList[8].CustomerId
                  },
                   new Patient
                 {
                     PatientId = 4,
-                    Name = NewUserList[9].FullName,
+                    PatientName = NewUserList[9].FullName,
                     UserId= NewUserList[9].Id,
                     CustomerId = NewUserList[9].CustomerId
                  }
