@@ -1,4 +1,4 @@
-﻿@model TravelExpenseReport.Models.TravelReport
+﻿@model TravelExpenseReport.ViewModels.PatientViewModel
 
 @{
     ViewBag.Title = "Skapa";
@@ -14,7 +14,7 @@
 
     <div class="form-horizontal">
         <h3>
-            @Html.DisplayNameFor(model => model.StatusType.StatusName): @ViewBag.StatusName
+            @Html.DisplayNameFor(model => model.SelectedTR.FirstOrDefault().StatusType.StatusName): @ViewBag.StatusName
         </h3>
 
 
@@ -41,18 +41,34 @@
         <div class="form-group">
             @*@Html.LabelFor(model => model.ApplicationUserId, "ApplicationUserId", htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.HiddenFor(model => model.ApplicationUserId, new { @Value = @ViewBag.ApplicationUserId1, @readonly = "true" })
-                @Html.ValidationMessageFor(model => model.ApplicationUserId, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.SelectedTR.FirstOrDefault().ApplicationUserId, new { @Value = @ViewBag.ApplicationUserId1, @readonly = "true" })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().ApplicationUserId, "", new { @class = "text-danger" })
             </div>
         </div>
-       
-        <div class="form-group">
-            @Html.LabelFor(model => model.PatientId, "PatientId", htmlAttributes: new { @class = "control-label col-md-2" })
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.PatientId, "PatientName", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
             </div>
+        </div>*@
+      
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedTR.FirstOrDefault().PatientId, "PatientId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().PatientId, "", new { @class = "text-danger" })
+            </div>
         </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.SelectedTR.FirstOrDefault().Patient.PatientName, "PatientId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PatientId1", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("SelectPatient", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().PatientId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
      
         @*<div class="form-group">
                 @Html.LabelFor(model => model.TravelReportName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -63,50 +79,50 @@
             </div>*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Destination, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedTR.FirstOrDefault().Destination, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SelectedTR.FirstOrDefault().Destination, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().Destination, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Purpose, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedTR.FirstOrDefault().Purpose, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Purpose, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SelectedTR.FirstOrDefault().Purpose, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().Purpose, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DepartureDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedTR.FirstOrDefault().DepartureDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SelectedTR.FirstOrDefault().DepartureDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().DepartureDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DepartureTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedTR.FirstOrDefault().DepartureTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DepartureTime, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SelectedTR.FirstOrDefault().DepartureTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().DepartureTime, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ReturnDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedTR.FirstOrDefault().ReturnDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SelectedTR.FirstOrDefault().ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().ReturnDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ReturnTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedTR.FirstOrDefault().ReturnTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ReturnTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReturnTime, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SelectedTR.FirstOrDefault().ReturnTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().ReturnTime, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -178,10 +194,10 @@
         <div class="form-group">
             @*@Html.LabelFor(model => model.StatusTypeId, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.HiddenFor(model => model.StatusTypeId, new { @Value = @ViewBag.StatusTypeId1, @readonly = "true" })
+                @Html.HiddenFor(model => model.SelectedTR.FirstOrDefault().StatusTypeId, new { @Value = @ViewBag.StatusTypeId1, @readonly = "true" })
                 @*@ViewBag.StatusName*@
                 @*@Html.DisplayFor(model => model.StatusType.StatusName)*@
-                @Html.ValidationMessageFor(model => model.StatusTypeId, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().StatusTypeId, "", new { @class = "text-danger" })
 
 
             </div>
@@ -189,10 +205,10 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedTR.FirstOrDefault().Comment, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SelectedTR.FirstOrDefault().Comment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectedTR.FirstOrDefault().Comment, "", new { @class = "text-danger" })
             </div>
         </div>
 
