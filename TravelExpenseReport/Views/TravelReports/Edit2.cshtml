@@ -18,7 +18,8 @@
 
     <div class="form-horizontal">
         <h4>@Html.DisplayNameFor(model => model.TravelReportName): @ViewBag.TravelReportName1 </h4>
-        <h4>@Html.DisplayNameFor(model => model.PatientId): @Html.DisplayFor(model => model.PatientId)</h4>
+        @*<h4>@Html.DisplayNameFor(model => model.PatientId): @Html.DisplayFor(model => model.PatientId)</h4>*@
+        <h4>@Html.DisplayNameFor(model => model.Patient.PatientName): @Html.DisplayFor(model => model.Patient.PatientName)</h4>
         <h4>@Html.DisplayNameFor(model => model.DepartureDate): @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)</h4>
         <h4>@Html.DisplayNameFor(model => model.ReturnDate): @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)</h4>
         <h4>@Html.DisplayNameFor(model => model.StatusType.StatusName): @Html.DisplayFor(model => model.StatusType.StatusName)</h4>
@@ -40,14 +41,16 @@
         @Html.HiddenFor(model => model.ReturnDate)
         @Html.HiddenFor(model => model.ReturnTime)
         @Html.HiddenFor(model => model.StatusTypeId)
+        @Html.HiddenFor(model => model.PatientId)
 
-        <div class="form-group">
+
+        @*<div class="form-group">
             @Html.LabelFor(model => model.PatientId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PatientId, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Destination, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -15,9 +15,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.PatientId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.FullName)
             @Html.Partial("_SelectPartialView")
         </th>
@@ -26,6 +23,10 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().TravelReportName)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.PatientId)*@
+            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Patient.PatientName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Destination)
@@ -79,9 +80,6 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PatientId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
             </td>
             <td>
@@ -89,6 +87,10 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TravelReportName)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.PatientId)*@
+                @Html.DisplayFor(modelItem => item.Patient.PatientName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Destination)

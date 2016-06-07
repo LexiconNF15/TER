@@ -16,7 +16,7 @@ namespace TravelExpenseReport.Models
 
         public int PatientId { get; set; }
 
-        [DisplayName("Reseräkningsnummer")]
+        [DisplayName("Reseräkning")]
         public string TravelReportName { get; set; }
 
         [DisplayName("Resmål")]
