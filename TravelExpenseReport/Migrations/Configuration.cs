@@ -175,9 +175,10 @@ namespace TravelExpenseReport.Migrations
                     HalfDayAmount = 105,
                     NightAmount = 100,
                     MilageAmount = 175,
-                    BreakfastReductionAmount = 42,
-                    LunchReductionAmount = 74,
-                    DinnerReductionAmount =74
+                    BreakfastAmount = 42,
+                    LunchOrDinnerAmount = 74,
+                    LunchAndDinnerAmount =148,
+                    AllMealsAmount = 190
 
                 },
                 new LegalAmount
@@ -188,9 +189,10 @@ namespace TravelExpenseReport.Migrations
                     HalfDayAmount = 110,
                     NightAmount = 110,
                     MilageAmount = 185,
-                    BreakfastReductionAmount = 44,
-                    LunchReductionAmount = 77,
-                    DinnerReductionAmount =77
+                    BreakfastAmount = 44,
+                    LunchOrDinnerAmount = 77,
+                    LunchAndDinnerAmount =154,
+                    AllMealsAmount = 198
                 }
             };
 
@@ -220,9 +222,10 @@ namespace TravelExpenseReport.Migrations
                     FullDay = 33,
                     HalfDay = 2,
                     Night = 33,
-                    BreakfastReduction = 0,
-                    LunchReduction = 0,
-                    DinnerReduction = 0,
+                    BreakfastDeduction = 0,
+                    LunchOrDinnerDeduction = 0,
+                    LunchAndDinnerDeduction = 0,
+                    AllMealsDeduction = 0,
                     StatusTypeId = 1,
                     Comment = null
                  },
@@ -244,9 +247,10 @@ namespace TravelExpenseReport.Migrations
                     FullDay = 4,
                     HalfDay = 0,
                     Night = 5,
-                    BreakfastReduction = 0,
-                    LunchReduction = 1,
-                    DinnerReduction = 0,
+                    BreakfastDeduction = 0,
+                    LunchOrDinnerDeduction = 1,
+                    LunchAndDinnerDeduction = 0,
+                    AllMealsDeduction = 0,
                     StatusTypeId = 1,
                     Comment = null
                  },
@@ -268,9 +272,10 @@ namespace TravelExpenseReport.Migrations
                     FullDay = 4,
                     HalfDay = 2,
                     Night = 5,
-                    BreakfastReduction = 0,
-                    LunchReduction = 0,
-                    DinnerReduction = 0,
+                    BreakfastDeduction = 0,
+                    LunchOrDinnerDeduction = 0,
+                    LunchAndDinnerDeduction = 1,
+                    AllMealsDeduction = 0,
                     StatusTypeId = 1,
                     Comment = null
                  },
@@ -292,9 +297,10 @@ namespace TravelExpenseReport.Migrations
                     FullDay = 31,
                     HalfDay = 2,
                     Night = 32,
-                    BreakfastReduction = 0,
-                    LunchReduction = 0,
-                    DinnerReduction = 0,
+                    BreakfastDeduction = 0,
+                    LunchOrDinnerDeduction = 0,
+                    LunchAndDinnerDeduction = 0,
+                    AllMealsDeduction = 10,
                     StatusTypeId = 1,
                     Comment = null
                  },
@@ -316,9 +322,10 @@ namespace TravelExpenseReport.Migrations
                     FullDay = 3,
                     HalfDay = 1,
                     Night = 3,
-                    BreakfastReduction = 0,
-                    LunchReduction = 0,
-                    DinnerReduction = 0,
+                    BreakfastDeduction = 0,
+                    LunchOrDinnerDeduction = 0,
+                    LunchAndDinnerDeduction = 0,
+                    AllMealsDeduction = 0,
                     StatusTypeId = 1,
                     Comment = null
                  },
@@ -340,9 +347,10 @@ namespace TravelExpenseReport.Migrations
                     FullDay = 40,
                     HalfDay = 1,
                     Night = 40,
-                    BreakfastReduction = 0,
-                    LunchReduction = 1,
-                    DinnerReduction = 0,
+                    BreakfastDeduction = 0,
+                    LunchOrDinnerDeduction = 1,
+                    LunchAndDinnerDeduction = 0,
+                    AllMealsDeduction = 0,
                     StatusTypeId = 1,
                     Comment = null
                  },
@@ -364,9 +372,10 @@ namespace TravelExpenseReport.Migrations
                     FullDay = 2,
                     HalfDay = 2,
                     Night = 3,
-                    BreakfastReduction = 0,
-                    LunchReduction = 0,
-                    DinnerReduction = 0,
+                    BreakfastDeduction = 0,
+                    LunchOrDinnerDeduction = 0,
+                    LunchAndDinnerDeduction = 0,
+                    AllMealsDeduction = 0,
                     StatusTypeId = 1,
                     Comment = null
                  },
@@ -388,9 +397,10 @@ namespace TravelExpenseReport.Migrations
                     FullDay = 37,
                     HalfDay = 0,
                     Night = 36,
-                    BreakfastReduction = 0,
-                    LunchReduction = 0,
-                    DinnerReduction = 0,
+                    BreakfastDeduction = 0,
+                    LunchOrDinnerDeduction = 0,
+                    LunchAndDinnerDeduction = 0,
+                    AllMealsDeduction = 0,
                     StatusTypeId = 2,
                     Comment = null
                  }

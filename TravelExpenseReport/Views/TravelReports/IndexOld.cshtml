@@ -80,13 +80,16 @@
             @Html.DisplayNameFor(model => model.Night)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BreakfastReduction)
+            @Html.DisplayNameFor(model => model.BreakfastDeduction)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LunchReduction)
+            @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DinnerReduction)
+            @Html.DisplayNameFor(model => model.LunchAndDinnerDeduction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllMealsDeduction)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Comment)
@@ -140,13 +143,16 @@
                 @Html.DisplayFor(modelItem => item.Night)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BreakfastReduction)
+                @Html.DisplayFor(modelItem => item.BreakfastDeduction)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LunchReduction)
+                @Html.DisplayFor(modelItem => item.LunchOrDinnerDeduction)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DinnerReduction)
+                @Html.DisplayFor(modelItem => item.LunchAndDinnerDeduction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AllMealsDeduction)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Comment)

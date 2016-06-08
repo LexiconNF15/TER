@@ -10,7 +10,7 @@ namespace TravelExpenseReport.Models
     public class Patient
     {
         public int PatientId { get; set; }  //Löpnr
-        [DisplayName("Brukare")]
+        [DisplayName("Kund")]
         public string PatientName { get; set; }  //ev namn om ej enbart i Usertabellen
         public int CustomerId { get; set; }  //ftg om ej enbart i usertabellen.
         public string UserId { get; set; } // user-tabellens UserId för Patienten

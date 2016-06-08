@@ -21,12 +21,13 @@ namespace TravelExpenseReport.Models
         public int? NightAmount { get; set; }
         [DisplayName("Kilometerbelopp")]
         public float MilageAmount { get; set; }
-        [DisplayName("Frukostavdrag")]
-        public int? BreakfastReductionAmount { get; set; }
-        [DisplayName("Lunchavdrag")]
-        public int? LunchReductionAmount { get; set; }
-        [DisplayName("Middagsavdrag")]
-        public int? DinnerReductionAmount { get; set; }
-
+        [DisplayName("Frukost")]
+        public int? BreakfastAmount { get; set; }
+        [DisplayName("Lunch el. middag")]
+        public int? LunchOrDinnerAmount { get; set; }
+        [DisplayName("Lunch och middag")]
+        public int? LunchAndDinnerAmount { get; set; }
+        [DisplayName("Frukost, lunch och middag")]
+        public int? AllMealsAmount { get; set; }
     }
 }

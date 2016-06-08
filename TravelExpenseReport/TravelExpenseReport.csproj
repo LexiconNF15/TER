@@ -318,11 +318,6 @@
     <Content Include="Views\Shared\_ExpView.cshtml" />
     <Content Include="Views\Shared\_SelectPartialView.cshtml" />
     <Content Include="Views\TravelReports\Index.cshtml" />
-    <Content Include="Views\TravelReports2\Create.cshtml" />
-    <Content Include="Views\TravelReports2\Delete.cshtml" />
-    <Content Include="Views\TravelReports2\Details.cshtml" />
-    <Content Include="Views\TravelReports2\Edit.cshtml" />
-    <Content Include="Views\TravelReports2\Index.cshtml" />
     <Content Include="Views\TravelReports\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>

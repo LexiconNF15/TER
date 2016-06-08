@@ -14,10 +14,13 @@
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.FullName)
-            @Html.Partial("_SelectPartialView")
-        </th>
+        @if (!User.IsInRole("Assistant"))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.FullName)
+                @Html.Partial("_SelectPartialView")
+            </th>
+        }
         <th>
             @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().StatusType.StatusName)
         </th>
@@ -37,39 +40,39 @@
         <th>
             @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().DepartureDate)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().DepartureTime)
-        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().DepartureTime)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ReturnDate)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ReturnTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().DepartureHoursExtra)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ReturnHoursExtra)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().FullDay)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().HalfDay)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Night)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().BreakfastReduction)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().LunchReduction)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().DinnerReduction)
-        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ReturnTime)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().DepartureHoursExtra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ReturnHoursExtra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().FullDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().HalfDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Night)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().BreakfastDeduction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().LunchOrDinnerDeduction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().AllMealsDeduction)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Comment)
         </th>
@@ -79,9 +82,12 @@
     @foreach (var item in Model.SelectedTRUser)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
-            </td>
+            @if (!User.IsInRole("Assistant"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
+                </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.StatusType.StatusName)
             </td>
@@ -100,40 +106,40 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DepartureDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartureTime)
+                @*</td>
+                    <td>*@
+                @*@Html.DisplayFor(modelItem => item.DepartureTime)*@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ReturnDate)
+                @*</td>
+                    <td>*@
+                @*@Html.DisplayFor(modelItem => item.ReturnTime)*@
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReturnTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartureHoursExtra)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReturnHoursExtra)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullDay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HalfDay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Night)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BreakfastReduction)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LunchReduction)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DinnerReduction)
-            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.DepartureHoursExtra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnHoursExtra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HalfDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Night)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BreakfastDeduction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LunchOrDinnerDeduction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AllMealsDeduction)
+                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Comment)
             </td>

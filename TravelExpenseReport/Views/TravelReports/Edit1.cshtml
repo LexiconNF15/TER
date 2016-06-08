@@ -1,10 +1,10 @@
 ﻿@model TravelExpenseReport.Models.TravelReport
 
 @{
-    ViewBag.Title = "Edit3";
+    ViewBag.Title = "Edit1";
 }
 
-<h2>Edit1</h2>
+<h3>Ändra reseräkning</h3>
 
 
 @using (Html.BeginForm())
@@ -12,14 +12,12 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>TravelReport</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.TravelReportId)
         @Html.HiddenFor(model => model.ApplicationUserId)
         @Html.HiddenFor(model => model.TravelReportName)
-        @Html.HiddenFor(model => model.Destination)
-        @Html.HiddenFor(model => model.Purpose)
+        @*@Html.HiddenFor(model => model.Destination)
+        @Html.HiddenFor(model => model.Purpose)*@
         @Html.HiddenFor(model => model.StatusTypeId)
         @Html.HiddenFor(model => model.FullDay)
         @Html.HiddenFor(model => model.HalfDay)
@@ -28,19 +26,45 @@
 
         <h4>@Html.DisplayNameFor(model => model.TravelReportName): @Html.DisplayFor(model => model.TravelReportName)</h4>
         <h4>@Html.DisplayNameFor(model => model.StatusType.StatusName): @Html.DisplayFor(model => model.StatusType.StatusName)</h4>
-        <h4>@Html.DisplayNameFor(model => model.Destination): @Html.DisplayFor(model => model.Destination)</h4>
-        <h4>@Html.DisplayNameFor(model => model.Purpose): @Html.DisplayFor(model => model.Purpose)</h4>
+        @*<h4>@Html.DisplayNameFor(model => model.Destination): @Html.DisplayFor(model => model.Destination)</h4>
+        <h4>@Html.DisplayNameFor(model => model.Purpose): @Html.DisplayFor(model => model.Purpose)</h4>*@
+        <hr />
+
         <div class="form-group">
-            @Html.LabelFor(model => model.DepartureDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Patient.PatientName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
+                @Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DepartureTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Destination, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Purpose, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Purpose, "", new { @class = "text-danger" })
+            </div>
+        </div>
+ 
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartureDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
+            </div>
+            @*</div>*@
+
+            @*<div class="form-group">*@
+            @*@Html.LabelFor(model => model.DepartureTime, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-2">
                 @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DepartureTime, "", new { @class = "text-danger" })
             </div>
@@ -48,25 +72,33 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.ReturnDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-2">
                 @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
             </div>
-        </div>
+            @*</div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReturnTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @*<div class="form-group">*@
+            @*@Html.LabelFor(model => model.ReturnTime, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-sm-2">
                 @Html.EditorFor(model => model.ReturnTime, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ReturnTime, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartureHoursExtra, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DepartureHoursExtra, new { htmlAttributes = new { @class = "form-control", min = 0 } })
+                @Html.ValidationMessageFor(model => model.DepartureHoursExtra, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Patient.PatientName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ReturnHoursExtra, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ReturnHoursExtra, new { htmlAttributes = new { @class = "form-control", min = 0 } })
+                @Html.ValidationMessageFor(model => model.ReturnHoursExtra, "", new { @class = "text-danger" })
             </div>
         </div>
 

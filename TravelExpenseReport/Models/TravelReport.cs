@@ -27,21 +27,21 @@ namespace TravelExpenseReport.Models
         [Required]
         public string Purpose { get; set; }
 
-        [DisplayName("Avresa datum")]
+        [DisplayName("Avresa")]
         [DataType(DataType.Date)]
         public DateTime DepartureDate { get; set; }
 
-        [DisplayName("Avresa tid")]
+        //[DisplayName("Avresa tid")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan DepartureTime { get; set; }
 
 
-        [DisplayName("Hemkomst datum")]
+        [DisplayName("Hemkomst")]
         [DataType(DataType.Date)]
         public DateTime ReturnDate { get; set; }
 
-        [DisplayName("Hemkomst tid")]
+        //[DisplayName("Hemkomst tid")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan ReturnTime { get; set; }
@@ -66,17 +66,21 @@ namespace TravelExpenseReport.Models
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? Night { get; set; }
 
-        [DisplayName("Avdrag frukost")]
+        [DisplayName("Frukost")]
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
-        public int? BreakfastReduction { get; set; }
+        public int? BreakfastDeduction { get; set; }
 
-        [DisplayName("Avdrag lunch")]
+        [DisplayName("Lunch el. middag")]
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
-        public int? LunchReduction { get; set; }
+        public int? LunchOrDinnerDeduction { get; set; }
 
-        [DisplayName("Avdrag middag")]
+        [DisplayName("Lunch och middag")]
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
-        public int? DinnerReduction { get; set; }
+        public int? LunchAndDinnerDeduction { get; set; }
+
+        [DisplayName("Frukost, lunch och middag")]
+        [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
+        public int? AllMealsDeduction { get; set; }
 
         [DisplayName("Status")]
         public int StatusTypeId { get; set; }
@@ -99,7 +103,7 @@ namespace TravelExpenseReport.Models
         {
             if (ReturnDate < DepartureDate)
             {
-                yield return new ValidationResult("Hemkomstdatum måste vara senare eller lika med avresedatum!");
+                yield return new ValidationResult("Hemkomstdatum måste vara avresedatum eller senare!");
             }
         }
 
@@ -107,9 +111,10 @@ namespace TravelExpenseReport.Models
         // Set default values
         public TravelReport()
         {
-            BreakfastReduction = 0;
-            LunchReduction = 0;
-            DinnerReduction = 0;
+            BreakfastDeduction = 0;
+            LunchOrDinnerDeduction = 0;
+            LunchAndDinnerDeduction = 0;
+            AllMealsDeduction = 0;
             DepartureHoursExtra = 0;
             ReturnHoursExtra = 0;
             //StatusTypeId = 4;

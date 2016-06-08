@@ -35,6 +35,10 @@
             @Html.DisplayFor(model => model.TravelReportName)
         </dd>
 
+        <dt>@Html.DisplayNameFor(model => model.Patient.PatientName)</dt>
+        
+        <dd>@Html.DisplayFor(model => model.Patient.PatientName)</dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Destination)
         </dt>
@@ -59,13 +63,13 @@
             @Html.DisplayFor(model => model.DepartureDate)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.DepartureTime)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.DepartureTime)
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.ReturnDate)
@@ -75,7 +79,7 @@
             @Html.DisplayFor(model => model.ReturnDate)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.ReturnTime)
         </dt>
 
@@ -124,28 +128,28 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.BreakfastReduction)
+            @Html.DisplayNameFor(model => model.BreakfastDeduction)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BreakfastReduction)
+            @Html.DisplayFor(model => model.BreakfastDeduction)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LunchReduction)
+            @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LunchReduction)
+            @Html.DisplayFor(model => model.LunchOrDinnerDeduction)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DinnerReduction)
+            @Html.DisplayNameFor(model => model.AllMealsDeduction)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DinnerReduction)
-        </dd>
+            @Html.DisplayFor(model => model.AllMealsDeduction)
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.Comment)

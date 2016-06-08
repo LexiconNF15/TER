@@ -19,14 +19,18 @@
     <div class="form-horizontal">
         <h4>@Html.DisplayNameFor(model => model.ApplicationUser.FullName): @Html.DisplayFor(model => model.ApplicationUser.FullName)  </h4>
         <h4>@Html.DisplayNameFor(model => model.TravelReportName): @Html.DisplayFor(model => model.TravelReportName) </h4>
-        <h4>@Html.DisplayNameFor(model => model.PatientId): @Html.DisplayFor(model => model.PatientId)</h4>
+        <h4>@Html.DisplayNameFor(model => model.Patient.PatientName): @Html.DisplayFor(model => model.Patient.PatientName)</h4>
+        <h4>@Html.DisplayNameFor(model => model.Destination): @Html.DisplayFor(model => model.Destination)</h4>
+        <h4>@Html.DisplayNameFor(model => model.Purpose): @Html.DisplayFor(model => model.Purpose)</h4>
         <h4>@Html.DisplayNameFor(model => model.DepartureDate): @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)</h4>
         <h4>@Html.DisplayNameFor(model => model.ReturnDate): @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)</h4>
+        <h4>@Html.DisplayNameFor(model => model.DepartureHoursExtra): @Html.DisplayFor(model => model.DepartureHoursExtra)</h4>
+        <h4>@Html.DisplayNameFor(model => model.ReturnHoursExtra): @Html.DisplayFor(model => model.ReturnHoursExtra)</h4>
         <h4>@Html.DisplayNameFor(model => model.StatusType.StatusName): @Html.DisplayFor(model => model.StatusType.StatusName)</h4>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-2">
-                <input type="submit" value="Ändra datum/tid" name="button" class="btn btn-default btn-primary" />
+                <input type="submit" value="Ändra" name="button" class="btn btn-default btn-primary" />
             </div>
         </div>
     </div>
@@ -50,41 +54,12 @@
     @Html.HiddenFor(model => model.FullDay)
     @Html.HiddenFor(model => model.HalfDay)
     @Html.HiddenFor(model => model.Night)
+    @Html.HiddenFor(model => model.DepartureHoursExtra)
+    @Html.HiddenFor(model => model.ReturnHoursExtra)
+    @Html.HiddenFor(model => model.PatientId)
 
 
     <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Destination)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Destination)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Purpose)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Purpose)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartureHoursExtra)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DepartureHoursExtra)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReturnHoursExtra)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReturnHoursExtra)
-        </dd>
 
         @if (@ViewBag.Traktamente)
         {
@@ -113,27 +88,33 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.BreakfastReduction)
+                @Html.DisplayNameFor(model => model.BreakfastDeduction)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.BreakfastReduction) a' @ViewBag.LegalAmount.BreakfastReductionAmount
+                @Html.DisplayFor(model => model.BreakfastDeduction) a' @ViewBag.LegalAmount.BreakfastAmount
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.LunchReduction)
+                @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
             </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.LunchReduction) a' @ViewBag.LegalAmount.LunchReductionAmount
+                    @Html.DisplayFor(model => model.LunchOrDinnerDeduction) a' @ViewBag.LegalAmount.LunchOrDinnerAmount
                 </dd>
-
                 <dt>
-                    @Html.DisplayNameFor(model => model.DinnerReduction)
+                    @Html.DisplayNameFor(model => model.LunchAndDinnerDeduction)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.DinnerReduction) a' @ViewBag.LegalAmount.DinnerReductionAmount
+                    @Html.DisplayFor(model => model.LunchAndDinnerDeduction) a' @ViewBag.LegalAmount.LunchAndDinnerAmount
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AllMealsDeduction)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AllMealsDeduction) a' @ViewBag.LegalAmount.AllMealsAmount
                 </dd>
         }
         else
