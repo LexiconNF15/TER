@@ -146,18 +146,33 @@
             @if (User.IsInRole("Assistant"))
             {
                 <td>
-                    @Html.ActionLink("Beräkna igen", "Edit2", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
-                    @Html.ActionLink("Summera", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+                    @*@Html.ActionLink("Beräkna igen", "Edit2", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })*@
                     @if (item.StatusType.StatusName == "Ny")
                     {
-                        @Html.ActionLink("Tag bort", "Delete", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+                        @Html.ActionLink("Visa/ändra", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+                        @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+                    }
+                    @if (item.StatusType.StatusName == "Ej godkänd")
+                    {
+                        @Html.ActionLink("Visa/ändra", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
                     }
                 </td>
             }
             else
             {
                 <td>
-                    @Html.ActionLink("Beräkna igen", "Edit2", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+                    @if (ViewBag.ActiveUser == item.ApplicationUserId)
+                    {
+                        if (item.StatusType.StatusName == "Ny")
+                        {
+                            @Html.ActionLink("Visa/ändra", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+                            @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+                        }
+                        if (item.StatusType.StatusName == "Ej godkänd")
+                        {
+                            @Html.ActionLink("Visa/ändra", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+                        }    
+                    }
                     @if (item.StatusType.StatusName == "Inskickad")
                     {
                         @Html.ActionLink("Granska", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })

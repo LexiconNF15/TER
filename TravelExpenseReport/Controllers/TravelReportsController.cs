@@ -31,29 +31,11 @@ namespace TravelExpenseReport.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: TravelReports
-        public ActionResult IndexOld()
-        {
-            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
-
-            if (User.IsInRole("Assistant"))
-            {
-                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Where(t => t.ApplicationUserId == ActiveUser.Id).OrderBy(t => t.TravelReportName);
-                return View(travelReports.ToList());
-            }
-            else
-            {
-                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                var selection = new TravelReportViewModel();
-                ViewBag.SelectUserId = new SelectList(db.Users, "Id", "FullName", ActiveUser.Id);
-                return View(travelReports.ToList());
-
-            }
-        }
-
         public ActionResult Index(TravelReportViewModel1 selection)
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+            ViewBag.ActiveUser = ActiveUser.Id;
+
             var _selection = selection;
             if (User.IsInRole("Assistant"))
             {
@@ -353,7 +335,7 @@ namespace TravelExpenseReport.Controllers
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
-            ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == travelReport.ApplicationUserId).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName");
+            ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == travelReport.ApplicationUserId).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName", travelReport.PatientId);
             return View(travelReport);
         }
 
@@ -432,7 +414,7 @@ namespace TravelExpenseReport.Controllers
 
                 if (button == "Ändra traktamente")
                 {
-                    travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Ny/Beräknad").FirstOrDefault().StatusTypeId;
+                    //travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Ny/Beräknad").FirstOrDefault().StatusTypeId;
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Edit2", new { id = travelReport.TravelReportId });
@@ -556,7 +538,7 @@ namespace TravelExpenseReport.Controllers
             if (ModelState.IsValid)
             {
 
-                if (button == "Summera")
+                if (button == "Visa/ändra")
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
@@ -600,92 +582,6 @@ namespace TravelExpenseReport.Controllers
         //        }
 
         //
-
-        // GET: TravelReports/Calculate/5
-        //
-        // The view Calculate will present the calculated sum of allowance for expenses
-        //
-        public ActionResult Calculate(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TravelReport travelReport = db.TravelReports.Find(id);
-            if (travelReport == null)
-            {
-                return HttpNotFound();
-            }
-            //var legalAmount = db.LegalAmounts.FirstOrDefault();
-            var legalAmount = db.LegalAmounts.Where(l => l.ValidDate <= travelReport.DepartureDate).OrderByDescending(l => l.ValidDate).FirstOrDefault();
-            ViewBag.LegalAmount = legalAmount;
-
-            var sumOfAll = SumOfAllowance(travelReport);
-            ViewBag.Summa = sumOfAll;
-
-            var expensesThisTravel = db.Expenses.Where(e => e.TravelReportId == travelReport.TravelReportId);
-            int noOfExpenses = expensesThisTravel.Count();
-            decimal sumOfExpenses = 0;
-            foreach (var e1 in expensesThisTravel)
-            {
-                sumOfExpenses = sumOfExpenses + (decimal)e1.ExpenseAmount;
-            }
-
-            ViewBag.NoOfExpenses = noOfExpenses;
-            ViewBag.SummaPlus = sumOfAll + sumOfExpenses;
-
-            ViewBag.TravelReportId = travelReport.TravelReportId;
-
-            return View(travelReport);
-        }
-
-        // POST: TravelReports/Calculate/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Calculate([Bind(Include = "TravelReportId,ApplicationUserId,PatientId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastDeduction,LunchOrDinnerDeduction,LunchAndDinnerDeduction,AllMealsDeduction,StatusTypeId,Comment")] TravelReport travelReport, string button)
-        {
-            if (ModelState.IsValid)
-            {
-
-                if (button == "Summera")
-                {
-                    db.Entry(travelReport).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Calculate", new { id = travelReport.TravelReportId });
-                }
-                if (button == "Lägg till utgifter")
-                {
-                    db.Entry(travelReport).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Create", "Expenses", new { tId = travelReport.TravelReportId });
-                }
-                if (button == "Skicka in")
-                {
-                    travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Inskickad").FirstOrDefault().StatusTypeId;
-                    db.Entry(travelReport).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-
-                return RedirectToAction("Calculate", new { id = travelReport.TravelReportId });
-
-            }
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
-            return View(travelReport);
-        }
-
-        //
-        //                if (ModelState.IsValid)
-        //        {
-        //            db.TravelReports.Add(travelReport);
-        //            db.SaveChanges();
-        //            return RedirectToAction("Edit2", new { id = travelReport.TravelReportId
-        //});
-        //        }
-
 
         // GET: TravelReports/Delete/5
         public ActionResult Delete(int? id)

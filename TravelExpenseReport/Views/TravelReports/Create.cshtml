@@ -55,8 +55,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Patient.PatientName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @*@Html.HiddenFor(model => model.PatientId)*@
                 @*@Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control" })*@
-                @Html.DropDownList("PatientId", null, "Ingen brukare", htmlAttributes: new { @class = "form-control" })
+                @*@Html.DropDownList("PatientId", null, "Ingen brukare", htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownListFor(model => model.PatientId, (SelectList)ViewBag.PatientId, "Ingen brukare", htmlAttributes: new { @class = "form-control" } )
+                
+
                 @*@Html.DropDownList("PatientId", new List<SelectListItem>() { new SelectListItem() { Value = "0", Text = "Ingen brukare" } }, htmlAttributes: new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
             </div>

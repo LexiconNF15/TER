@@ -1,7 +1,7 @@
 ﻿@model TravelExpenseReport.Models.TravelReport
 
 @{
-    ViewBag.Title = "Summera";
+    ViewBag.Title = "Visa/ändra";
     int travelReportId = 0;
     if (ViewBag.TravelReportId != null)
     {
@@ -9,7 +9,7 @@
     }
 }
 
-<h2>Summerad reseräkning</h2>
+<h2>Visa/ändra reseräkning</h2>
 
 
 @using (Html.BeginForm())
@@ -57,6 +57,12 @@
     @Html.HiddenFor(model => model.DepartureHoursExtra)
     @Html.HiddenFor(model => model.ReturnHoursExtra)
     @Html.HiddenFor(model => model.PatientId)
+    @Html.HiddenFor(model => model.BreakfastDeduction)
+    @Html.HiddenFor(model => model.LunchOrDinnerDeduction)
+    @Html.HiddenFor(model => model.LunchAndDinnerDeduction)
+    @Html.HiddenFor(model => model.AllMealsDeduction)
+
+
 
 
     <dl class="dl-horizontal">
@@ -126,13 +132,13 @@
                 Denna resa ger ej traktamente
             </dd>
         }
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Comment)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Comment)
-        </dd>
+        </dd>*@
 
         <dt>
             Summa utan utgifter
@@ -146,6 +152,8 @@
         </dt>
         <dd>
         </dd>
+
+        <hr />
 
         <dt>
             Utgifter

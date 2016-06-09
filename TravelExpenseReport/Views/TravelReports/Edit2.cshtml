@@ -172,9 +172,9 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.AllMealsDeduction, htmlAttributes: new { @class = "control-label col-md-2", min = 0, max = Model.FullDay + Model.HalfDay })
+                @Html.LabelFor(model => model.AllMealsDeduction, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.AllMealsDeduction, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.AllMealsDeduction, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay + Model.HalfDay } })
                     @Html.ValidationMessageFor(model => model.AllMealsDeduction, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -249,7 +249,7 @@
                 <input type="submit" value="Lägg till utgifter" name="button" class="btn btn-default" />
             </div>
             <div class="col-md-2">
-                <input type="submit" value="Summera" name="button" class="btn btn-default btn-primary" />
+                <input type="submit" value="Visa/ändra" name="button" class="btn btn-default btn-primary" />
             </div>
            @*<div class="col-md-2">
                 <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-primary" />
