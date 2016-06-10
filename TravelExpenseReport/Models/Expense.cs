@@ -12,7 +12,7 @@ namespace TravelExpenseReport.Models
     {
         public int ExpenseId { get; set; }
 
-        [DisplayName("Utgiftstyp")]
+        [DisplayName("Kostnad")]
         public int ExpenseTypeId { get; set; }
 
         [DisplayName("Beskrivning")]
@@ -23,11 +23,11 @@ namespace TravelExpenseReport.Models
         public DateTime ExpenseDate { get; set; }
 
         //[Required]
-        [RegularExpression("[0-9]+,?[0-9]?[0-9]?", ErrorMessage = "Ange kostnad som siffror med decimalkomma, ex. 124,50")]
-        [DisplayName("Kostnad")]
+        [RegularExpression("[0-9]+,?[0-9]?[0-9]?", ErrorMessage = "Ange belopp som siffror med decimalkomma, ex. 124,50")]
+        [DisplayName("Belopp")]
         public string ExpenseAmountInfo { get; set; }
 
-        [DisplayName("Kostnad")]
+        [DisplayName("Belopp")]
         public decimal? ExpenseAmount { get; set; }
 
         [DisplayName("Kilometer")]

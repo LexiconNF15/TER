@@ -10,7 +10,7 @@ namespace TravelExpenseReport.Models
     {
         public int ExpenseTypeId { get; set; }
 
-        [DisplayName("Utgiftstyp")]
+        [DisplayName("Kostnad")]
         public string ExpenseTypeName { get; set; }
 
         public virtual ICollection<Expense> Expenses { get; set; }

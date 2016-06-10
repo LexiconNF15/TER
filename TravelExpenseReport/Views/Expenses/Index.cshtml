@@ -5,77 +5,79 @@
 }
 
         <h4>
-            @Html.ActionLink("Ny Utgift", "Create", new { tId = ViewBag.ActualTravelReportId })
+            @*@Html.ActionLink("Ny kostnad", "Create", new { tId = ViewBag.ActualTravelReportId})*@
+            @Html.ActionLink("Ny kostnad", "Create", new { tId = ViewBag.ActualTravelReportId },new { @class = "btn btn-default btn-primary" })
         </h4>
-        <h4>
+    @*<h4>
             @ViewBag.ActiveTravelReport.TravelReportName
             @ViewBag.ActiveTravelReport.ApplicationUser.FullName
             @ViewBag.ActiveTravelReport.DepartureDate.Date.ToString("yyyy-MM-dd")
             @ViewBag.ActiveTravelReport.ReturnDate.Date.ToString("yyyy-MM-dd")
 
-        </h4>
+        </h4>*@
+    <h4> Reseräkning: @ViewBag.ActiveTravelReport.TravelReportName</h4>
+                <h3>Lista över kostnader</h3>
 
-        <h3>Utgifter</h3>
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
+                        </th>
+                        @*<th>
+                        @Html.DisplayNameFor(model => model.TravelReport.ApplicationUserId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TravelReport.TravelReportName)
+                    </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExpenseDescription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExpenseDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExpenseAmount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExpenseMilage)
+                        </th>
+                        <th></th>
+                    </tr>
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
-                </th>
-                @*<th>
-                    @Html.DisplayNameFor(model => model.TravelReport.ApplicationUserId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TravelReport.TravelReportName)
-                </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpenseDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpenseDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpenseAmount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpenseMilage)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
+                    @foreach (var item in Model)
             {
-                <tr>
-                    @*@Html.Partial("_ExpenseItem", item)*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
-                    </td>
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.TravelReport.ApplicationUser.FullName)
-                    </td>*@
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.TravelReport.TravelReportName)
-                    </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseAmount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseMilage)
-                    </td>
+                        <tr>
+                            @*@Html.Partial("_ExpenseItem", item)*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
+                            </td>
+                            @*<td>
+                            @Html.DisplayFor(modelItem => item.TravelReport.ApplicationUser.FullName)
+                        </td>*@
+                            @*<td>
+                            @Html.DisplayFor(modelItem => item.TravelReport.TravelReportName)
+                        </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpenseDescription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpenseDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpenseMilage)
+                            </td>
 
-                    <td>
-                        @Html.ActionLink("Ändra", "Edit", new { id = item.ExpenseId }) |
-                        @Html.ActionLink("Detaljer", "Details", new { id = item.ExpenseId }) |
-                        @Html.ActionLink("Radera", "Delete", new { id = item.ExpenseId })
-                    </td>
-                </tr>
-            }
+                            <td>
+                                @Html.ActionLink("Ändra", "Edit", new { id = item.ExpenseId }) |
+                                @Html.ActionLink("Detaljer", "Details", new { id = item.ExpenseId }) |
+                                @Html.ActionLink("Radera", "Delete", new { id = item.ExpenseId })
+                            </td>
+                        </tr>
+                    }
 
-        </table>
-                    @Html.ActionLink("Visa/ändra", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, null)
+                </table>
+                @*@Html.ActionLink("Till reseräkningen", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, null)*@
+                @Html.ActionLink("Till reseräkningen", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-primary" })

@@ -4,10 +4,10 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+@*<h3>Radera</h3>*@
 
 <div>
-    <h4>Radera Utgift </h4>
+    <h4>Radera kostnad</h4>
     <hr />
 
     <h4>
@@ -65,9 +65,10 @@
         <div class="form-actions no-color">
             <input type="submit" value="Radera" class="btn btn-default btn-danger" />
         </div>
-            <div>
-                @Html.ActionLink("Tillbaka", "Index", new { tId = @ViewBag.ActualTravelReportId })
-            </div>
+        <div>
+                @Html.ActionLink("Visa Kostnader", "Index", new { tId = @ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-primary" })
+                @Html.ActionLink("Till reseräkningen", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-primary" })
+        </div>
     }
 </div>
 
