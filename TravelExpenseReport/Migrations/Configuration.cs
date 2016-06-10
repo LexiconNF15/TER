@@ -106,6 +106,16 @@ namespace TravelExpenseReport.Migrations
                 {
                     ExpenseTypeId = 5,
                     ExpenseTypeName = "Buss, spårvagn, mm"
+                },
+                   new ExpenseType
+                    {
+                    ExpenseTypeId = 6,
+                    ExpenseTypeName = "Hyrbil"
+                },
+                   new ExpenseType
+                    {
+                    ExpenseTypeId = 7,
+                    ExpenseTypeName = "Övrigt"
                 }
                };
 
@@ -641,7 +651,14 @@ namespace TravelExpenseReport.Migrations
                     PatientId = 4,
                     StaffUserId= NewUserList[3].Id,
                     StaffRoleId = 1
-                  }
+                  },
+                 new PatientUser
+                {
+                    PatientUserId = 10,
+                    PatientId = 1,
+                    StaffUserId = NewUserList[0].Id,
+                    StaffRoleId =1
+                 }
              };
 
             foreach (var pu in patientUsers)

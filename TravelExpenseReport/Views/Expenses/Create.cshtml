@@ -4,16 +4,17 @@
     ViewBag.Title = "Create";
 
 }
-<h4>
+@*<h4>
 
     @ViewBag.ActiveTravelReport.TravelReportName
     @ViewBag.ActiveTravelReport.ApplicationUser.FullName
     @ViewBag.ActiveTravelReport.DepartureDate.Date.ToString("yyyy-MM-dd")
-    @ViewBag.ActiveTravelReport.ReturnDate.Date.ToString("yyyy-MM-dd")
+    @ViewBag.ActiveTravelReport.DepartureDate.Date.ToString("yyyy-MM-dd")
 
-</h4>
-
-<h3>Ny Utgift</h3>
+</h4>*@
+<h4> Reseräkning: @ViewBag.ActiveTravelReport.TravelReportName </h4>
+<h4> Resedatum: @ViewBag.ActiveTravelReport.DepartureDate.Date.ToString("yyyy-MM-dd") @ViewBag.ActiveTravelReport.DepartureDate.Date.ToString("yyyy-MM-dd") </h4>
+<h3>Ny kostnad</h3>
 <h5 class="text-danger"> @ViewBag.ErrorMsg</h5>
 @using (Html.BeginForm())
 {
@@ -23,7 +24,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.ExpenseTypeId, "ExpenseTypeId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ExpenseTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ExpenseTypeId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ExpenseTypeId, "", new { @class = "text-danger" })
@@ -85,7 +86,8 @@
 }
 
 <div>
-      @Html.ActionLink("Tillbaka", "Index", new { tId = @ViewBag.ActualTravelReportId })
+      @Html.ActionLink("Visa kostnader", "Index", new { tId = @ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-primary" })
+      @Html.ActionLink("Till reseräkningen", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-primary" })
 </div>
 @*<div>
     @Html.ActionLink("Spara utgiften", "Index")

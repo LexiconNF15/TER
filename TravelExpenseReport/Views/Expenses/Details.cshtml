@@ -4,12 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@*<h3>Detaljer</h3>*@
 
 <div>
-    <h4>Utgiftsinformation</h4>
+    <h3>Kostnadsinformation</h3>
 
-    <h4>
+    @*<h4>
 
         @Html.DisplayFor(model => model.TravelReport.TravelReportName)
 
@@ -17,7 +17,7 @@
 
         @Html.HiddenFor(model => model.TravelReportId, new { @Value = @ViewBag.ActualTravelReportId, @readonly = "true" })
 
-    </h4>
+    </h4>*@
     @*<hr />*@
    
     <dl class="dl-horizontal">
@@ -65,6 +65,7 @@
  </div>
        
 <p>
-    @Html.ActionLink("Ändra", "Edit", new { id = Model.ExpenseId }) |
-    @Html.ActionLink("Tillbaka", "Index", new { tId = Model.TravelReportId })
+    @Html.ActionLink("Ändra kostnad", "Edit", new { id = Model.ExpenseId }, new { @class = "btn btn-default btn-primary" }) 
+    @Html.ActionLink("Visa kostnader", "Index", new { tId = Model.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+    @Html.ActionLink("Till reseräkningen", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-primary" })
 </p>
