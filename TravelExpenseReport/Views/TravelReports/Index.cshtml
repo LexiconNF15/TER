@@ -143,7 +143,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Comment)
             </td>
-            @if (User.IsInRole("Assistant"))
+            @*@if (User.IsInRole("Assistant"))*@
+            @if (ViewBag.ActiveUser == item.ApplicationUserId)
             {
                 <td>
                     @*@Html.ActionLink("Beräkna igen", "Edit2", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })*@
@@ -161,9 +162,10 @@
             else
             {
                 <td>
-                    @if (ViewBag.ActiveUser == item.ApplicationUserId)
+
+                    @*@if (ViewBag.ActiveUser == item.ApplicationUserId)
                     {
-                        if (item.StatusType.StatusName == "Ny")
+                    @*if (item.StatusType.StatusName == "Ny")
                         {
                             @Html.ActionLink("Visa/ändra", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
                             @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
@@ -171,11 +173,13 @@
                         if (item.StatusType.StatusName == "Ej godkänd")
                         {
                             @Html.ActionLink("Visa/ändra", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
-                        }    
-                    }
-                    @if (item.StatusType.StatusName == "Inskickad")
+                        }*@
+                    @if (!User.IsInRole("Assistant"))
                     {
-                        @Html.ActionLink("Granska", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+                        if (item.StatusType.StatusName == "Inskickad")
+                        {
+                            @Html.ActionLink("Granska", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })
+                        }
                     }
                 </td>
             }

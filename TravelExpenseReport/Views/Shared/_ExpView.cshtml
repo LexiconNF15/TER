@@ -1,43 +1,79 @@
 ﻿@model IEnumerable<TravelExpenseReport.Models.Expense>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpenseAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpenseDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpenseDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpenseMilage)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpenseAmount)
-        </td>
-        <td>
+<dl class="dl-horizontal">
+@foreach (var item in Model)
+{
+        <dt>
             @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpenseDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpenseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpenseMilage)
-        </td>
-    </tr>
+        </dt>
+        <dd>
+            @Html.DisplayFor(modelItem => item.ExpenseAmount)
+        </dd>
 }
+    </dl>
 
-</table>
+        @*@foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpenseDescription)
+                    </td>
+        <td>
+                @Html.DisplayFor(modelItem => item.ExpenseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseMilage)
+            </td>
+        </tr>
+            }
+
+            </table>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpenseAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpenseDescription)
+                </th>
+        <th>
+                @Html.DisplayNameFor(model => model.ExpenseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpenseMilage)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpenseDescription)
+                    </td>
+        <td>
+                @Html.DisplayFor(modelItem => item.ExpenseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseMilage)
+            </td>
+        </tr>
+            }
+
+            </table>*@

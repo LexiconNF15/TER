@@ -364,6 +364,9 @@ namespace TravelExpenseReport.Controllers
         //
         public ActionResult Calc(int? id)
         {
+            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+            ViewBag.ActiveUser = ActiveUser.Id;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -419,7 +422,7 @@ namespace TravelExpenseReport.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Edit2", new { id = travelReport.TravelReportId });
                 }
-                if (button == "Lägg till utgifter")
+                if (button == "Ny resekostnad")
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
@@ -544,7 +547,7 @@ namespace TravelExpenseReport.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Calc", new { id = travelReport.TravelReportId });
                 }
-                if (button == "Lägg till utgifter")
+                if (button == "Ny resekostnad")
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();

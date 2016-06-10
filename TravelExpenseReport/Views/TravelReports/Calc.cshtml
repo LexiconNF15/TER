@@ -9,38 +9,83 @@
     }
 }
 
-<h2>Visa/ändra reseräkning</h2>
+<h3>Visa/ändra reseräkning</h3>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    <h4>Reseinformation</h4>
 
-    <div class="form-horizontal">
-        <h4>@Html.DisplayNameFor(model => model.ApplicationUser.FullName): @Html.DisplayFor(model => model.ApplicationUser.FullName)  </h4>
-        <h4>@Html.DisplayNameFor(model => model.TravelReportName): @Html.DisplayFor(model => model.TravelReportName) </h4>
-        <h4>@Html.DisplayNameFor(model => model.Patient.PatientName): @Html.DisplayFor(model => model.Patient.PatientName)</h4>
-        <h4>@Html.DisplayNameFor(model => model.Destination): @Html.DisplayFor(model => model.Destination)</h4>
-        <h4>@Html.DisplayNameFor(model => model.Purpose): @Html.DisplayFor(model => model.Purpose)</h4>
-        <h4>@Html.DisplayNameFor(model => model.DepartureDate): @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)</h4>
-        <h4>@Html.DisplayNameFor(model => model.ReturnDate): @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)</h4>
-        <h4>@Html.DisplayNameFor(model => model.DepartureHoursExtra): @Html.DisplayFor(model => model.DepartureHoursExtra)</h4>
-        <h4>@Html.DisplayNameFor(model => model.ReturnHoursExtra): @Html.DisplayFor(model => model.ReturnHoursExtra)</h4>
-        <h4>@Html.DisplayNameFor(model => model.StatusType.StatusName): @Html.DisplayFor(model => model.StatusType.StatusName)</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.PatientName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Patient.PatientName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Destination)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Destination)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Purpose)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Purpose)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartureDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartureHoursExtra)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartureHoursExtra)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnHoursExtra)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReturnHoursExtra)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusType.StatusName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StatusType.StatusName)
+        </dd>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-2">
-                <input type="submit" value="Ändra" name="button" class="btn btn-default btn-primary" />
-            </div>
-        </div>
-    </div>
+
+        <dt>
+            <input type="submit" value="Ändra" name="button" class="btn btn-default btn-primary" />
+        </dt>
+        <dd></dd>
+    </dl>
 
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.ApplicationUserId)
 
 
-   
+
     @Html.HiddenFor(model => model.TravelReportId)
     @Html.HiddenFor(model => model.TravelReportName)
     @Html.HiddenFor(model => model.PatientId)
@@ -63,12 +108,12 @@
     @Html.HiddenFor(model => model.AllMealsDeduction)
 
 
-
+    <h4>Traktamente</h4>
 
     <dl class="dl-horizontal">
 
         @if (@ViewBag.Traktamente)
-        {
+                {
             <dt>
                 @Html.DisplayNameFor(model => model.FullDay)
             </dt>
@@ -81,29 +126,29 @@
                 @Html.DisplayNameFor(model => model.HalfDay)
             </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.HalfDay) a' @ViewBag.LegalAmount.HalfDayAmount
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.HalfDay) a' @ViewBag.LegalAmount.HalfDayAmount
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Night)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Night)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.BreakfastDeduction)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BreakfastDeduction)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.BreakfastDeduction) a' @ViewBag.LegalAmount.BreakfastAmount
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.BreakfastDeduction) a' @ViewBag.LegalAmount.BreakfastAmount
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
+                </dt>
 
                 <dd>
                     @Html.DisplayFor(model => model.LunchOrDinnerDeduction) a' @ViewBag.LegalAmount.LunchOrDinnerAmount
@@ -122,58 +167,80 @@
                 <dd>
                     @Html.DisplayFor(model => model.AllMealsDeduction) a' @ViewBag.LegalAmount.AllMealsAmount
                 </dd>
+                <dt>
+                    Summa
+                </dt>
+
+                <dd>
+                    @ViewBag.Summa
+                </dd>
+                <dt>
+                    <input type="submit" value="Ändra traktamente" name="button" class="btn btn-default btn-primary" />
+                </dt>
+                <dd>
+                </dd>
         }
         else
         {
+
             <dt>
-                Traktamente
+                Inget traktamente
             </dt>
             <dd>
-                Denna resa ger ej traktamente
+
             </dd>
         }
+
+    </dl>
+
+    <hr />
+    <h4>Resekostnader</h4>
+
+            @*@Html.Partial("_ExpView", Model.Expenses)*@
+
+    <dl class="dl-horizontal">
+
+        @foreach (var item in Model.Expenses)
+        {
+            <dt>
+                @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(modelItem => item.ExpenseAmount)
+            </dd>
+        }
+
+    @*</dl>
+
+    <dl class="dl-horizontal">*@
+
         @*<dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>*@
-
+                Utgifter
+            </dt>
+            <dd>
+                @{Html.RenderPartial("_ExpView", Model.Expenses);}
+            </dd>*@
         <dt>
-            Summa utan utgifter
-        </dt>
-
-        <dd>
-            @ViewBag.Summa
-        </dd>
-        <dt>
-            <input type="submit" value="Ändra traktamente" name="button" class="btn btn-default btn-primary" />
-        </dt>
-        <dd>
-        </dd>
-
-        <hr />
-
-        <dt>
-            Utgifter
-        </dt>
-        <dd>
-            @{Html.RenderPartial("_ExpView", Model.Expenses);}
-        </dd>
-        <dt>
-            <input type="submit" value="Lägg till utgifter" name="button" class="btn btn-default btn-primary" />
-        </dt>
-        <dd>        </dd>
-        <dt>
-            Summa utgifter för @ViewBag.NoOfExpenses st
+            Summa resekostnader
+             @*för @ViewBag.NoOfExpenses st*@
         </dt>
         <dd>
             @ViewBag.SumOfExpenses
         </dd>
 
         <dt>
-            Summa med utgifter
+            <input type="submit" value="Ny resekostnad" name="button" class="btn btn-default btn-primary" />
+        </dt>
+        <dd>        </dd>
+    </dl>
+
+        <hr />
+        <h4>Summering</h4>
+
+    <dl class="dl-horizontal">
+
+        <dt>
+            Totalsumma
         </dt>
 
         <dd>
@@ -182,7 +249,7 @@
 
     </dl>
 
-    <div class="form-group">
+        <div class="form-group">
             <div class="form-group">
                 @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -190,33 +257,35 @@
                     @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
                 </div>
             </div>
-        @if (User.IsInRole("Assistant"))
-        {
-            <div class="col-md-offset-2 col-md-2">
-                <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-primary" />
-            </div>
-            <div class="col-md-8">
-                <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
-            </div>
+            @*@if (User.IsInRole("Assistant"))*@
+                @if (ViewBag.ActiveUser == Model.ApplicationUserId)
+
+                {
+                <div class="col-md-offset-2 col-md-2">
+                    <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-primary" />
+                </div>
+                    <div class="col-md-8">
+                        <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
+                    </div>
+            }
+            else
+            {
+                <div class="col-md-offset-2 col-md-1">
+                    <input type="submit" value="Godkänd" name="button" class="btn btn-default btn-primary" />
+                </div>
+                    <div class="col-md-1">
+                        <input type="submit" value="Ej godkänd" name="button" class="btn btn-default btn-primary" />
+                    </div>
+                    <div class="col-md-8">
+                        <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
+                    </div>
+            }
+        </div>
+
+
+
         }
-        else
-        {
-            <div class="col-md-offset-2 col-md-1">
-                <input type="submit" value="Godkänd" name="button" class="btn btn-default btn-primary" />
-            </div>
-            <div class="col-md-1">
-                <input type="submit" value="Ej godkänd" name="button" class="btn btn-default btn-primary" />
-            </div>
-            <div class="col-md-8">
-                <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
-            </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
         }
-    </div>
-
-
-
-                }
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
