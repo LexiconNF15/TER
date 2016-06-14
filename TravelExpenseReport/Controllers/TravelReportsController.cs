@@ -31,57 +31,25 @@ namespace TravelExpenseReport.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Index(TravelReportViewModel1 selection)
+        public ActionResult Index(TravelReportViewModel1 selection, string selectedUserId)
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
             ViewBag.ActiveUser = ActiveUser.Id;
-            var LenaUser = ActiveUser.Id;
-            //var LenaPatients1 = db.PatientUsers.Where(t => t.StaffUserId == LenaUser).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId);
-            //var LenaPatients1 = db.PatientUsers.Where(t => t.StaffUserId == LenaUser).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId).Include(t=>t.TravelReport).Where(t=>t.Patient.PatientId == t.TravelReprort.PatientId);
-            //var LenaPatients = db.Patients.Where(t => t.CustomerId == ActiveUser.CustomerId).Select(t => t.PatientUser);
-
-            //var StaffPatientsUsers = db.PatientUsers.Where(u => u.StaffUserId == ActiveUser.Id ).ToList().FirstOrDefault();
-            ////var TRreports = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
-            var TRreports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-
-
-            //foreach (var tr in TRreports)
-            //{
-            //    if (tr.PatientId == LenaPatients1.PatientId)
-            //    {
-            //        // lägg till i selectlistan
-            //    }
-            //}
-
 
             var _selection = selection;
-
             if (User.IsInRole("Assistant"))
             {
                 var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == ActiveUser.Id).OrderBy(t => t.TravelReportName);
                 _selection.SelectedTRUser = travelReports;
                 return View(selection);
             }
-            else if (User.IsInRole("WorkAdministrator"))
-            {
-               // var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                var lenaReports = db.PatientUsers.Where(t => t.StaffUserId == LenaUser).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId);
-                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == ActiveUser.Id).OrderBy(t => t.TravelReportName);
-                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId && t.PatientId == t.Patient.PatientId).Include(t => t.PatientUsers).Where(r => r.StaffUserId == ActiveUser.Id)).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                // var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId && t.PatientId == t.Patient.PatientId).Include(t => t.PatientUsers.Select(r => r.StaffUserId == ActiveUser.Id)).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                // var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId && t.PatientId == t.Patient.PatientId).Include(t => t.PatientUsers.Where(r => r.StaffUserId == ActiveUser.Id)).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == ActiveUser.Id).OrderBy(t => t.TravelReportName);
-
-                _selection.SelectedTRUser = travelReports;
-                return View(selection);
-                }
             else
+            {
+                if (selection.UserList == null)
                 {
-               
-                    if (selection.UserList == null)
+
+                    if (selectedUserId == null)
                     {
-                        //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                         var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                         _selection.SelectedTRUser = travelReports;
                         var _selectiont1 = new TravelReportViewModel();
@@ -90,67 +58,42 @@ namespace TravelExpenseReport.Controllers
                         _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
 
                         _selection.UserList = _selectiont1;
+                    }
+                    else
+                    {
+                        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                        _selection.SelectedTRUser = travelReports;
+                        var _selectiont1 = new TravelReportViewModel();
+                        _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
+                        _selectiont1.SelectedTravelUser = selectedUserId;
+                        _selection.UserList = _selectiont1;
 
-                        }
-                        else
-                        {
+                        //_selection.UserList.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
+                        //_selection.UserList.TravelUsers = new SelectList(db.Users, "Id", "FullName");
+                    }
+
+                }
+                else
+                {
+                    if (selectedUserId == null)
+                    {
                         var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                         _selection.SelectedTRUser = travelReports;
                         _selection.UserList.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
-                         }
-                        return View(_selection);
+                    }
+                    else
+                    {
+                        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                        _selection.SelectedTRUser = travelReports;
+                        var _selectiont1 = new TravelReportViewModel();
+                        _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
+                        _selection.UserList = _selectiont1;
+                    }
 
                 }
+                    return View(_selection);
             }
-            //if (User.IsInRole("Workassistant"))  // försök att lösa "ta bort" "ingen kund" TR rapporter i listan.
-            //{
-            //    if (selection.UserList == null)
-            //    {
-            //        //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-            //        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-            //       // var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).Include(t => t.PatientUser).Where(t => t.PatientId == t.Patient.PatientId).Select(g => g.PatientUsers).Where(p => p.StaffUserId == ApplicationUser.Id).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-            //        //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).Include(t => t.PatientUsers).Where(t => t.PatientId == t.Patient.PatientId).Include(g => g.PatientUsers).Where(t => t.PatientId == t.PatientUsers.PatientId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-            //        //ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName");
-            //        _selection.SelectedTRUser = travelReports;
-            //        var _selectiont1 = new TravelReportViewModel();
-
-
-            //        _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
-
-            //        _selection.UserList = _selectiont1;
-
-            //    }
-            //    else
-            //    {
-            //        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-            //        _selection.SelectedTRUser = travelReports;
-            //        _selection.UserList.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
-            //    }
-
-
-            //}
-            //else
-            //{
-            //    if (selection.UserList == null)
-            //    {
-            //        //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-            //        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-            //        _selection.SelectedTRUser = travelReports;
-            //        var _selectiont1 = new TravelReportViewModel();
-
-
-            //        _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
-
-            //        _selection.UserList = _selectiont1;
-
-            //    }
-            //    else
-            //    {
-            //        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-            //        _selection.SelectedTRUser = travelReports;
-            //        _selection.UserList.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
-            //    }
-        
+        }
 
 
         // GET: TravelReports/Details/5
@@ -165,6 +108,26 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Traktamente = (travelReport.Night != 0);
+            var legalAmount = db.LegalAmounts.Where(l => l.ValidDate <= travelReport.DepartureDate).OrderByDescending(l => l.ValidDate).FirstOrDefault();
+            ViewBag.LegalAmount = legalAmount;
+
+            var sumOfAll = SumOfAllowance(travelReport);
+            ViewBag.Summa = sumOfAll;
+
+            var expensesThisTravel = db.Expenses.Where(e => e.TravelReportId == travelReport.TravelReportId);
+            int noOfExpenses = expensesThisTravel.Count();
+            decimal sumOfExpenses = 0;
+            foreach (var e1 in expensesThisTravel)
+            {
+                sumOfExpenses = sumOfExpenses + (decimal)e1.ExpenseAmount;
+            }
+
+            ViewBag.NoOfExpenses = noOfExpenses;
+            ViewBag.SumOfExpenses = sumOfExpenses;
+
+            ViewBag.SummaPlus = sumOfAll + sumOfExpenses;
+
             return View(travelReport);
         }
 
@@ -174,7 +137,7 @@ namespace TravelExpenseReport.Controllers
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
             //var patientUser = db.PatientUsers.Where(pu => pu.StaffUserId == ActiveUser.Id).Include(p =>p.Patient);
-            
+
             //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName");
             ViewBag.StatusName = db.StatusTypes.FirstOrDefault().StatusName;
             ViewBag.StatusTypeId1 = db.StatusTypes.Where(stt => stt.StatusName == "Ny").FirstOrDefault().StatusTypeId;
@@ -204,7 +167,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateTest([Bind(Include = "TravelReportId,ApplicationUserId,PatientId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastDeduction,LunchOrDinnerDeduction,LunchAndDinnerDeduction,AllMealsDeduction,StatusTypeId,Comment")] TravelReport travelReport , Patient patient)
+        public ActionResult CreateTest([Bind(Include = "TravelReportId,ApplicationUserId,PatientId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastDeduction,LunchOrDinnerDeduction,LunchAndDinnerDeduction,AllMealsDeduction,StatusTypeId,Comment")] TravelReport travelReport, Patient patient)
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
 
@@ -283,7 +246,7 @@ namespace TravelExpenseReport.Controllers
             ViewBag.StatusName = db.StatusTypes.FirstOrDefault().StatusName;
             ViewBag.StatusTypeId1 = db.StatusTypes.Where(stt => stt.StatusName == "Ny").FirstOrDefault().StatusTypeId;
             ViewBag.ApplicationUserId1 = ActiveUser.Id;
-     
+
             ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName");
             //ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName", String.Empty);
 
@@ -445,10 +408,11 @@ namespace TravelExpenseReport.Controllers
         //
         // The view Calculate will present the calculated sum of allowance for expenses
         //
-        public ActionResult Calc(int? id)
+        public ActionResult Calc(int? id, string selectedUserId)
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
             ViewBag.ActiveUser = ActiveUser.Id;
+            ViewBag.SelectedUserId = selectedUserId;
 
             if (id == null)
             {
@@ -493,7 +457,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Calc([Bind(Include = "TravelReportId,ApplicationUserId,PatientId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastDeduction,LunchOrDinnerDeduction,LunchAndDinnerDeduction,AllMealsDeduction,StatusTypeId,Comment")] TravelReport travelReport, string button)
+        public ActionResult Calc([Bind(Include = "TravelReportId,ApplicationUserId,PatientId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastDeduction,LunchOrDinnerDeduction,LunchAndDinnerDeduction,AllMealsDeduction,StatusTypeId,Comment")] TravelReport travelReport, string button, string selectedUserId)
         {
             if (ModelState.IsValid)
             {
@@ -516,25 +480,25 @@ namespace TravelExpenseReport.Controllers
                     travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Inskickad").FirstOrDefault().StatusTypeId;
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { selectedUserId = selectedUserId });
                 }
                 if (button == "Godkänd")
                 {
                     travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Godkänd").FirstOrDefault().StatusTypeId;
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { selectedUserId = selectedUserId });
                 }
                 if (button == "Ej godkänd")
                 {
                     travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Ej godkänd").FirstOrDefault().StatusTypeId;
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { selectedUserId = selectedUserId });
                 }
                 if (button == "Till listan")
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { selectedUserId = selectedUserId });
                 }
                 if (button == "Ändra")
                 {

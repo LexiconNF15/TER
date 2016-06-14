@@ -1,170 +1,199 @@
 ﻿@model TravelExpenseReport.Models.TravelReport
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Visa";
 }
 
-<h2>Details</h2>
+<h3>Visa reseräkning</h3>
 
-<div>
-    <h4>TravelReport</h4>
-    <hr />
+
+
+    <h4>Reseinformation</h4>
+
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUser.FullName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StatusType.StatusName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StatusType.StatusName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TravelReportName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TravelReportName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Destination)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Destination)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Purpose)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Purpose)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartureDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DepartureDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartureTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DepartureTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReturnDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReturnDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReturnTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReturnTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartureHoursExtra)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DepartureHoursExtra)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReturnHoursExtra)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReturnHoursExtra)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FullDay)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FullDay)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HalfDay)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HalfDay)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Night)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Night)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BreakfastDeduction)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BreakfastDeduction)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LunchOrDinnerDeduction)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LunchAndDinnerDeduction)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LunchAndDinnerDeduction)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AllMealsDeduction)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AllMealsDeduction)
-        </dd>
-
+    <dt>
+        @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.ApplicationUser.FullName)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Patient.PatientName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Patient.PatientName)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Destination)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Destination)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Purpose)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Purpose)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.DepartureDate)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.ReturnDate)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.DepartureHoursExtra)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.DepartureHoursExtra)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.ReturnHoursExtra)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.ReturnHoursExtra)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.StatusType.StatusName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.StatusType.StatusName)
+    </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Comment)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Comment)
         </dd>
+</dl>
+
+    <hr />
+
+    <h4>Traktamente</h4>
+
+    <dl class="dl-horizontal">
+
+        @if (@ViewBag.Traktamente)
+                {
+            <dt>
+                @Html.DisplayNameFor(model => model.FullDay)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FullDay) a' @ViewBag.LegalAmount.FullDayAmount
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.HalfDay)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.HalfDay) a' @ViewBag.LegalAmount.HalfDayAmount
+            </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Night)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BreakfastDeduction)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BreakfastDeduction) a' @ViewBag.LegalAmount.BreakfastAmount
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LunchOrDinnerDeduction) a' @ViewBag.LegalAmount.LunchOrDinnerAmount
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LunchAndDinnerDeduction)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LunchAndDinnerDeduction) a' @ViewBag.LegalAmount.LunchAndDinnerAmount
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AllMealsDeduction)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AllMealsDeduction) a' @ViewBag.LegalAmount.AllMealsAmount
+                </dd>
+                <dt>
+                    Summa
+                </dt>
+
+                <dd>
+                    @ViewBag.Summa
+                </dd>
+                
+        }
+        else
+        {
+
+            <dt>
+                Inget traktamente
+            </dt>
+            <dd>
+
+            </dd>
+        }
 
     </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TravelReportId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+    <hr />
+    <h4>Resekostnader</h4>
+
+    <dl class="dl-horizontal">
+
+        @foreach (var item in Model.Expenses)
+        {
+            <dt>
+                @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(modelItem => item.ExpenseAmount)
+            </dd>
+        }
+
+        <dt>
+            Summa resekostnader
+        </dt>
+        <dd>
+            @ViewBag.SumOfExpenses
+        </dd>
+
+        </dl>
+
+    <hr />
+        <h4>Summering</h4>
+
+        <dl class="dl-horizontal">
+
+            <dt>
+                Totalsumma
+            </dt>
+
+            <dd>
+                @ViewBag.SummaPlus
+            </dd>
+
+        </dl>
+
+ 
+
