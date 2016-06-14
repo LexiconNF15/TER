@@ -9,7 +9,7 @@
     }
 }
 
-<h3>Visa/ändra reseräkning</h3>
+<h3>Ändra reseräkning</h3>
 
 
 @using (Html.BeginForm())
@@ -73,11 +73,13 @@
             @Html.DisplayFor(model => model.StatusType.StatusName)
         </dd>
 
-
-        <dt>
-            <input type="submit" value="Ändra" name="button" class="btn btn-default btn-primary" />
-        </dt>
-        <dd></dd>
+        @if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
+        {
+            <dt>
+                <input type="submit" value="Ändra" name="button" class="btn btn-default btn-primary" />
+            </dt>
+            <dd></dd>
+        }
     </dl>
 
     <hr />
@@ -126,21 +128,21 @@
                 @Html.DisplayNameFor(model => model.HalfDay)
             </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.HalfDay) a' @ViewBag.LegalAmount.HalfDayAmount
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.HalfDay) a' @ViewBag.LegalAmount.HalfDayAmount
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Night)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Night)
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
+            </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.BreakfastDeduction)
-                </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BreakfastDeduction)
+            </dt>
 
                 <dd>
                     @Html.DisplayFor(model => model.BreakfastDeduction) a' @ViewBag.LegalAmount.BreakfastAmount
@@ -174,11 +176,14 @@
                 <dd>
                     @ViewBag.Summa
                 </dd>
+            if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
+            {
                 <dt>
                     <input type="submit" value="Ändra traktamente" name="button" class="btn btn-default btn-primary" />
                 </dt>
                 <dd>
                 </dd>
+            }
         }
         else
         {
@@ -196,7 +201,7 @@
     <hr />
     <h4>Resekostnader</h4>
 
-            @*@Html.Partial("_ExpView", Model.Expenses)*@
+    @*@Html.Partial("_ExpView", Model.Expenses)*@
 
     <dl class="dl-horizontal">
 
@@ -210,9 +215,9 @@
             </dd>
         }
 
-    @*</dl>
+        @*</dl>
 
-    <dl class="dl-horizontal">*@
+            <dl class="dl-horizontal">*@
 
         @*<dt>
                 Utgifter
@@ -222,20 +227,22 @@
             </dd>*@
         <dt>
             Summa resekostnader
-             @*för @ViewBag.NoOfExpenses st*@
+            @*för @ViewBag.NoOfExpenses st*@
         </dt>
         <dd>
             @ViewBag.SumOfExpenses
         </dd>
-
-        <dt>
-            <input type="submit" value="Ny resekostnad" name="button" class="btn btn-default btn-primary" />
-        </dt>
-        <dd>        </dd>
+        @if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
+        {
+            <dt>
+                <input type="submit" value="Ny resekostnad" name="button" class="btn btn-default btn-primary" />
+            </dt>
+            <dd>        </dd>
+        }
     </dl>
 
-        <hr />
-        <h4>Summering</h4>
+    <hr />
+    <h4>Summering</h4>
 
     <dl class="dl-horizontal">
 
@@ -249,43 +256,42 @@
 
     </dl>
 
+    <div class="form-group">
         <div class="form-group">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
-                </div>
+            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
             </div>
-            @*@if (User.IsInRole("Assistant"))*@
-                @if (ViewBag.ActiveUser == Model.ApplicationUserId)
-
-                {
-                <div class="col-md-offset-2 col-md-2">
-                    <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-primary" />
-                </div>
-                    <div class="col-md-8">
-                        <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
-                    </div>
-            }
-            else
-            {
-                <div class="col-md-offset-2 col-md-1">
-                    <input type="submit" value="Godkänd" name="button" class="btn btn-default btn-primary" />
-                </div>
-                    <div class="col-md-1">
-                        <input type="submit" value="Ej godkänd" name="button" class="btn btn-default btn-primary" />
-                    </div>
-                    <div class="col-md-8">
-                        <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
-                    </div>
-            }
         </div>
+    </div>
 
 
+    if (ViewBag.ActiveUser == Model.ApplicationUserId)
+    {
+        <div class="col-md-offset-2 col-md-2">
+            <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-primary" />
+        </div>
+                <div class="col-md-8">
+                    <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
+                </div>
+    }
+    else
+    {
+        <div class="col-md-offset-2 col-md-1">
+            <input type="submit" value="Godkänd" name="button" class="btn btn-default btn-primary" />
+        </div>
+                <div class="col-md-1">
+                    <input type="submit" value="Ej godkänd" name="button" class="btn btn-default btn-primary" />
+                </div>
+                <div class="col-md-8">
+                    <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
+                </div>
+    }
 
-        }
+}
 
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
