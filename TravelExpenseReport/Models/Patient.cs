@@ -21,5 +21,6 @@ namespace TravelExpenseReport.Models
         [ForeignKey("PatientId")]
         public virtual ICollection<PatientUser> PatientUser { get; set; }
 
-       }
+       
+    }
 }

@@ -21,7 +21,7 @@ namespace TravelExpenseReport.Migrations
             var roleStore = new RoleStore<IdentityRole>(context);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            foreach (string roleName in new[] { "Assistant", "WorkAdministrator", "Patient" })
+            foreach (string roleName in new[] { "Assistant", "WorkAdministrator", "Patient", "Administrator" })
             {
                 if (!context.Roles.Any(r => r.Name == roleName))
                 {
@@ -34,14 +34,14 @@ namespace TravelExpenseReport.Migrations
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
+            var NewUserList = new List<ApplicationUser>();
+
             var users = new List<ApplicationUser> {
                 new ApplicationUser {FullName = "Oscar Antonsson", Email = "oscar.antonsson@ab.se", UserName = "oscar.antonsson@ab.se",CustomerId = 1},
                 new ApplicationUser {FullName = "Sara Björn", Email = "sara.bjorn@test.se", UserName = "sara.bjorn@test.se",CustomerId = 2},
                 new ApplicationUser {FullName = "Allan Persson", Email = "allan.persson@ab.se", UserName = "allan.persson@ab.se",CustomerId = 1}
 
             };
-
-            var NewUserList = new List<ApplicationUser>();
 
             foreach (var u in users)
             {
@@ -80,7 +80,20 @@ namespace TravelExpenseReport.Migrations
                 NewUserList.Add(user);
                 userManager.AddToRole(user.Id, "Patient");
             }
-            
+
+            var users4 = new List<ApplicationUser> {
+                new ApplicationUser {FullName = "Anna Karlsson", Email = "anna.karlsson@ab.se", UserName = "anna.karlsson@ab.se",CustomerId = 1},
+                new ApplicationUser {FullName = "Ulf Svensson", Email = "ulf.svensson@test.se", UserName = "ulf.svensson@test.se",CustomerId = 2}
+             };
+
+            foreach (var u in users4)
+            {
+                userManager.Create(u, "foobar");
+                var user = userManager.FindByEmail(u.Email);
+                NewUserList.Add(user);
+                userManager.AddToRole(user.Id, "Administrator");
+            }
+
             var expenseTypes = new List<ExpenseType> {
                 new ExpenseType
                 {
@@ -412,6 +425,56 @@ namespace TravelExpenseReport.Migrations
                     LunchAndDinnerDeduction = 0,
                     AllMealsDeduction = 0,
                     StatusTypeId = 2,
+                    Comment = null
+                 },
+                new TravelReport
+                {
+                    TravelReportId = 9,
+                    //ApplicationUserId = "cb791d4e-92a8-41ba-aeb3-be2d3000af15",
+                    ApplicationUserId = NewUserList[10].Id,
+                    TravelReportName = "2016-001",
+                    PatientId = 1,
+                    Destination = "Sälen",
+                    Purpose = "Konferens",
+                    DepartureDate = DateTime.Parse("2016-07-01 00:00:00"),
+                    DepartureTime = TimeSpan.Parse("08:45:00"),
+                    ReturnDate = DateTime.Parse("2016-07-13 00:00:00"),
+                    ReturnTime = TimeSpan.Parse("22:30:00"),
+                    DepartureHoursExtra = 1 ,
+                    ReturnHoursExtra = 2,
+                    FullDay = 13,
+                    HalfDay = 0,
+                    Night = 13,
+                    BreakfastDeduction = 0,
+                    LunchOrDinnerDeduction = 1,
+                    LunchAndDinnerDeduction = 0,
+                    AllMealsDeduction = 0,
+                    StatusTypeId = 1,
+                    Comment = null
+                 },
+                new TravelReport
+                {
+                    TravelReportId = 10,
+                    //ApplicationUserId = "f77513f6-4c8b-4eb2-9896-b292dd9a294e",
+                    ApplicationUserId = NewUserList[11].Id,
+                    PatientId = 2,
+                    TravelReportName = "2016-001",
+                    Destination = "Malmö",
+                    Purpose = "Ledningsgruppsmöte",
+                    DepartureDate = DateTime.Parse("2016-07-14 00:00:00"),
+                    DepartureTime = TimeSpan.Parse("17:45:00"),
+                    ReturnDate = DateTime.Parse("2016-07-16 00:00:00"),
+                    ReturnTime = TimeSpan.Parse("19:30:00"),
+                    DepartureHoursExtra = 2 ,
+                    ReturnHoursExtra = 0,
+                    FullDay = 1,
+                    HalfDay = 1,
+                    Night = 1,
+                    BreakfastDeduction = 0,
+                    LunchOrDinnerDeduction = 0,
+                    LunchAndDinnerDeduction = 0,
+                    AllMealsDeduction = 0,
+                    StatusTypeId = 1,
                     Comment = null
                  }
                 };
