@@ -37,7 +37,7 @@ namespace TravelExpenseReport.Controllers
         }
 
 // GET: Expenses
-public ActionResult Index(int tId)
+        public ActionResult Index(int tId)
         {
             var activeUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
             ViewBag.ActualTravelReportId = tId;

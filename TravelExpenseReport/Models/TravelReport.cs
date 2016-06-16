@@ -96,6 +96,9 @@ namespace TravelExpenseReport.Models
         [ForeignKey("PatientId")]
         public virtual Patient Patient { get; set; }
 
+
+        //public virtual ICollection<PatientUser> PatientUsers { get; set; }
+
         [ForeignKey("StatusTypeId")]
         public virtual StatusType StatusType { get; set; }
 
