@@ -150,15 +150,15 @@
                     @*@Html.ActionLink("Beräkna igen", "Edit2", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })*@
                     @if (item.StatusType.StatusName == "Ny")
                     {
-                        @Html.ActionLink("Ändra", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-sm btn-primary" })
-                        @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-btn-primary" })
+                        @Html.ActionLink("Ändra", "Calc", new { id = item.TravelReportId, selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-default btn-sm btn-primary" })
+                        @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId, selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-default btn-btn-primary" })
                     }
                     else
                     {
 
                         if (item.StatusType.StatusName == "Ej godkänd")
                         {
-                            @Html.ActionLink("Ändra", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-sm btn-primary" })
+                            @Html.ActionLink("Ändra", "Calc", new { id = item.TravelReportId, selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-default btn-sm btn-primary" })
                         }
                         else
                         {
@@ -195,7 +195,7 @@
                             }
                             else
                             {
-                                @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-sm btn-primary" })
+                                @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId, selectedUserId = Model.UserList.SelectedTravelUser }, new { @class = "btn btn-default btn-sm btn-primary" })
                             }
                         }
                     }

@@ -77,9 +77,14 @@ namespace TravelExpenseReport.Controllers
                 {
                     if (selectedUserId == null)
                     {
+
                         var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                         _selection.SelectedTRUser = travelReports;
+                        //var _selectiont1 = new TravelReportViewModel();
+                        //_selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
+                        //_selection.UserList = _selectiont1;
                         _selection.UserList.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
+                        ViewBag.SelectedUserId = _selection.UserList.SelectedTravelUser;
                     }
                     else
                     {
@@ -97,12 +102,14 @@ namespace TravelExpenseReport.Controllers
 
 
         // GET: TravelReports/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string selectedUserId)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.SelectedUserId = selectedUserId;
+
             TravelReport travelReport = db.TravelReports.Find(id);
             if (travelReport == null)
             {
@@ -447,6 +454,7 @@ namespace TravelExpenseReport.Controllers
 
             ViewBag.Traktamente = (travelReport.Night != 0);
 
+            ViewBag.Comment = travelReport.Comment;
 
             return View(travelReport);
         }
