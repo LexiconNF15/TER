@@ -169,17 +169,17 @@ namespace TravelExpenseReport.Migrations
                 {
                     StatusTypeId = 6,
                     StatusName = "Utbetald"
-                    },
-                new StatusType
-                {
-                    StatusTypeId = 7,
-                    StatusName = "Ny/Beräknad"
-                    },
-                new StatusType
-                {
-                    StatusTypeId = 8,
-                    StatusName = "Ny/Summerad"
-                }
+                    }
+                //new StatusType
+                //{
+                //    StatusTypeId = 7,
+                //    StatusName = "Ny/Beräknad"
+                //    },
+                //new StatusType
+                //{
+                //    StatusTypeId = 8,
+                //    StatusName = "Ny/Summerad"
+                //}
             };
 
             foreach (var st in statusTypes)
