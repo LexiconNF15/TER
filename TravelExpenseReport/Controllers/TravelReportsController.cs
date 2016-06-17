@@ -862,18 +862,17 @@ namespace TravelExpenseReport.Controllers
         //Delete Notes for TravelReport
         public void DeleteNotes(int travelReportId)
         {
-            //int actualTravelreportId = travelReportId;
+            int actualTravelreportId = travelReportId;
 
-            //var notesToDelete = db.Notes.Where(e => e.TravelReportId == actualTravelreportId);
+            var notesToDelete = db.Notes.Where(e => e.TravelReportId == actualTravelreportId);
 
-            //foreach (var n in notesToDelete)
-            //{
-            //    Note note = db.Notes.Find(n.NoteId);
-            //    db.Notes.Remove(note);
-            //}
-            //db.SaveChanges();
-            
-        }
+            foreach (var n in notesToDelete)
+            {
+                Note note = db.Notes.Find(n.NoteId);
+                db.Notes.Remove(note);
+            }
+            db.SaveChanges();
+           }
 
         // GET: TravelReports/Delete/5
         public ActionResult Delete(int? id)
@@ -895,14 +894,21 @@ namespace TravelExpenseReport.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TravelReport travelReport = db.TravelReports.Find(id);
+            //TravelReport travelReport = db.TravelReports.Find(id);
             //check for expenses
             var checkForExpense = db.Expenses.Where(e => e.TravelReportId == id).FirstOrDefault();
-            //
-            DeleteExpenses(id);
+            if (checkForExpense != null)
+            {
+                DeleteExpenses(id);
+            }
+            //check for notes
+            var checkForNote = db.Notes.Where(e => e.TravelReportId == id).FirstOrDefault();
+            if (checkForNote != null)
+                {
+                    DeleteNotes(id);
+                }
 
-            DeleteNotes(id);
-
+            TravelReport travelReport = db.TravelReports.Find(id);
             db.TravelReports.Remove(travelReport);
             db.SaveChanges();
             return RedirectToAction("Index");
