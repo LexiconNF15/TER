@@ -83,6 +83,7 @@ namespace TravelExpenseReport.Migrations
 
             var users4 = new List<ApplicationUser> {
                 new ApplicationUser {FullName = "Anna Karlsson", Email = "anna.karlsson@ab.se", UserName = "anna.karlsson@ab.se",CustomerId = 1},
+                new ApplicationUser {FullName = "Paula Abdul", Email = "paula.abdul@ab.se", UserName = "paula.abdul@ab.se",CustomerId = 1},
                 new ApplicationUser {FullName = "Ulf Svensson", Email = "ulf.svensson@test.se", UserName = "ulf.svensson@test.se",CustomerId = 2}
              };
 
@@ -483,8 +484,7 @@ namespace TravelExpenseReport.Migrations
             foreach (var tr in travelReport)
             {
                 context.TravelReports.AddOrUpdate(t => t.TravelReportId, tr);
-                //context.ExpenseTypes.AddOrUpdate(et);
-
+               
             }
 
 
@@ -731,7 +731,49 @@ namespace TravelExpenseReport.Migrations
 
             }
 
-        }
+            var note = new List<Note> {
+                    new Note
+                    {
+                        NoteId = 1,
+                        NoteTime = DateTime.Now,
+                        NoteInfo = "Skickar in" ,
+                        NoteStatus = "Ny",
+                        TravelReportId= 7,
+                        ApplicationUserId = NewUserList[3].Id
+                    },
+                    new Note
+                    {
+                        NoteId = 2,
+                        NoteTime = DateTime.Now,
+                        NoteInfo = "Inte godkänd",
+                        NoteStatus = "Ej godkänd",
+                        TravelReportId= 7,
+                        ApplicationUserId = NewUserList[2].Id
+                    },
+                       new Note
+                    {
+                        NoteId = 3,
+                        NoteTime = DateTime.Now,
+                        NoteInfo = "Skickar in igen" ,
+                        NoteStatus = "Inskickad",
+                        TravelReportId= 7,
+                        ApplicationUserId = NewUserList[3].Id
+                    },
+                    new Note
+                    {
+                        NoteId = 4,
+                        NoteTime = DateTime.Now,
+                        NoteInfo = "Godkänd",
+                        NoteStatus = "Godkänd",
+                        TravelReportId= 7,
+                        ApplicationUserId = NewUserList[10].Id
+                    }
+                };
 
+            foreach (var nr in note)
+            {
+                context.Notes.AddOrUpdate(n => n.NoteId, nr);
+            }
+        }
     }
 }
