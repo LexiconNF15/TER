@@ -45,6 +45,7 @@ namespace TravelExpenseReport.Controllers
             }
             else if (User.IsInRole("WorkAdministrator"))
             {
+                ViewBag.Filtered = true;
                 var patientsForUser = db.PatientUsers.Where(t => t.StaffUserId == ActiveUser.Id).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId).ToList();
                 //List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();
                 //List<TravelReport> travelReports = new List<TravelReport>();
@@ -97,6 +98,7 @@ namespace TravelExpenseReport.Controllers
                         var _selectiont1 = new TravelReportViewModel();
                         _selectiont1.TravelUsers = new SelectList(allowedTRUsers, "Id", "FullName", ActiveUser.Id);
                         _selection.UserList = _selectiont1;
+                        ViewBag.Filtered = false;
 
                     }
                     else
@@ -144,7 +146,8 @@ namespace TravelExpenseReport.Controllers
                         _selectiont1.TravelUsers = new SelectList(allowedTRUsers, "Id", "FullName", ActiveUser.Id);
                         _selectiont1.SelectedTravelUser = selectedUserId;
                         _selection.UserList = _selectiont1;
-                                               
+                        ViewBag.Filtered = true;
+
                     }
 
                 }
@@ -192,6 +195,7 @@ namespace TravelExpenseReport.Controllers
                         }
                         _selection.SelectedTRUser = travelReports;
                         _selection.UserList.TravelUsers = new SelectList(allowedTRUsers, "Id", "FullName", ActiveUser.Id);
+                        ViewBag.Filtered = true;
                     }
                     else
                     {
@@ -200,12 +204,14 @@ namespace TravelExpenseReport.Controllers
                         var _selectiont1 = new TravelReportViewModel();
                         _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
                         _selection.UserList = _selectiont1;
+                ViewBag.Filtered = true;
                     }
                 }
                 return View(_selection);
             }
             else
             {
+                ViewBag.Filtered = true;
                 if (selection.UserList == null)
                 {
 
@@ -219,6 +225,8 @@ namespace TravelExpenseReport.Controllers
                         _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
 
                         _selection.UserList = _selectiont1;
+                        ViewBag.Filtered = false;
+
                     }
                     else
                     {
@@ -757,7 +765,7 @@ namespace TravelExpenseReport.Controllers
             if (ModelState.IsValid)
             {
 
-                if (button == "Visa/ändra")
+                if (button == "Gör klar")
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();

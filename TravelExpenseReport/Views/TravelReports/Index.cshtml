@@ -18,7 +18,32 @@
         {
             <th>
                 @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.FullName)
-                @Html.Partial("_SelectPartialView")
+                <br />
+
+                @if (ViewBag.Filtered)
+                {
+                    @Html.DropDownListFor(m => m.UserList.SelectedTravelUser, Model.UserList.TravelUsers)
+                    @Html.ValidationMessageFor(m => m.UserList.SelectedTravelUser)
+                    <br />
+                    @Html.ActionLink("Visa alla", "Index", null, new { @class = "btn btn-default btn-sm btn-primary" })
+                }
+                else
+                {
+                    @*@Html.Partial("_SelectPartialView")*@
+
+                using (Html.BeginForm())
+                {
+                    @Html.DropDownListFor(m => m.UserList.SelectedTravelUser, Model.UserList.TravelUsers)
+                    @Html.ValidationMessageFor(m => m.UserList.SelectedTravelUser)
+                    <br />
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Filtrera" name="SelectedTravelItem" class="btn btn-default btn-sm btn-primary" />
+                        </div>
+                    </div>
+                    }
+                }
             </th>
         }
         <th>
@@ -150,19 +175,45 @@
                     @*@Html.ActionLink("Beräkna igen", "Edit2", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })*@
                     @if (item.StatusType.StatusName == "Ny")
                     {
-                        @Html.ActionLink("Ändra", "Calc", new { id = item.TravelReportId, selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-default btn-sm btn-primary" })
-                        @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId, selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-default btn-btn-primary" })
+                        if (User.IsInRole("Assistant"))
+                        {
+                            @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-sm btn-primary" })
+                            @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-sm btn-warning" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId, selectedUserId = Model.UserList.SelectedTravelUser }, new { @class = "btn btn-default btn-sm btn-primary" })
+                            @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId, selectedUserId = Model.UserList.SelectedTravelUser }, new { @class = "btn btn-default btn-sm btn-warning" })
+                        }
                     }
                     else
                     {
 
                         if (item.StatusType.StatusName == "Ej godkänd")
                         {
-                            @Html.ActionLink("Ändra", "Calc", new { id = item.TravelReportId, selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-default btn-sm btn-primary" })
+                            if (User.IsInRole("Assistant"))
+                            {
+                                @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId, selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-default btn-sm btn-primary" })
+                            }
+                            else
+                            {
+                            @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId, selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-default btn-sm btn-primary" })
+
+                            }
+
                         }
                         else
                         {
+                            if (User.IsInRole("Assistant"))
+                            {
                             @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-sm btn-primary" })
+
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId, selectedUserId = Model.UserList.SelectedTravelUser }, new { @class = "btn btn-default btn-sm btn-primary" })
+
+                            }
                         }
                     }
                 </td>
@@ -206,10 +257,10 @@
     }
 
 </table>
-@if (!User.IsInRole("Assistant"))
-{
-    @Html.ActionLink("Visa alla", "Index", null, new { @class = "btn btn-default btn-sm btn-primary" })
-}
+@*@if (!User.IsInRole("Assistant"))
+    {
+        @Html.ActionLink("Visa alla", "Index", null, new { @class = "btn btn-default btn-sm btn-primary" })
+    }*@
 
 
 
