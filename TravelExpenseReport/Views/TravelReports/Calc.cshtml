@@ -1,7 +1,7 @@
 ﻿@model TravelExpenseReport.Models.TravelReport
 
 @{
-    ViewBag.Title = "Visa/ändra";
+    ViewBag.Title = "Gör klar";
     int travelReportId = 0;
     if (ViewBag.TravelReportId != null)
     {
@@ -9,7 +9,7 @@
     }
 }
 
-<h3>Ändra reseräkning</h3>
+<h3>Gör klar reseräkning</h3>
 
 
 @using (Html.BeginForm())
@@ -271,22 +271,22 @@
     if (ViewBag.ActiveUser == Model.ApplicationUserId)
     {
         <div class="col-md-offset-2 col-md-2">
-            <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-primary" />
+            <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-xs btn-success" />
         </div>
                 <div class="col-md-8">
-                    <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
+                    <input type="submit" value="Till listan" name="button" class="btn btn-default btn-xs btn-primary" />
                 </div>
     }
     else
     {
         <div class="col-md-offset-2 col-md-1">
-            <input type="submit" value="Godkänd" name="button" class="btn btn-default btn-primary" />
+            <input type="submit" value="Godkänd" name="button" class="btn btn-default btn-success" />
         </div>
                 <div class="col-md-1">
-                    <input type="submit" value="Ej godkänd" name="button" class="btn btn-default btn-primary" />
+                    <input type="submit" value="Ej godkänd" name="button" class="btn btn-default btn-xs btn-warning" />
                 </div>
                 <div class="col-md-8">
-                    <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
+                    <input type="submit" value="Till listan" name="button" class="btn btn-default btn-xs btn-primary" />
                 </div>
     }
 

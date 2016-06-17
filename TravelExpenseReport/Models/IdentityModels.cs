@@ -57,7 +57,7 @@ namespace TravelExpenseReport.Models
 
         public System.Data.Entity.DbSet<TravelExpenseReport.Models.PatientUser> PatientUsers { get; set; }
 
-    
+        public System.Data.Entity.DbSet<TravelExpenseReport.Models.Note> Notes { get; set; }
 
     }
 }

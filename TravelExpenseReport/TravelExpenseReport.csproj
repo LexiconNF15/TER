@@ -213,6 +213,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LegalAmount.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\PatientUser.cs" />
     <Compile Include="Models\StaffRole.cs" />

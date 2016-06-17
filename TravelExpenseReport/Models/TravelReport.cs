@@ -90,6 +90,8 @@ namespace TravelExpenseReport.Models
 
         public virtual ICollection<Expense> Expenses { get; set; }
 
+        public virtual ICollection<Note> Notes { get; set; }
+
         [ForeignKey("ApplicationUserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
