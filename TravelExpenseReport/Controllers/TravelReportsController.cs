@@ -15,6 +15,8 @@ namespace TravelExpenseReport.Controllers
     [Authorize]
     public class TravelReportsController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public decimal SumOfAllowance(TravelReport travelReport)
         {
             var legalAmount = db.LegalAmounts.FirstOrDefault();
@@ -29,7 +31,20 @@ namespace TravelExpenseReport.Controllers
             return (decimal)allowanceSum;
         }
 
-        private ApplicationDbContext db = new ApplicationDbContext();
+        public void SaveNote(TravelReport travelReport)
+        {
+            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+
+            Note note = new Note();
+            note.ApplicationUserId = ActiveUser.FullName;
+            note.NoteTime = DateTime.Now;
+            note.NoteStatus = db.StatusTypes.Where(stt => stt.StatusTypeId == travelReport.StatusTypeId).FirstOrDefault().StatusName;
+            note.NoteInfo = travelReport.Comment;
+            note.TravelReportId = travelReport.TravelReportId;
+            db.Notes.Add(note);
+            db.SaveChanges();
+        }
+
 
         public ActionResult Index(TravelReportViewModel1 selection, string selectedUserId)
         {
@@ -625,6 +640,8 @@ namespace TravelExpenseReport.Controllers
 
             ViewBag.Comment = travelReport.Comment;
 
+            travelReport.Comment = "";
+
             return View(travelReport);
         }
 
@@ -638,10 +655,10 @@ namespace TravelExpenseReport.Controllers
         {
             if (ModelState.IsValid)
             {
+                var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
 
                 if (button == "Ändra traktamente")
                 {
-                    //travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Ny/Beräknad").FirstOrDefault().StatusTypeId;
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Edit2", new { id = travelReport.TravelReportId });
@@ -655,6 +672,9 @@ namespace TravelExpenseReport.Controllers
                 if (button == "Skicka in")
                 {
                     travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Inskickad").FirstOrDefault().StatusTypeId;
+
+                    SaveNote(travelReport);
+
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index", new { selectedUserId = selectedUserId });
@@ -662,6 +682,9 @@ namespace TravelExpenseReport.Controllers
                 if (button == "Godkänd")
                 {
                     travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Godkänd").FirstOrDefault().StatusTypeId;
+
+                    SaveNote(travelReport);
+
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index", new { selectedUserId = selectedUserId });
@@ -669,6 +692,9 @@ namespace TravelExpenseReport.Controllers
                 if (button == "Ej godkänd")
                 {
                     travelReport.StatusTypeId = db.StatusTypes.Where(stt => stt.StatusName == "Ej godkänd").FirstOrDefault().StatusTypeId;
+
+                    SaveNote(travelReport);
+
                     db.Entry(travelReport).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index", new { selectedUserId = selectedUserId });
