@@ -83,8 +83,8 @@ namespace TravelExpenseReport.Migrations
 
             var users4 = new List<ApplicationUser> {
                 new ApplicationUser {FullName = "Anna Karlsson", Email = "anna.karlsson@ab.se", UserName = "anna.karlsson@ab.se",CustomerId = 1},
-                new ApplicationUser {FullName = "Paula Abdul", Email = "paula.abdul@ab.se", UserName = "paula.abdul@ab.se",CustomerId = 1},
-                new ApplicationUser {FullName = "Ulf Svensson", Email = "ulf.svensson@test.se", UserName = "ulf.svensson@test.se",CustomerId = 2}
+                new ApplicationUser {FullName = "Ulf Svensson", Email = "ulf.svensson@test.se", UserName = "ulf.svensson@test.se",CustomerId = 2},
+                new ApplicationUser {FullName = "Paula Abdul", Email = "paula.abdul@ab.se", UserName = "paula.abdul@ab.se",CustomerId = 1}
              };
 
             foreach (var u in users4)
@@ -739,7 +739,7 @@ namespace TravelExpenseReport.Migrations
                         NoteInfo = "Skickar in" ,
                         NoteStatus = "Ny",
                         TravelReportId= 7,
-                        ApplicationUserId = NewUserList[3].Id
+                        ApplicationUserId = NewUserList[3].FullName
                     },
                     new Note
                     {
@@ -748,7 +748,7 @@ namespace TravelExpenseReport.Migrations
                         NoteInfo = "Inte godkänd",
                         NoteStatus = "Ej godkänd",
                         TravelReportId= 7,
-                        ApplicationUserId = NewUserList[2].Id
+                        ApplicationUserId = NewUserList[2].FullName
                     },
                        new Note
                     {
@@ -757,7 +757,7 @@ namespace TravelExpenseReport.Migrations
                         NoteInfo = "Skickar in igen" ,
                         NoteStatus = "Inskickad",
                         TravelReportId= 7,
-                        ApplicationUserId = NewUserList[3].Id
+                        ApplicationUserId = NewUserList[3].FullName
                     },
                     new Note
                     {
@@ -766,7 +766,7 @@ namespace TravelExpenseReport.Migrations
                         NoteInfo = "Godkänd",
                         NoteStatus = "Godkänd",
                         TravelReportId= 7,
-                        ApplicationUserId = NewUserList[10].Id
+                        ApplicationUserId = NewUserList[10].FullName
                     }
                 };
 
