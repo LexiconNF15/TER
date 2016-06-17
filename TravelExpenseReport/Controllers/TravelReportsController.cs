@@ -834,6 +834,39 @@ namespace TravelExpenseReport.Controllers
 
         //
 
+        //Delete Expenses for TravelReport
+        public void DeleteExpenses(int travelReportId)
+        {
+            int actualTravelreportId = travelReportId;
+            
+            var expensesToDelete = db.Expenses.Where(e => e.TravelReportId == actualTravelreportId);
+
+                foreach (var ex in expensesToDelete)
+                {
+                    Expense expense = db.Expenses.Find(ex.ExpenseId);
+                    db.Expenses.Remove(expense);
+                    
+                }
+                 db.SaveChanges();
+            
+        }
+
+        //Delete Notes for TravelReport
+        public void DeleteNotes(int travelReportId)
+        {
+            //int actualTravelreportId = travelReportId;
+
+            //var notesToDelete = db.Notes.Where(e => e.TravelReportId == actualTravelreportId);
+
+            //foreach (var n in notesToDelete)
+            //{
+            //    Note note = db.Notes.Find(n.NoteId);
+            //    db.Notes.Remove(note);
+            //}
+            //db.SaveChanges();
+            
+        }
+
         // GET: TravelReports/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -855,6 +888,13 @@ namespace TravelExpenseReport.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TravelReport travelReport = db.TravelReports.Find(id);
+            //check for expenses
+            var checkForExpense = db.Expenses.Where(e => e.TravelReportId == id).FirstOrDefault();
+            //
+            DeleteExpenses(id);
+
+            DeleteNotes(id);
+
             db.TravelReports.Remove(travelReport);
             db.SaveChanges();
             return RedirectToAction("Index");
