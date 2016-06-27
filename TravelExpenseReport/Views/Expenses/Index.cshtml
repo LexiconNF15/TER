@@ -16,7 +16,7 @@
 
         </h4>*@
     <h4> Reseräkning: @ViewBag.ActiveTravelReport.TravelReportName</h4>
-                <h3>Lista över kostnader</h3>
+                <h3>Lista över resekostnader</h3>
 
                 <table class="table">
                     <tr>
@@ -71,13 +71,13 @@
                             </td>
 
                             <td>
-                                @Html.ActionLink("Ändra", "Edit", new { id = item.ExpenseId }) |
-                                @Html.ActionLink("Detaljer", "Details", new { id = item.ExpenseId }) |
-                                @Html.ActionLink("Radera", "Delete", new { id = item.ExpenseId })
+                                @Html.ActionLink("Ändra", "Edit", new { id = item.ExpenseId }, new { @class = "btn btn-default btn-sm btn-primary" }) 
+                                @Html.ActionLink("Visa", "Details", new { id = item.ExpenseId }, new { @class = "btn btn-default btn-sm btn-primary" }) 
+                                @Html.ActionLink("Radera", "Delete", new { id = item.ExpenseId }, new { @class = "btn btn-default btn-sm btn-danger" })
                             </td>
                         </tr>
                     }
 
                 </table>
                 @*@Html.ActionLink("Till reseräkningen", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, null)*@
-                @Html.ActionLink("Till reseräkningen", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-primary" })
+                @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-primary" })

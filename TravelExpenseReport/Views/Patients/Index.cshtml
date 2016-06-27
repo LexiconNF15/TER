@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.CustomerId)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PatientId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PatientId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PatientId })
+            @Html.ActionLink("Ändra", "Edit", new { id = item.PatientId }, new { @class = "btn btn-default btn-sm btn-primary" }) 
+            @Html.ActionLink("Detaljer", "Details", new { id = item.PatientId }, new { @class = "btn btn-default btn-sm btn-primary" }) 
+            @Html.ActionLink("Radera", "Delete", new { id = item.PatientId }, new { @class = "btn btn-default btn-sm btn-primary" })
         </td>
     </tr>
 }
