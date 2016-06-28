@@ -21,7 +21,7 @@ namespace TravelExpenseReport.Migrations
             var roleStore = new RoleStore<IdentityRole>(context);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            foreach (string roleName in new[] { "Assistant", "GroupAdmin", "Patient", "Administrator","Other" })
+            foreach (string roleName in new[] { "Assistant", "GroupAdmin", "Patient", "Administrator","Other", "Outsider"})
             {
                 if (!context.Roles.Any(r => r.Name == roleName))
                 {
@@ -105,6 +105,18 @@ namespace TravelExpenseReport.Migrations
                 var user = userManager.FindByEmail(u.Email);
                 NewUserList.Add(user);
                 userManager.AddToRole(user.Id, "Other");
+            }
+            var users6 = new List<ApplicationUser> {
+                new ApplicationUser {FullName = "Dan Asp", Email = "dan.asp@ab.se", UserName = "dan.asp@ab.se",CustomerId = 1},
+                new ApplicationUser {FullName = "Aston Martin", Email = "aston.martin@test.se", UserName = "aston.martin@test.se",CustomerId = 2}
+            };
+
+            foreach (var u in users6)
+            {
+                userManager.Create(u, "foobar");
+                var user = userManager.FindByEmail(u.Email);
+                NewUserList.Add(user);
+                userManager.AddToRole(user.Id, "Outsider");
             }
 
             var expenseTypes = new List<ExpenseType> {
@@ -740,6 +752,13 @@ namespace TravelExpenseReport.Migrations
                 {
                     PatientUserId = 12,
                     PatientId = 2,
+                    StaffUserId = NewUserList[14].Id,
+                    StaffRoleId = 4
+                 },
+                 new PatientUser
+                {
+                    PatientUserId = 13,
+                    PatientId = 3,
                     StaffUserId = NewUserList[14].Id,
                     StaffRoleId = 4
                  }
