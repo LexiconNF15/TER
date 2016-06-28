@@ -21,7 +21,7 @@ namespace TravelExpenseReport.Migrations
             var roleStore = new RoleStore<IdentityRole>(context);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            foreach (string roleName in new[] { "Assistant", "WorkAdministrator", "Patient", "Administrator", "SysAdmin" })
+            foreach (string roleName in new[] { "Assistant", "GroupAdmin", "Patient", "Administrator","Other" })
             {
                 if (!context.Roles.Any(r => r.Name == roleName))
                 {
@@ -48,7 +48,7 @@ namespace TravelExpenseReport.Migrations
                 userManager.Create(u, "foobar");
                 var user = userManager.FindByEmail(u.Email);
                 NewUserList.Add(user);
-                userManager.AddToRole(user.Id, "WorkAdministrator");
+                userManager.AddToRole(user.Id, "GroupAdmin");
             }
 
 
@@ -95,8 +95,8 @@ namespace TravelExpenseReport.Migrations
                 userManager.AddToRole(user.Id, "Administrator");
             }
             var users5 = new List<ApplicationUser> {
-                new ApplicationUser {FullName = "Cecilia Ritter", Email = "cecilia.ritter@ab.se", UserName = "cecilia.ritter@ab.se",CustomerId = 1},
-                new ApplicationUser {FullName = "Cecilia Ritter", Email = "cecilia.ritter@test.se", UserName = "cecilia.ritter@test.se",CustomerId = 2}
+                new ApplicationUser {FullName = "Klara Berguv", Email = "klara.berguv@ab.se", UserName = "klara.berguv@ab.se",CustomerId = 1},
+                new ApplicationUser {FullName = "Anton Vargas", Email = "anton.vargas@test.se", UserName = "anton.vargas@test.se",CustomerId = 2}
             };
 
             foreach (var u in users5)
@@ -104,7 +104,7 @@ namespace TravelExpenseReport.Migrations
                 userManager.Create(u, "foobar");
                 var user = userManager.FindByEmail(u.Email);
                 NewUserList.Add(user);
-                userManager.AddToRole(user.Id, "SysAdmin");
+                userManager.AddToRole(user.Id, "Other");
             }
 
             var expenseTypes = new List<ExpenseType> {
@@ -243,7 +243,6 @@ namespace TravelExpenseReport.Migrations
                 new TravelReport
                 {
                     TravelReportId = 1,
-                   // ApplicationUserId = "7bce74df-983d-4b45-81d5-530634133665",
                     ApplicationUserId = NewUserList[2].Id,
                     PatientId = 4,
                     TravelReportName = "2016-001",
@@ -268,7 +267,6 @@ namespace TravelExpenseReport.Migrations
                 new TravelReport
                 {
                     TravelReportId = 2,
-                    //ApplicationUserId = "7bce74df-983d-4b45-81d5-530634133665",
                     ApplicationUserId = NewUserList[1].Id,
                     PatientId = 3,
                     TravelReportName = "2016-001",
@@ -293,7 +291,6 @@ namespace TravelExpenseReport.Migrations
                 new TravelReport
                 {
                     TravelReportId = 3,
-                    //ApplicationUserId = "855555ef-8f46-4281-9161-5777699b4d2d",
                     ApplicationUserId = NewUserList[3].Id,
                     PatientId = 1,
                     TravelReportName = "2016-001",
@@ -318,7 +315,6 @@ namespace TravelExpenseReport.Migrations
                 new TravelReport
                 {
                     TravelReportId = 4,
-                    //ApplicationUserId = "855555ef-8f46-4281-9161-5777699b4d2d",
                     ApplicationUserId = NewUserList[2].Id,
                     PatientId = 1,
                     TravelReportName = "2015-001",
@@ -343,7 +339,6 @@ namespace TravelExpenseReport.Migrations
                  new TravelReport
                 {
                     TravelReportId = 5,
-                    //ApplicationUserId = "cb791d4e-92a8-41ba-aeb3-be2d3000af15",
                     ApplicationUserId = NewUserList[5].Id,
                     PatientId = 4,
                     TravelReportName = "2016-001",
@@ -368,7 +363,6 @@ namespace TravelExpenseReport.Migrations
                 new TravelReport
                 {
                     TravelReportId = 6,
-                    //ApplicationUserId = "cb791d4e-92a8-41ba-aeb3-be2d3000af15",
                     ApplicationUserId = NewUserList[1].Id,
                     TravelReportName = "2016-002",
                     PatientId = 3,
@@ -393,7 +387,6 @@ namespace TravelExpenseReport.Migrations
                 new TravelReport
                 {
                     TravelReportId = 7,
-                    //ApplicationUserId = "f77513f6-4c8b-4eb2-9896-b292dd9a294e",
                     ApplicationUserId = NewUserList[3].Id,
                     PatientId = 4,
                     TravelReportName = "2016-002",
@@ -418,7 +411,6 @@ namespace TravelExpenseReport.Migrations
                 new TravelReport
                 {
                     TravelReportId = 8,
-                    //ApplicationUserId = "f77513f6-4c8b-4eb2-9896-b292dd9a294e",
                     ApplicationUserId = NewUserList[4].Id,
                     PatientId = 2,
                     TravelReportName = "2016-001",
@@ -443,7 +435,6 @@ namespace TravelExpenseReport.Migrations
                 new TravelReport
                 {
                     TravelReportId = 9,
-                    //ApplicationUserId = "cb791d4e-92a8-41ba-aeb3-be2d3000af15",
                     ApplicationUserId = NewUserList[10].Id,
                     TravelReportName = "2016-001",
                     PatientId = 1,
@@ -468,7 +459,6 @@ namespace TravelExpenseReport.Migrations
                 new TravelReport
                 {
                     TravelReportId = 10,
-                    //ApplicationUserId = "f77513f6-4c8b-4eb2-9896-b292dd9a294e",
                     ApplicationUserId = NewUserList[11].Id,
                     PatientId = 2,
                     TravelReportName = "2016-001",
@@ -652,6 +642,11 @@ namespace TravelExpenseReport.Migrations
                 {
                     StaffRoleId=3,
                     Name = "Administratör"
+                },
+                new StaffRole
+                {
+                    StaffRoleId=4,
+                    Name = "Övrig"
                 }
 
             };
@@ -733,6 +728,20 @@ namespace TravelExpenseReport.Migrations
                     PatientId = 1,
                     StaffUserId = NewUserList[0].Id,
                     StaffRoleId =1
+                 },
+                 new PatientUser
+                {
+                    PatientUserId = 11,
+                    PatientId = 1,
+                    StaffUserId= NewUserList[13].Id,
+                    StaffRoleId = 4
+                  },
+                 new PatientUser
+                {
+                    PatientUserId = 12,
+                    PatientId = 2,
+                    StaffUserId = NewUserList[14].Id,
+                    StaffRoleId = 4
                  }
              };
 
