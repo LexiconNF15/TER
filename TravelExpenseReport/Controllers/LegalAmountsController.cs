@@ -10,6 +10,8 @@ using TravelExpenseReport.Models;
 
 namespace TravelExpenseReport.Controllers
 {
+
+    [Authorize]
     public class LegalAmountsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

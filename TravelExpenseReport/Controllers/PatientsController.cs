@@ -17,7 +17,8 @@ namespace TravelExpenseReport.Controllers
         // GET: Patients
         public ActionResult Index()
         {
-            return View(db.Patients.ToList());
+            var patients = db.Patients.Include(p => p.ApplicationUser);
+            return View(patients.ToList());
         }
 
         // GET: Patients/Details/5
@@ -38,6 +39,7 @@ namespace TravelExpenseReport.Controllers
         // GET: Patients/Create
         public ActionResult Create()
         {
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FullName");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PatientId,Name,CustomerId")] Patient patient)
+        public ActionResult Create([Bind(Include = "PatientId,PatientName,CustomerId,UserId")] Patient patient)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace TravelExpenseReport.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FullName", patient.UserId);
             return View(patient);
         }
 
@@ -70,6 +73,7 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FullName", patient.UserId);
             return View(patient);
         }
 
@@ -78,7 +82,7 @@ namespace TravelExpenseReport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PatientId,Name,CustomerId")] Patient patient)
+        public ActionResult Edit([Bind(Include = "PatientId,PatientName,CustomerId,UserId")] Patient patient)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace TravelExpenseReport.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FullName", patient.UserId);
             return View(patient);
         }
 

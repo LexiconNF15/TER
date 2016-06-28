@@ -12,7 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CustomerId)
@@ -23,15 +26,18 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CustomerId)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PatientId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PatientId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PatientId })
+            @Html.ActionLink("Ändra", "Edit", new { id = item.PatientId }, new { @class = "btn btn-default btn-sm btn-primary" }) 
+            @Html.ActionLink("Detaljer", "Details", new { id = item.PatientId }, new { @class = "btn btn-default btn-sm btn-primary" }) 
+            @Html.ActionLink("Radera", "Delete", new { id = item.PatientId }, new { @class = "btn btn-default btn-sm btn-primary" })
         </td>
     </tr>
 }

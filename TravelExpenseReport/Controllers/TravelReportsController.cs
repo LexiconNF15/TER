@@ -67,7 +67,7 @@ namespace TravelExpenseReport.Controllers
             }
             x3 = x1 + " , " + x2;
             return(x3);
-            
+
         }
 
         public ActionResult Index(TravelReportViewModel1 selection, string selectedUserId)
@@ -218,7 +218,7 @@ namespace TravelExpenseReport.Controllers
                                 }
                             }
                         }
-
+                        
                         //_selection.SelectedTRUser = travelReports;
 
                         List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();
@@ -243,7 +243,7 @@ namespace TravelExpenseReport.Controllers
                         var _selectiont1 = new TravelReportViewModel();
                         _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
                         _selection.UserList = _selectiont1;
-                        ViewBag.Filtered = true;
+                ViewBag.Filtered = true;
                     }
                 }
                 return View(_selection);
@@ -276,7 +276,7 @@ namespace TravelExpenseReport.Controllers
                         _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
                         _selectiont1.SelectedTravelUser = selectedUserId;
                         _selection.UserList = _selectiont1;
-
+                    
                     }
 
                 }
@@ -562,7 +562,7 @@ namespace TravelExpenseReport.Controllers
                 return HttpNotFound();
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             return View(travelReport);
         }
 
@@ -580,7 +580,7 @@ namespace TravelExpenseReport.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+            //ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
             return View(travelReport);
         }
 
@@ -596,8 +596,10 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+            
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+            ViewBag.StatusName = db.StatusTypes.Find(travelReport.StatusTypeId).StatusName;
+            //ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
             ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == travelReport.ApplicationUserId).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName", travelReport.PatientId);
             return View(travelReport);
         }
@@ -617,7 +619,7 @@ namespace TravelExpenseReport.Controllers
 
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+            ViewBag.StatusName = db.StatusTypes.Find(travelReport.StatusTypeId).StatusName;
             ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == travelReport.ApplicationUserId).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName", travelReport.PatientId);
             return View(travelReport);
         }
@@ -863,6 +865,7 @@ namespace TravelExpenseReport.Controllers
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+
             return View(travelReport);
         }
 
@@ -903,17 +906,17 @@ namespace TravelExpenseReport.Controllers
         public void DeleteExpenses(int travelReportId)
         {
             int actualTravelreportId = travelReportId;
-
+            
             var expensesToDelete = db.Expenses.Where(e => e.TravelReportId == actualTravelreportId);
 
-            foreach (var ex in expensesToDelete)
-            {
-                Expense expense = db.Expenses.Find(ex.ExpenseId);
-                db.Expenses.Remove(expense);
-
-            }
-            db.SaveChanges();
-
+                foreach (var ex in expensesToDelete)
+                {
+                    Expense expense = db.Expenses.Find(ex.ExpenseId);
+                    db.Expenses.Remove(expense);
+                    
+                }
+                 db.SaveChanges();
+            
         }
 
         //Delete Notes for TravelReport
@@ -929,7 +932,7 @@ namespace TravelExpenseReport.Controllers
                 db.Notes.Remove(note);
             }
             db.SaveChanges();
-        }
+           }
 
         // GET: TravelReports/Delete/5
         public ActionResult Delete(int? id)
@@ -961,9 +964,9 @@ namespace TravelExpenseReport.Controllers
             //check for notes
             var checkForNote = db.Notes.Where(e => e.TravelReportId == id).FirstOrDefault();
             if (checkForNote != null)
-            {
-                DeleteNotes(id);
-            }
+                {
+                    DeleteNotes(id);
+                }
 
             TravelReport travelReport = db.TravelReports.Find(id);
             db.TravelReports.Remove(travelReport);

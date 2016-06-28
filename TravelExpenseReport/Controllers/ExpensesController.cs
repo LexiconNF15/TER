@@ -43,8 +43,7 @@ namespace TravelExpenseReport.Controllers
             ViewBag.ActualTravelReportId = tId;
             var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport).Where(e => e.TravelReportId == tId);
             TravelReport activeTravelReport = db.TravelReports.Find(tId);
-            ViewBag.ActiveTravelReport = activeTravelReport;
-            //ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");                                      
+            ViewBag.ActiveTravelReport = activeTravelReport;                                             
             return View(expenses.ToList());
         }
 
@@ -135,9 +134,7 @@ namespace TravelExpenseReport.Controllers
                 else if (expense.ExpenseAmountInfo != null)
                 {
                     expense.ExpenseMilage = 0;
-
                     expense.ExpenseAmount = AmountCheck(expense.ExpenseAmountInfo);
-
                 }
             }
 
@@ -189,7 +186,7 @@ namespace TravelExpenseReport.Controllers
             TravelReport activeTravelReport = db.TravelReports.Find(expense.TravelReportId);
             ViewBag.ActiveTravelReport = activeTravelReport;
 
-            if (expense.ExpenseTypeId == 4) // 4 = Driving own car. 
+            if (expense.ExpenseTypeId == 4) // 4 = Driving own car. Payment per milage driven
             {
                 if (expense.ExpenseMilage > 0)
                 {
@@ -229,11 +226,7 @@ namespace TravelExpenseReport.Controllers
                 else if (expense.ExpenseAmountInfo != null)
                 {
                     expense.ExpenseMilage = 0;
-
                     expense.ExpenseAmount = AmountCheck(expense.ExpenseAmountInfo);
-               
-                    //ViewBag.ActualTravelReportId = expense.TravelReportId;
-                    //ViewBag.ActualExpenseTypeId = expense.ExpenseTypeId;
                 }
             }
 
