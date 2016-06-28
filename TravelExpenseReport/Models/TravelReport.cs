@@ -110,6 +110,10 @@ namespace TravelExpenseReport.Models
             {
                 yield return new ValidationResult("Hemkomstdatum måste vara avresedatum eller senare!");
             }
+            else if ((ReturnDate == DepartureDate) && (ReturnTime < DepartureTime))
+                {
+                    yield return new ValidationResult("Hemkomsttid måste senare än avresetid!");
+                }
         }
 
 
