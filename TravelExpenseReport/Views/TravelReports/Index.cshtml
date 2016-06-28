@@ -14,7 +14,7 @@
 
 <table class="table">
     <tr>
-        @if ((!User.IsInRole("Assistant")) && (!User.IsInRole("Patient")))
+        @if ((!User.IsInRole("Assistant")) && (!User.IsInRole("Patient")) && (!User.IsInRole("Other")))
         {
             <th>
                 @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.FullName)
@@ -23,8 +23,8 @@
                 @if (ViewBag.Filtered)
                 {
                     @*@Html.DropDownListFor(m => m.UserList.SelectedTravelUser, Model.UserList.TravelUsers)
-                    @Html.ValidationMessageFor(m => m.UserList.SelectedTravelUser)
-                    <br />*@
+                        @Html.ValidationMessageFor(m => m.UserList.SelectedTravelUser)
+                        <br />*@
                     @Html.ActionLink("Visa alla", "Index", null, new { @class = "btn btn-default btn-sm" })
                 }
                 else
@@ -98,16 +98,19 @@
             <th>
                 @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().AllMealsDeduction)
             </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Comment)
-        </th>
+        @if ((!User.IsInRole("Patient")) && (!User.IsInRole("Other")))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Comment)
+            </th>
+        }
         <th></th>
     </tr>
 
     @foreach (var item in Model.SelectedTRUser)
     {
         <tr>
-            @if (!User.IsInRole("Assistant"))
+            @if ((!User.IsInRole("Assistant")) && (!User.IsInRole("Patient")) && (!User.IsInRole("Other")))
             {
                 <td>
                     @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
@@ -165,14 +168,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.AllMealsDeduction)
                 </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            @*@if (User.IsInRole("Assistant"))*@
+            @if ((!User.IsInRole("Patient")) && (!User.IsInRole("Other")))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+            }
+
             @if (ViewBag.ActiveUser == item.ApplicationUserId)
             {
                 <td>
-                    @*@Html.ActionLink("Beräkna igen", "Edit2", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-primary" })*@
                     @if (item.StatusType.StatusName == "Ny")
                     {
                         if (User.IsInRole("Assistant"))
