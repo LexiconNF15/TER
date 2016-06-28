@@ -88,6 +88,37 @@ namespace TravelExpenseReport.Controllers
                 _selection.SelectedTRUser = travelReports;
                 return View(selection);
             }
+            else if (User.IsInRole("Other")) //Denna gren ska fixas map urval av TR
+            {
+                var patientsForUser = db.PatientUsers.Where(t => t.StaffUserId == ActiveUser.Id).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId).ToList();
+
+                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == ActiveUser.Id).OrderBy(t => t.TravelReportName);
+                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.PatientId == ActiveUser.PatientId).OrderBy(t => t.TravelReportName);
+                var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+
+                List<TravelReport> travelReports = new List<TravelReport>();
+
+                foreach (var tr in TRReports)
+                {
+                    if (ActiveUser.Id == tr.ApplicationUserId)
+                    {
+                        travelReports.Add(tr);
+                    }
+                    else
+                    {
+                        foreach (var p in patientsForUser)
+                        {
+                            if (tr.PatientId == p.PatientId)
+                            {
+                                travelReports.Add(tr);
+                            }
+
+                        }
+                    }
+                }
+                _selection.SelectedTRUser = travelReports;
+                return View(selection);
+            }
             else if (User.IsInRole("WorkAdministrator"))
             {
                 ViewBag.Filtered = true;
@@ -255,7 +286,7 @@ namespace TravelExpenseReport.Controllers
                 return View(_selection);
             }
             else
-            // user is neither assistant nor workadministrator, i.e. user is Patient or Other
+            // user is neither Assistant, GroupAdmin nor Patient, i.e. user is Administrator or Other
             {
                 ViewBag.Filtered = true;
                 if (selection.UserList == null)
