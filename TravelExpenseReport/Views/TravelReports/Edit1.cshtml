@@ -65,8 +65,6 @@
             <div class="col-md-2">
                 @*@Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control date", type = "date", id = "date1", name = "date" } })
-
-
                 @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
             </div>
             @*</div>*@
