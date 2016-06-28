@@ -56,7 +56,7 @@ namespace TravelExpenseReport.Controllers
             {
                 if (i == 0)
                 {
-                x1 = x.NoteTime.Date.ToString("d") + " " + x.NoteStatus + " " + x.ApplicationUserId;
+                    x1 = x.NoteTime.Date.ToString("d") + " " + x.NoteStatus + " " + x.ApplicationUserId;
                     i++;
                 }
                 else if (i == 1)
@@ -66,7 +66,7 @@ namespace TravelExpenseReport.Controllers
                 }
             }
             x3 = x1 + " , " + x2;
-            return(x3);
+            return (x3);
 
         }
 
@@ -91,9 +91,6 @@ namespace TravelExpenseReport.Controllers
             else if (User.IsInRole("Other")) //Denna gren ska fixas map urval av TR
             {
                 var patientsForUser = db.PatientUsers.Where(t => t.StaffUserId == ActiveUser.Id).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId).ToList();
-
-                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == ActiveUser.Id).OrderBy(t => t.TravelReportName);
-                //var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.PatientId == ActiveUser.PatientId).OrderBy(t => t.TravelReportName);
                 var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
 
                 List<TravelReport> travelReports = new List<TravelReport>();
@@ -112,27 +109,21 @@ namespace TravelExpenseReport.Controllers
                             {
                                 travelReports.Add(tr);
                             }
-
                         }
                     }
                 }
                 _selection.SelectedTRUser = travelReports;
                 return View(selection);
             }
-            else if (User.IsInRole("WorkAdministrator"))
+            else if (User.IsInRole("GroupAdmin"))
             {
                 ViewBag.Filtered = true;
                 var patientsForUser = db.PatientUsers.Where(t => t.StaffUserId == ActiveUser.Id).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId).ToList();
-                //List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();
-                //List<TravelReport> travelReports = new List<TravelReport>();
-                //var TRReports1 = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                //var TRReports = TRReports1.Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                 if (selection.UserList == null)
                 {
 
                     if (selectedUserId == null)
                     {
-                        //var patientsForUser = db.PatientUsers.Where(t => t.StaffUserId == ActiveUser.Id).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId).ToList();
                         var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
 
                         List<TravelReport> travelReports = new List<TravelReport>();
@@ -157,9 +148,6 @@ namespace TravelExpenseReport.Controllers
                         }
 
 
-                        //_selection.SelectedTRUser = travelReports;
-                        //var _selectiont1 = new TravelReportViewModel();
-
                         List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();
 
                         foreach (var tr in travelReports)
@@ -179,9 +167,7 @@ namespace TravelExpenseReport.Controllers
                     }
                     else
                     {
-                        //var patientsForUser = db.PatientUsers.Where(t => t.StaffUserId == ActiveUser.Id).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId).ToList();
                         var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                        //var TRReports = TRReports1.Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                         List<TravelReport> travelReports = new List<TravelReport>();
 
                         foreach (var tr in TRReports)
@@ -202,9 +188,6 @@ namespace TravelExpenseReport.Controllers
                                 }
                             }
                         }
-
-                        //_selection.SelectedTRUser = travelReports;
-                        //var _selectiont1 = new TravelReportViewModel();
 
                         List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();
 
@@ -215,7 +198,6 @@ namespace TravelExpenseReport.Controllers
                             {
                                 allowedTRUsers.Add(allowedTRUser);
                             }
-
                         }
                         _selection.SelectedTRUser = travelReports;
                         var _selectiont1 = new TravelReportViewModel();
@@ -223,7 +205,6 @@ namespace TravelExpenseReport.Controllers
                         _selectiont1.SelectedTravelUser = selectedUserId;
                         _selection.UserList = _selectiont1;
                         ViewBag.Filtered = true;
-
                     }
 
                 }
@@ -232,9 +213,7 @@ namespace TravelExpenseReport.Controllers
                     if (selectedUserId == null)
                     {
 
-                        //var patientsForUser = db.PatientUsers.Where(t => t.StaffUserId == ActiveUser.Id).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId).ToList();
                         var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                        //var TRReports = TRReports1.Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                         List<TravelReport> travelReports = new List<TravelReport>();
 
                         foreach (var tr in TRReports)
@@ -255,8 +234,6 @@ namespace TravelExpenseReport.Controllers
                                 }
                             }
                         }
-                        
-                        //_selection.SelectedTRUser = travelReports;
 
                         List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();
 
@@ -280,13 +257,13 @@ namespace TravelExpenseReport.Controllers
                         var _selectiont1 = new TravelReportViewModel();
                         _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
                         _selection.UserList = _selectiont1;
-                ViewBag.Filtered = true;
+                        ViewBag.Filtered = true;
                     }
                 }
                 return View(_selection);
             }
             else
-            // user is neither Assistant, GroupAdmin nor Patient, i.e. user is Administrator or Other
+            // user is neither Assistant, GroupAdmin, Other nor Patient, i.e. user is Administrator
             {
                 ViewBag.Filtered = true;
                 if (selection.UserList == null)
@@ -313,9 +290,7 @@ namespace TravelExpenseReport.Controllers
                         _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
                         _selectiont1.SelectedTravelUser = selectedUserId;
                         _selection.UserList = _selectiont1;
-                    
                     }
-
                 }
                 else
                 {
@@ -324,9 +299,6 @@ namespace TravelExpenseReport.Controllers
 
                         var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
                         _selection.SelectedTRUser = travelReports;
-                        //var _selectiont1 = new TravelReportViewModel();
-                        //_selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
-                        //_selection.UserList = _selectiont1;
                         _selection.UserList.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
                         ViewBag.SelectedUserId = _selection.UserList.SelectedTravelUser;
                     }
@@ -633,7 +605,7 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
-            
+
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.StatusName = db.StatusTypes.Find(travelReport.StatusTypeId).StatusName;
             //ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
@@ -943,17 +915,17 @@ namespace TravelExpenseReport.Controllers
         public void DeleteExpenses(int travelReportId)
         {
             int actualTravelreportId = travelReportId;
-            
+
             var expensesToDelete = db.Expenses.Where(e => e.TravelReportId == actualTravelreportId);
 
-                foreach (var ex in expensesToDelete)
-                {
-                    Expense expense = db.Expenses.Find(ex.ExpenseId);
-                    db.Expenses.Remove(expense);
-                    
-                }
-                 db.SaveChanges();
-            
+            foreach (var ex in expensesToDelete)
+            {
+                Expense expense = db.Expenses.Find(ex.ExpenseId);
+                db.Expenses.Remove(expense);
+
+            }
+            db.SaveChanges();
+
         }
 
         //Delete Notes for TravelReport
@@ -969,7 +941,7 @@ namespace TravelExpenseReport.Controllers
                 db.Notes.Remove(note);
             }
             db.SaveChanges();
-           }
+        }
 
         // GET: TravelReports/Delete/5
         public ActionResult Delete(int? id)
@@ -1001,9 +973,9 @@ namespace TravelExpenseReport.Controllers
             //check for notes
             var checkForNote = db.Notes.Where(e => e.TravelReportId == id).FirstOrDefault();
             if (checkForNote != null)
-                {
-                    DeleteNotes(id);
-                }
+            {
+                DeleteNotes(id);
+            }
 
             TravelReport travelReport = db.TravelReports.Find(id);
             db.TravelReports.Remove(travelReport);

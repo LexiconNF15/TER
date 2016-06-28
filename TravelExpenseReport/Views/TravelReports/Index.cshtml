@@ -14,7 +14,7 @@
 
 <table class="table">
     <tr>
-        @if ((!User.IsInRole("Assistant")) && (!User.IsInRole("Patient")))
+        @if ((!User.IsInRole("Assistant")) && (!User.IsInRole("Patient")) && (!User.IsInRole("Other")))
         {
             <th>
                 @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.FullName)
@@ -98,7 +98,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().AllMealsDeduction)
             </th>*@
-        @if (!User.IsInRole("Patient"))
+        @if ((!User.IsInRole("Patient")) && (!User.IsInRole("Other")))
         {
             <th>
                 @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().Comment)
@@ -110,7 +110,7 @@
     @foreach (var item in Model.SelectedTRUser)
     {
         <tr>
-            @if ((!User.IsInRole("Assistant")) && (!User.IsInRole("Patient")))
+            @if ((!User.IsInRole("Assistant")) && (!User.IsInRole("Patient")) && (!User.IsInRole("Other")))
             {
                 <td>
                     @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
@@ -168,7 +168,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.AllMealsDeduction)
                 </td>*@
-            @if (!User.IsInRole("Patient"))
+            @if ((!User.IsInRole("Patient")) && (!User.IsInRole("Other")))
             {
                 <td>
                     @Html.DisplayFor(modelItem => item.Comment)
