@@ -519,6 +519,7 @@ namespace TravelExpenseReport.Controllers
             ViewBag.StatusName = db.StatusTypes.FirstOrDefault().StatusName;
             ViewBag.StatusTypeId1 = db.StatusTypes.Where(stt => stt.StatusName == "Ny").FirstOrDefault().StatusTypeId;
             ViewBag.ApplicationUserId1 = ActiveUser.Id;
+            ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName");
 
             return View(travelReport);
         }
@@ -536,7 +537,7 @@ namespace TravelExpenseReport.Controllers
                 return HttpNotFound();
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
+            //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             return View(travelReport);
         }
 
@@ -554,7 +555,7 @@ namespace TravelExpenseReport.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+            //ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
             return View(travelReport);
         }
 
@@ -570,8 +571,10 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+            
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+            ViewBag.StatusName = db.StatusTypes.Find(travelReport.StatusTypeId).StatusName;
+            //ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
             ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == travelReport.ApplicationUserId).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName", travelReport.PatientId);
             return View(travelReport);
         }
@@ -591,7 +594,8 @@ namespace TravelExpenseReport.Controllers
 
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+            ViewBag.StatusName = db.StatusTypes.Find(travelReport.StatusTypeId).StatusName;
+            ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == travelReport.ApplicationUserId).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName", travelReport.PatientId);
             return View(travelReport);
         }
 
@@ -822,6 +826,7 @@ namespace TravelExpenseReport.Controllers
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
+
             return View(travelReport);
         }
 
