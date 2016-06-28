@@ -14,7 +14,7 @@
 
 <table class="table">
     <tr>
-        @if (!User.IsInRole("Assistant"))
+        @if ((!User.IsInRole("Assistant")) && (!User.IsInRole("Patient")))
         {
             <th>
                 @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().ApplicationUser.FullName)
@@ -219,7 +219,7 @@
             {
                 <td>
 
-                    @if (User.IsInRole("WorkAdministrator"))
+                    @if (User.IsInRole("GroupAdmin"))
                     {
                         if (item.StatusType.StatusName == "Inskickad")
                         {
