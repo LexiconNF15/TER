@@ -144,9 +144,9 @@
                 @Html.DisplayNameFor(model => model.BreakfastDeduction)
             </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.BreakfastDeduction) a' @ViewBag.LegalAmount.BreakfastAmount
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BreakfastDeduction) a' @ViewBag.LegalAmount.BreakfastAmount
+            </dd>
 
                 <dt>
                     @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
@@ -260,25 +260,26 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                    <table>
-                @foreach (var note in Model.Notes)
+                <table>
+                    @foreach (var note in Model.Notes)
                 {
                         <tr>
                             <td>
-                    @note.NoteTime
+                                @note.NoteTime
                             </td>
                             <td>
-                    @note.NoteStatus
+                                @note.NoteStatus
                             </td>
                             <td>@note.ApplicationUserId</td>
-                            <td>@note.NoteInfo
-                            </td>
-                    
+                            <td>
+                                @note.NoteInfo
+                        </td>
 
-                        </tr>
-                }
-                    </table>
-                @Html.EditorFor(model => model.Comment, new { @Value = "", htmlAttributes = new { @class = "form-control" }  })
+
+                    </tr>
+                    }
+                </table>
+                @Html.EditorFor(model => model.Comment, new { @Value = "", htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -288,20 +289,28 @@
     if (ViewBag.ActiveUser == Model.ApplicationUserId)
     {
         <div class="col-md-offset-2 col-md-2">
-            <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-xs btn-success" />
+            <input type="submit" value="Skicka in" name="button" class="btn btn-xs btn-success" />
         </div>
-                <div class="col-md-8">
-                    <input type="submit" value="Till listan" name="button" class="btn btn-default btn-xs btn-primary" />
-                </div>
+        <div class="col-md-8">
+            <input type="submit" value="Till listan" name="button" class="btn btn-xs btn-primary" />
+        </div>
     }
     else
     {
         <div class="col-md-offset-2 col-md-1">
-            <input type="submit" value="Godkänd" name="button" class="btn btn-default btn-success" />
+            @if (Model.StatusType.StatusName == "Godkänd")
+            {
+                <input type="submit" value="Verifierad" name="button" class="btn btn-xs btn-success" />
+            }
+            else
+            {
+                <input type="submit" value="Godkänd" name="button" class="btn btn-xs btn-success" />
+
+            }
         </div>
-                <div class="col-md-1">
-                    <input type="submit" value="Ej godkänd" name="button" class="btn btn-default btn-xs btn-warning" />
-                </div>
+        <div class="col-md-1">
+            <input type="submit" value="Ej godkänd" name="button" class="btn btn-default btn-xs btn-warning" />
+        </div>
                 <div class="col-md-8">
                     <input type="submit" value="Till listan" name="button" class="btn btn-default btn-xs btn-primary" />
                 </div>

@@ -164,7 +164,7 @@ namespace TravelExpenseReport.Migrations
                 new StatusType
                 {
                     StatusTypeId = 5,
-                    StatusName = "För utbetalning"
+                    StatusName = "Verifierad"
                 },
                 new StatusType
                 {

@@ -58,10 +58,10 @@
                 @*@Html.HiddenFor(model => model.PatientId)*@
                 @*@Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control" })*@
                 @*@Html.DropDownList("PatientId", null, "Ingen brukare", htmlAttributes: new { @class = "form-control" })*@
-                @Html.DropDownListFor(model => model.PatientId, (SelectList)ViewBag.PatientId, "Ingen brukare", htmlAttributes: new { @class = "form-control" } )
+                @Html.DropDownListFor(model => model.PatientId, (SelectList)ViewBag.PatientId, "Ingen kund", htmlAttributes: new { @class = "form-control" } )
                 
 
-                @*@Html.DropDownList("PatientId", new List<SelectListItem>() { new SelectListItem() { Value = "0", Text = "Ingen brukare" } }, htmlAttributes: new { @class = "form-control" })*@
+                @*@Html.DropDownList("PatientId", new List<SelectListItem>() { new SelectListItem() { Value = "0", Text = "Ingen kund" } }, htmlAttributes: new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -93,7 +93,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DepartureDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control date", type = "date", id = "date3", name = "date" } })
                 @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
             </div>
             @*</div>*@
@@ -101,7 +102,8 @@
             @*<div class="form-group">*@
             @*@Html.LabelFor(model => model.DepartureTime, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-2">
-                @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "form-control time", type = "time", id = "time1", name = "time" } })
                 @Html.ValidationMessageFor(model => model.DepartureTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -109,7 +111,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ReturnDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control date", type = "date", id = "date2", name = "date" } })
                 @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
             </div>
             @*</div>*@
@@ -117,7 +120,8 @@
             @*<div class="form-group">*@
             @*@Html.LabelFor(model => model.ReturnTime, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-sm-2">
-                @Html.EditorFor(model => model.ReturnTime, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.ReturnTime, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.EditorFor(model => model.ReturnTime, new { htmlAttributes = new { @class = "form-control time", type = "time", id = "time2", name = "time" } })
                 @Html.ValidationMessageFor(model => model.ReturnTime, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - TER Application</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
 
+    <link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -29,6 +32,23 @@
             </div>
         </div>
     </div>
+    @Scripts.Render("~/Scripts/jquery-1.10.2.js")
+
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")
+    @Scripts.Render("~/Scripts/jquery.timepicker.js")
+    <script>
+        $(function () {
+            if (!Modernizr.inputtypes.date) {
+                $('.date').datepicker({ 'dateFormat': 'yy-mm-dd' });
+            };
+            if (!Modernizr.inputtypes.time) {
+                $('.time').timepicker({ 'timeFormat': 'H:i', 'step': '5'});
+            };
+        });
+    </script>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -36,8 +56,6 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
