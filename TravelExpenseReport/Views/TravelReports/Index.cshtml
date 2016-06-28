@@ -45,6 +45,7 @@
                 }
             </th>
         }
+
         <th>
             @Html.DisplayNameFor(model => model.SelectedTRUser.FirstOrDefault().StatusType.StatusName)
         </th>
@@ -242,6 +243,10 @@
                             {
                                 @Html.ActionLink("Granska", "Calc", new { id = item.TravelReportId, selectedUserId = Model.UserList.SelectedTravelUser }, new { @class = "btn btn-default btn-sm btn-primary" })
                             }
+                        }
+                        else // Patient or Other
+                        {
+                            @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId }, new { @class = "btn btn-default btn-sm btn-primary" })
                         }
                     }
                 </td>

@@ -82,6 +82,12 @@ namespace TravelExpenseReport.Controllers
                 _selection.SelectedTRUser = travelReports;
                 return View(selection);
             }
+            else if (User.IsInRole("Patient"))
+            {
+                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.PatientId == ActiveUser.PatientId).OrderBy(t => t.TravelReportName);
+                _selection.SelectedTRUser = travelReports;
+                return View(selection);
+            }
             else if (User.IsInRole("WorkAdministrator"))
             {
                 ViewBag.Filtered = true;
@@ -249,7 +255,7 @@ namespace TravelExpenseReport.Controllers
                 return View(_selection);
             }
             else
-            // user is neither assistant nor workadministrator
+            // user is neither assistant nor workadministrator, i.e. user is Patient or Other
             {
                 ViewBag.Filtered = true;
                 if (selection.UserList == null)
