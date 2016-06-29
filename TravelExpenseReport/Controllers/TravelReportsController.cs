@@ -70,252 +70,176 @@ namespace TravelExpenseReport.Controllers
 
         }
 
-        public ActionResult Index(TravelReportViewModel1 selection, string selectedUserId)
+        public List<TravelReport> AllowedTRList(IOrderedQueryable<TravelReport> TRReports, List<PatientUser> patientsForUser)
+        {
+            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+
+            List<TravelReport> travelReports = new List<TravelReport>();
+
+            foreach (var tr in TRReports)
+            {
+                if (ActiveUser.Id == tr.ApplicationUserId)
+                {
+                    travelReports.Add(tr);
+                }
+                else
+                {
+                    foreach (var p in patientsForUser)
+                    {
+                        if (tr.PatientId == p.PatientId)
+                        {
+                            travelReports.Add(tr);
+                        }
+
+                    }
+                }
+            }
+            return travelReports;
+        }
+
+        public List<ApplicationUser> AllowedTRUserList(List<TravelReport> travelReports)
+        {
+            List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();
+
+            foreach (var tr in travelReports)
+            {
+                ApplicationUser allowedTRUser = db.Users.Find(tr.ApplicationUserId);
+                if (!allowedTRUsers.Contains(allowedTRUser))
+                {
+                    allowedTRUsers.Add(allowedTRUser);
+                }
+            }
+            return allowedTRUsers;
+
+        }
+
+        public ActionResult Index(SelectionAndTRViewModel selection, string selectedUserId)
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
             ViewBag.ActiveUser = ActiveUser.Id;
 
             var _selection = selection;
+
             if (User.IsInRole("Assistant"))
             {
                 var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == ActiveUser.Id).OrderBy(t => t.TravelReportName);
-                _selection.SelectedTRUser = travelReports;
+                _selection.SelectedUserTravelReports = travelReports;
                 return View(selection);
             }
             else if (User.IsInRole("Patient"))
             {
                 var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.PatientId == ActiveUser.PatientId).OrderBy(t => t.TravelReportName);
-                _selection.SelectedTRUser = travelReports;
+                _selection.SelectedUserTravelReports = travelReports;
                 return View(selection);
             }
-            else if (User.IsInRole("Other")) //Denna gren ska fixas map urval av TR
+            else if (User.IsInRole("Other"))
             {
                 var patientsForUser = db.PatientUsers.Where(t => t.StaffUserId == ActiveUser.Id).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId).ToList();
                 var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-
-                List<TravelReport> travelReports = new List<TravelReport>();
-
-                foreach (var tr in TRReports)
-                {
-                    if (ActiveUser.Id == tr.ApplicationUserId)
-                    {
-                        travelReports.Add(tr);
-                    }
-                    else
-                    {
-                        foreach (var p in patientsForUser)
-                        {
-                            if (tr.PatientId == p.PatientId)
-                            {
-                                travelReports.Add(tr);
-                            }
-                        }
-                    }
-                }
-                _selection.SelectedTRUser = travelReports;
+                _selection.SelectedUserTravelReports = AllowedTRList(TRReports, patientsForUser);
                 return View(selection);
             }
             else if (User.IsInRole("GroupAdmin"))
             {
                 ViewBag.Filtered = true;
                 var patientsForUser = db.PatientUsers.Where(t => t.StaffUserId == ActiveUser.Id).Include(t => t.Patient).Where(t => t.PatientId == t.Patient.PatientId && t.Patient.CustomerId == ActiveUser.CustomerId).ToList();
-                if (selection.UserList == null)
+                if (selection.SelectionList == null)
                 {
-
                     if (selectedUserId == null)
                     {
                         var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-
-                        List<TravelReport> travelReports = new List<TravelReport>();
-
-                        foreach (var tr in TRReports)
-                        {
-                            if (ActiveUser.Id == tr.ApplicationUserId)
-                            {
-                                travelReports.Add(tr);
-                            }
-                            else
-                            {
-                                foreach (var p in patientsForUser)
-                                {
-                                    if (tr.PatientId == p.PatientId)
-                                    {
-                                        travelReports.Add(tr);
-                                    }
-
-                                }
-                            }
-                        }
-
-
-                        List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();
-
-                        foreach (var tr in travelReports)
-                        {
-                            ApplicationUser allowedTRUser = db.Users.Find(tr.ApplicationUserId);
-                            if (!allowedTRUsers.Contains(allowedTRUser))
-                            {
-                                allowedTRUsers.Add(allowedTRUser);
-                            }
-                        }
-                        _selection.SelectedTRUser = travelReports;
-                        var _selectiont1 = new TravelReportViewModel();
-                        _selectiont1.TravelUsers = new SelectList(allowedTRUsers, "Id", "FullName", ActiveUser.Id);
-                        _selection.UserList = _selectiont1;
+                        var travelReports = AllowedTRList(TRReports, patientsForUser);
+                        _selection.SelectedUserTravelReports = travelReports;
+                        var _selectiont1 = new SelectTravelUserViewModel();
+                        _selectiont1.TravelUsersForSelection = new SelectList(AllowedTRUserList(travelReports), "Id", "FullName", ActiveUser.Id);
+                        _selection.SelectionList = _selectiont1;
                         ViewBag.Filtered = false;
+                    }
+                    else // Selected to keep when return to list
+                    {
+                        var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                        var travelReports = AllowedTRList(TRReports, patientsForUser);
 
+                        _selection.SelectedUserTravelReports = travelReports;
+                        var _selectiont1 = new SelectTravelUserViewModel();
+                        _selectiont1.TravelUsersForSelection = new SelectList(AllowedTRUserList(travelReports), "Id", "FullName", ActiveUser.Id);
+                        _selectiont1.SelectedTravelUser = selectedUserId;
+                        _selection.SelectionList = _selectiont1;
+                        ViewBag.Filtered = true;
+                    }
+                }
+                else // Returns here when filtering
+                {
+                    if (selectedUserId == null)
+                    {
+                        var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.SelectionList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                        var travelReports = AllowedTRList(TRReports, patientsForUser);
+                        _selection.SelectedUserTravelReports = travelReports;
+                        _selection.SelectionList.TravelUsersForSelection = new SelectList(AllowedTRUserList(travelReports), "Id", "FullName", ActiveUser.Id);
+                        ViewBag.Filtered = true;
+                    }
+                    else // när kommer vi hit?
+                    {
+                        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                        _selection.SelectedUserTravelReports = travelReports;
+                        var _selectiont1 = new SelectTravelUserViewModel();
+                        _selectiont1.TravelUsersForSelection = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
+                        _selection.SelectionList = _selectiont1;
+                        ViewBag.Filtered = true;
+                    }
+                }
+                return View(_selection);
+            }
+            else if (User.IsInRole("Administrator"))
+            {
+                ViewBag.Filtered = true;
+                if (selection.SelectionList == null)
+                {
+                    if (selectedUserId == null)
+                    {
+                        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                        _selection.SelectedUserTravelReports = travelReports;
+                        var _selectiont1 = new SelectTravelUserViewModel();
+                        _selectiont1.TravelUsersForSelection = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
+                        _selection.SelectionList = _selectiont1;
+                        ViewBag.Filtered = false;
                     }
                     else
                     {
-                        var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                        List<TravelReport> travelReports = new List<TravelReport>();
-
-                        foreach (var tr in TRReports)
-                        {
-                            if (ActiveUser.Id == tr.ApplicationUserId)
-                            {
-                                travelReports.Add(tr);
-                            }
-                            else
-                            {
-                                foreach (var p in patientsForUser)
-                                {
-                                    if (tr.PatientId == p.PatientId)
-                                    {
-                                        travelReports.Add(tr);
-                                    }
-
-                                }
-                            }
-                        }
-
-                        List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();
-
-                        foreach (var tr in travelReports)
-                        {
-                            ApplicationUser allowedTRUser = db.Users.Find(tr.ApplicationUserId);
-                            if (!allowedTRUsers.Contains(allowedTRUser))
-                            {
-                                allowedTRUsers.Add(allowedTRUser);
-                            }
-                        }
-                        _selection.SelectedTRUser = travelReports;
-                        var _selectiont1 = new TravelReportViewModel();
-                        _selectiont1.TravelUsers = new SelectList(allowedTRUsers, "Id", "FullName", ActiveUser.Id);
+                        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                        _selection.SelectedUserTravelReports = travelReports;
+                        var _selectiont1 = new SelectTravelUserViewModel();
+                        _selectiont1.TravelUsersForSelection = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
                         _selectiont1.SelectedTravelUser = selectedUserId;
-                        _selection.UserList = _selectiont1;
-                        ViewBag.Filtered = true;
+                        _selection.SelectionList = _selectiont1;
                     }
-
                 }
                 else
                 {
                     if (selectedUserId == null)
                     {
-
-                        var TRReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                        List<TravelReport> travelReports = new List<TravelReport>();
-
-                        foreach (var tr in TRReports)
-                        {
-                            if (ActiveUser.Id == tr.ApplicationUserId)
-                            {
-                                travelReports.Add(tr);
-                            }
-                            else
-                            {
-                                foreach (var p in patientsForUser)
-                                {
-                                    if (tr.PatientId == p.PatientId)
-                                    {
-                                        travelReports.Add(tr);
-                                    }
-
-                                }
-                            }
-                        }
-
-                        List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();
-
-                        foreach (var tr in travelReports)
-                        {
-                            ApplicationUser allowedTRUser = db.Users.Find(tr.ApplicationUserId);
-                            if (!allowedTRUsers.Contains(allowedTRUser))
-                            {
-                                allowedTRUsers.Add(allowedTRUser);
-                            }
-
-                        }
-                        _selection.SelectedTRUser = travelReports;
-                        _selection.UserList.TravelUsers = new SelectList(allowedTRUsers, "Id", "FullName", ActiveUser.Id);
-                        ViewBag.Filtered = true;
+                        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.SelectionList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
+                        _selection.SelectedUserTravelReports = travelReports;
+                        _selection.SelectionList.TravelUsersForSelection = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
+                        ViewBag.SelectedUserId = _selection.SelectionList.SelectedTravelUser;
                     }
                     else
                     {
                         var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                        _selection.SelectedTRUser = travelReports;
-                        var _selectiont1 = new TravelReportViewModel();
-                        _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
-                        _selection.UserList = _selectiont1;
-                        ViewBag.Filtered = true;
+                        _selection.SelectedUserTravelReports = travelReports;
+                        var _selectiont1 = new SelectTravelUserViewModel();
+                        _selectiont1.TravelUsersForSelection = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
+                        _selection.SelectionList = _selectiont1;
                     }
                 }
                 return View(_selection);
             }
             else
-            // user is neither Assistant, GroupAdmin, Other nor Patient, i.e. user is Administrator
             {
-                ViewBag.Filtered = true;
-                if (selection.UserList == null)
-                {
-
-                    if (selectedUserId == null)
-                    {
-                        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUser.CustomerId == ActiveUser.CustomerId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                        _selection.SelectedTRUser = travelReports;
-                        var _selectiont1 = new TravelReportViewModel();
-
-
-                        _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
-
-                        _selection.UserList = _selectiont1;
-                        ViewBag.Filtered = false;
-
-                    }
-                    else
-                    {
-                        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                        _selection.SelectedTRUser = travelReports;
-                        var _selectiont1 = new TravelReportViewModel();
-                        _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
-                        _selectiont1.SelectedTravelUser = selectedUserId;
-                        _selection.UserList = _selectiont1;
-                    }
-                }
-                else
-                {
-                    if (selectedUserId == null)
-                    {
-
-                        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selection.UserList.SelectedTravelUser).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                        _selection.SelectedTRUser = travelReports;
-                        _selection.UserList.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", ActiveUser.Id);
-                        ViewBag.SelectedUserId = _selection.UserList.SelectedTravelUser;
-                    }
-                    else
-                    {
-                        var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == selectedUserId).OrderBy(t => t.ApplicationUser.FullName).ThenBy(t => t.TravelReportName);
-                        _selection.SelectedTRUser = travelReports;
-                        var _selectiont1 = new TravelReportViewModel();
-                        _selectiont1.TravelUsers = new SelectList(db.Users.Where(t => t.CustomerId == ActiveUser.CustomerId && t.PatientId == 0), "Id", "FullName", selectedUserId);
-                        _selection.UserList = _selectiont1;
-                    }
-
-                }
+                var travelReports = db.TravelReports.Include(t => t.ApplicationUser).Include(t => t.StatusType).Include(t => t.Patient).Where(t => t.ApplicationUserId == ActiveUser.Id).OrderBy(t => t.TravelReportName);
+                _selection.SelectedUserTravelReports = travelReports;
                 return View(_selection);
-
             }
-
         }
 
 
@@ -878,38 +802,7 @@ namespace TravelExpenseReport.Controllers
             return View(travelReport);
         }
 
-        //public (List<TravelReports> travelReports,List<ApplicationUsers> allowedTRUsers) RealUserTRCheck(patientsForUser, TRReports)
-        //{
-        //    List<TravelReport> travelReports = new List<TravelReport>(); //ev skapa denna lista i Index på samma sätt som med patientsForUser
 
-        //    foreach (var tr in TRReports)
-        //    {
-        //        foreach (var p in patientsForUser)
-        //        {
-        //            if (tr.PatientId == p.PatientId)
-        //            {
-        //                travelReports.Add(tr);
-        //            }
-        //        }
-        //    }
-
-        //    // _selection.SelectedTRUser = travelReports;
-        //    //var _selectiont1 = new TravelReportViewModel();
-
-        //    List<ApplicationUser> allowedTRUsers = new List<ApplicationUser>();  //ev skapa denna lista i Index på samma sätt som med patientsForUser
-
-        //    foreach (var tr in travelReports)
-        //    {
-        //        ApplicationUser allowedTRUser = db.Users.Find(tr.ApplicationUserId);
-        //        if (!allowedTRUsers.Contains(allowedTRUser))
-        //        {
-        //            allowedTRUsers.Add(allowedTRUser);
-        //        }
-        //    }
-
-
-        //}
-        //
 
         //Delete Expenses for TravelReport
         public void DeleteExpenses(int travelReportId)

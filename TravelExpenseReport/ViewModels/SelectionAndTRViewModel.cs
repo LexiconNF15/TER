@@ -7,15 +7,15 @@ using System.Web.Mvc;
 
 namespace TravelExpenseReport.ViewModels
 {
-    public class TravelReportViewModel1
+    public class SelectionAndTRViewModel
     {
   
-        public TravelReportViewModel UserList
+        public SelectTravelUserViewModel SelectionList
         {
             get; set; 
 
         }
-        public IEnumerable<TravelExpenseReport.Models.TravelReport> SelectedTRUser
+        public IEnumerable<TravelExpenseReport.Models.TravelReport> SelectedUserTravelReports
         { get; set; }
 
 
