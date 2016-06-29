@@ -20,65 +20,80 @@ namespace TravelExpenseReport.Models
         public string TravelReportName { get; set; }
 
         [DisplayName("Resmål")]
-        [Required]
+        //[Required]
+        [Required(ErrorMessage = "Skriv in resmål.")]
         public string Destination { get; set; }
 
         [DisplayName("Syfte")]
-        [Required]
+        //[Required]
+        [Required(ErrorMessage = "Skriv in syfte.")]
         public string Purpose { get; set; }
 
         [DisplayName("Avresa")]
+        [Required(ErrorMessage = "Skriv in datum.")]
         [DataType(DataType.Date)]
         public DateTime DepartureDate { get; set; }
 
         //[DisplayName("Avresa tid")]
+        [Required(ErrorMessage = "Skriv in tid.")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan DepartureTime { get; set; }
 
 
         [DisplayName("Hemkomst")]
+        [Required(ErrorMessage = "Skriv in datum.")]
         [DataType(DataType.Date)]
         public DateTime ReturnDate { get; set; }
 
         //[DisplayName("Hemkomst tid")]
         [DataType(DataType.Time)]
+        [Required(ErrorMessage = "Skriv in tid.")]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan ReturnTime { get; set; }
 
         [DisplayName("Avresa extra timmar")]
-        [Range(0, 72, ErrorMessage = "Måste vara minst 0")]
-        public int? DepartureHoursExtra { get; set; }
+        [Required(ErrorMessage = "Skriv in värde.")]
+        [Range(0, 72, ErrorMessage = "Giltigt värde (0 - 72)")]
+        public int DepartureHoursExtra { get; set; }
 
         [DisplayName("Hemresa extra timmar")]
-        [Range(0, 72, ErrorMessage = "Måste vara minst 0")]
-        public int? ReturnHoursExtra { get; set; }
+        [Required(ErrorMessage = "Skriv in värde.")]
+        [Range(0, 72, ErrorMessage = "Giltigt värde (0 - 72)")]
+        public int ReturnHoursExtra { get; set; }
 
         [DisplayName("Heldag")]
+        [Required(ErrorMessage = "Skriv in antal.")]
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? FullDay { get; set; }
 
         [DisplayName("Halvdag")]
+        [Required(ErrorMessage = "Skriv in antal.")]
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? HalfDay { get; set; }
 
         [DisplayName("Natt")]
+        [Required(ErrorMessage = "Skriv in antal.")]
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? Night { get; set; }
 
         [DisplayName("Frukost")]
+        [Required(ErrorMessage = "Skriv in antal.")]
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? BreakfastDeduction { get; set; }
 
         [DisplayName("Lunch el. middag")]
+        [Required(ErrorMessage = "Skriv in antal.")]
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? LunchOrDinnerDeduction { get; set; }
 
         [DisplayName("Lunch och middag")]
+        [Required(ErrorMessage = "Skriv in antal.")]
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? LunchAndDinnerDeduction { get; set; }
 
         [DisplayName("Frukost, lunch och middag")]
+        [Required(ErrorMessage = "Skriv in antal.")]
         [Range(0, int.MaxValue, ErrorMessage = "Måste vara minst 0")]
         public int? AllMealsDeduction { get; set; }
 
@@ -126,6 +141,9 @@ namespace TravelExpenseReport.Models
             AllMealsDeduction = 0;
             DepartureHoursExtra = 0;
             ReturnHoursExtra = 0;
+            HalfDay = 0;
+            FullDay = 0;
+            Night = 0;
             //StatusTypeId = 4;
         }
     }
