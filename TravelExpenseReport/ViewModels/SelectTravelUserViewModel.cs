@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace TravelExpenseReport.ViewModels
 {
-    public class TravelReportViewModel
+    public class SelectTravelUserViewModel
     {
-        public IEnumerable<SelectListItem> TravelUsers
+        public IEnumerable<SelectListItem> TravelUsersForSelection
         {
             get; set; 
         }

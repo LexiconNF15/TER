@@ -221,9 +221,8 @@
     <Compile Include="Models\TravelReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\PatientViewModel.cs" />
-    <Compile Include="ViewModels\TravelReportViewModel1.cs" />
-    <Compile Include="ViewModels\TravelReportViewModel.cs" />
+    <Compile Include="ViewModels\SelectionAndTRViewModel.cs" />
+    <Compile Include="ViewModels\SelectTravelUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AB.css" />
