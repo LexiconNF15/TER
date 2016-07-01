@@ -282,112 +282,43 @@ namespace TravelExpenseReport.Controllers
             return View(travelReport);
         }
 
-
-        // GET: TravelReports/CreateTest
-        public ActionResult CreateTest()
+        // GET: TravelReports/Details/5
+        public ActionResult Print(int? id, string selectedUserId)
         {
-            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
-            //var patientUser = db.PatientUsers.Where(pu => pu.StaffUserId == ActiveUser.Id).Include(p =>p.Patient);
-
-            //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName");
-            ViewBag.StatusName = db.StatusTypes.FirstOrDefault().StatusName;
-            ViewBag.StatusTypeId1 = db.StatusTypes.Where(stt => stt.StatusName == "Ny").FirstOrDefault().StatusTypeId;
-            ViewBag.ApplicationUserId1 = ActiveUser.Id;
-            //var pats = db.Patients.Include(pu => pu.PatientUser).Where(p => p.PatientUser.StaffUserId == ActiveUser.Id);
-            //ViewBag.PatientId = new SelectList(db.Patients.Where(p => p.PatientUser.StaffUserId == ActiveUser.Id), "PatientId", "PatientName", travelReport.PatientId);
-
-            //ViewBag.PatientId = new SelectList(db.Patients, "PatientId", "PatientName");
-
-            ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName");
-            ViewBag.PatientId1 = new SelectList(db.Patients, "PatientId", "PatientName");
-            //ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient.PatientName), db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient.PatientId));
-
-            //ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select((f => new SelectListItem
-            //                                   {
-            //                                       Value = f.Patient.PatientId.ToString(),
-            //                                       Text = f.Patient.PatientName
-            //})));
-            //ViewBag.PatientId = new SelectList(db.Users.Include(u => u.Patient) Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient.PatientName), db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient.PatientId));
-
-
-            return View();
-        }
-
-        // POST: TravelReports/CreateTest
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateTest([Bind(Include = "TravelReportId,ApplicationUserId,PatientId,TravelReportName,Destination,Purpose,DepartureDate,DepartureTime,ReturnDate,ReturnTime,DepartureHoursExtra,ReturnHoursExtra,FullDay,HalfDay,Night,BreakfastDeduction,LunchOrDinnerDeduction,LunchAndDinnerDeduction,AllMealsDeduction,StatusTypeId,Comment")] TravelReport travelReport, Patient patient)
-        {
-            var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
-
-            string travelYear = travelReport.DepartureDate.Year.ToString();
-            var TravelReportsSameYear = db.TravelReports.Where(t => t.ApplicationUserId == ActiveUser.Id && t.TravelReportName.Substring(0, 4) == travelYear).OrderByDescending(a => a.TravelReportName);
-            int TravelReportNumber;
-            if (TravelReportsSameYear.Count() == 0)
+            if (id == null)
             {
-                TravelReportNumber = 1;
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            else
+            ViewBag.SelectedUserId = selectedUserId;
+
+            TravelReport travelReport = db.TravelReports.Find(id);
+            if (travelReport == null)
             {
-                TravelReportNumber = Int32.Parse(TravelReportsSameYear.FirstOrDefault().TravelReportName.Substring(5, 3));
-                TravelReportNumber = TravelReportNumber + 1;
+                return HttpNotFound();
             }
-            //travelReport.TravelReportName = "Testarnamn";
-            travelReport.TravelReportName = travelYear + "-" + TravelReportNumber.ToString().PadLeft(3, '0');
+            ViewBag.Traktamente = (travelReport.Night != 0);
+            var legalAmount = db.LegalAmounts.Where(l => l.ValidDate <= travelReport.DepartureDate).OrderByDescending(l => l.ValidDate).FirstOrDefault();
+            ViewBag.LegalAmount = legalAmount;
 
-            TimeSpan differense = travelReport.ReturnDate - travelReport.DepartureDate;
+            var sumOfAll = SumOfAllowance(travelReport);
+            ViewBag.Summa = sumOfAll;
 
-            travelReport.Night = differense.Days;
-            if (travelReport.Night == 0)
+            var expensesThisTravel = db.Expenses.Where(e => e.TravelReportId == travelReport.TravelReportId);
+            int noOfExpenses = expensesThisTravel.Count();
+            decimal sumOfExpenses = 0;
+            foreach (var e1 in expensesThisTravel)
             {
-                travelReport.HalfDay = 0;
-                travelReport.FullDay = 0;
-                ViewBag.Traktamente = false;
-            }
-            else
-            {
-                travelReport.HalfDay = 0;
-                travelReport.FullDay = travelReport.Night + 1;
-                ViewBag.Traktamente = true;
-
-
-                if (travelReport.DepartureTime.Hours >= 12)
-                {
-                    travelReport.HalfDay++;
-                    travelReport.FullDay--;
-                }
-
-                if (travelReport.ReturnTime.Hours <= 18)
-                {
-                    travelReport.HalfDay++;
-                    travelReport.FullDay--;
-                }
-
-                if (travelReport.ReturnTime.Hours <= 5)
-                {
-                    travelReport.Night--;
-                    if (travelReport.Night < 0)
-                    {
-                        travelReport.Night = 0;
-                    }
-                }
+                sumOfExpenses = sumOfExpenses + (decimal)e1.ExpenseAmount;
             }
 
-            if (ModelState.IsValid)
-            {
-                db.TravelReports.Add(travelReport);
-                db.SaveChanges();
-                return RedirectToAction("Edit2", new { id = travelReport.TravelReportId });
-            }
+            ViewBag.NoOfExpenses = noOfExpenses;
+            ViewBag.SumOfExpenses = sumOfExpenses;
 
-            ViewBag.StatusName = db.StatusTypes.FirstOrDefault().StatusName;
-            ViewBag.StatusTypeId1 = db.StatusTypes.Where(stt => stt.StatusName == "Ny").FirstOrDefault().StatusTypeId;
-            ViewBag.ApplicationUserId1 = ActiveUser.Id;
+            ViewBag.SummaPlus = sumOfAll + sumOfExpenses;
 
             return View(travelReport);
         }
+
 
         // GET: TravelReports/Create
         public ActionResult Create()

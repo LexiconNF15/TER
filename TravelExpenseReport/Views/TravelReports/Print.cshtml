@@ -1,0 +1,292 @@
+﻿@model TravelExpenseReport.Models.TravelReport
+
+@{
+    ViewBag.Title = "Visa";
+}
+
+<h3>Skriv ut reseräkning</h3>
+
+
+
+<h4>Reseinformation</h4>
+<div class="TR-div">
+
+    <table class="TR-table">
+        <tr>
+            <td class="TR-table-cell" colspan="3">
+                <table>
+                    <tr><td><div class="cell-head">@Html.DisplayNameFor(model => model.ApplicationUser.FullName)</div></td></tr>
+                    <tr><td><div class="cell-body">@Html.DisplayFor(model => model.ApplicationUser.FullName)</div></td></tr>
+                </table>
+            </td>
+            <td class="TR-table-cell">
+                <table>
+                    <tr><td><div class="cell-head">Anställningsnummer</div></td></tr>
+                    <tr><td><div class="cell-body">___________</div></td></tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="TR-table-cell">
+                <table>
+                    <tr><td><div class="cell-head">@Html.DisplayNameFor(model => model.Patient.PatientName)</div></td></tr>
+                    <tr><td><div class="cell-body">@Html.DisplayFor(model => model.Patient.PatientName)</div></td></tr>
+                </table>
+            </td>
+            <td class="TR-table-cell">
+                <table>
+                    <tr><td><div class="cell-head">@Html.DisplayNameFor(model => model.Destination)</div></td></tr>
+                    <tr><td><div class="cell-body">@Html.DisplayFor(model => model.Destination)</div></td></tr>
+                </table>
+            </td>
+            <td class="TR-table-cell" colspan="2">
+                <table>
+                    <tr><td><div class="cell-head">@Html.DisplayNameFor(model => model.Purpose)</div></td></tr>
+                    <tr><td><div class="cell-body">@Html.DisplayFor(model => model.Purpose)</div></td></tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="TR-table-cell">
+                <table>
+                    <tr><td><div class="cell-head">@Html.DisplayNameFor(model => model.DepartureDate)</div></td></tr>
+                    <tr><td><div class="cell-body">@Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)</div></td></tr>
+                </table>
+            </td>
+            <td class="TR-table-cell">
+                <table>
+                    <tr><td><div class="cell-head">@Html.DisplayNameFor(model => model.DepartureHoursExtra)</div></td></tr>
+                    <tr><td><div class="cell-body">@Html.DisplayFor(model => model.DepartureHoursExtra)</div></td></tr>
+                </table>
+            </td>
+            <td class="TR-table-cell">
+                <table>
+                    <tr><td><div class="cell-head">@Html.DisplayNameFor(model => model.ReturnDate)</div></td></tr>
+                    <tr><td><div class="cell-body">@Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)</div></td></tr>
+                </table>
+            </td>
+            <td class="TR-table-cell">
+                <table>
+                    <tr><td><div class="cell-head">@Html.DisplayNameFor(model => model.ReturnHoursExtra)</div></td></tr>
+                    <tr><td><div class="cell-body">@Html.DisplayFor(model => model.ReturnHoursExtra)</div></td></tr>
+                </table>
+            </td>
+        </tr>
+
+    </table>
+</div>
+@if (@ViewBag.Traktamente)
+{
+<h4>Traktamente</h4>
+<div class="TR-div">
+
+    <table class="TR-table">
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body">Traktamentesdagar</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">Antal</div>
+            </td>
+            <td class="TR-table-cell">
+                <table>
+                    <tr><td><div class="cell-body">à Belopp</div></td></tr>
+                </table>
+            </td>
+            <td class="TR-table-cell">
+                <table>
+                    <tr><td><div class="cell-body">Summa</div></td></tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body-small">@Html.DisplayNameFor(model => model.FullDay)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@Html.DisplayFor(model => model.FullDay)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@ViewBag.LegalAmount.FullDayAmount</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body text-right">@(Model.FullDay * ViewBag.LegalAmount.FullDayAmount)</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body-small">@Html.DisplayNameFor(model => model.HalfDay)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@Html.DisplayFor(model => model.HalfDay)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@ViewBag.LegalAmount.HalfDayAmount</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body text-right">@(Model.HalfDay * ViewBag.LegalAmount.HalfDayAmount)</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body-small">@Html.DisplayNameFor(model => model.Night)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@Html.DisplayFor(model => model.Night)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@ViewBag.LegalAmount.NightAmount</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body text-right">@(Model.Night * ViewBag.LegalAmount.NightAmount)</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body">Avdrag måltider</div>
+            </td>
+            <td class="TR-table-cell" colspan="3">
+                <div class="cell-body"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body-small">@Html.DisplayNameFor(model => model.BreakfastDeduction)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@Html.DisplayFor(model => model.BreakfastDeduction)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@ViewBag.LegalAmount.BreakfastAmount</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body text-right">@(Model.BreakfastDeduction * ViewBag.LegalAmount.BreakfastAmount * -1)</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body-small">@Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@Html.DisplayFor(model => model.LunchOrDinnerDeduction)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@ViewBag.LegalAmount.LunchOrDinnerAmount</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body text-right">@(Model.LunchOrDinnerDeduction * ViewBag.LegalAmount.LunchOrDinnerAmount * -1)</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body-small">@Html.DisplayNameFor(model => model.LunchAndDinnerDeduction)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@Html.DisplayFor(model => model.LunchAndDinnerDeduction)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@ViewBag.LegalAmount.LunchAndDinnerAmount</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body text-right">@(Model.LunchAndDinnerDeduction * ViewBag.LegalAmount.LunchAndDinnerAmount * -1)</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body-small">@Html.DisplayNameFor(model => model.AllMealsDeduction)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@Html.DisplayFor(model => model.AllMealsDeduction)</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body">@ViewBag.LegalAmount.AllMealsAmount</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body text-right">@(Model.AllMealsDeduction * ViewBag.LegalAmount.AllMealsAmount * -1)</div>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body">Totalt</div>
+            </td>
+            <td class="TR-table-cell" colspan="2">
+                <div class="cell-body"></div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body text-right">@ViewBag.Summa</div>
+            </td>
+        </tr>
+
+    </table>
+</div>
+}
+else
+{
+    <h4>Inget traktamente</h4>
+}
+
+<h4>Resekostnader - biljetter och kvitton ska bifogas</h4>
+<div class="TR-div">
+
+    <table class="TR-table">
+
+        @foreach (var item in Model.Expenses)
+        {
+            <tr>
+                <td class="TR-table-cell">
+                    <div class="cell-body-small">@Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
+                    @if (item.ExpenseTypeId == 4) { @(" (") @Html.DisplayFor(modelItem => item.ExpenseMilage) @(" km à ")@(ViewBag.LegalAmount.MilageAmount / 100)@(")")
+                    }
+                    </div>
+                </td>
+                <td class="TR-table-cell">
+                    <div class="cell-body-small">@Html.DisplayFor(modelItem => item.ExpenseDescription)</div>
+                </td>
+                <td class="TR-table-cell">
+                    <div class="cell-body text-right">@Html.DisplayFor(modelItem => item.ExpenseAmount)</div>
+                </td>
+            
+            </tr>
+        }
+        <tr>
+            <td class="TR-table-cell">
+                <div class="cell-body">Summa resekostnader</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body-small"</div>
+            </td>
+            <td class="TR-table-cell">
+                <div class="cell-body text-right">@ViewBag.SumOfExpenses</div>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+<h4>Summering</h4>
+<div class="TR-div">
+
+<table class="TR-table">
+    
+       <tr>
+        <td class="TR-table-cell">
+            <div class="cell-body">Totalsumma</div>
+        </td>
+         <td class="TR-table-cell">
+            <div class="cell-body text-right">@ViewBag.SummaPlus</div>
+        </td>
+    </tr>
+
+</table>
+</div>
+
+@Html.ActionLink("Till listan", "Index", new { selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-sm btn-primary" })
+
+@Html.ActionLink("Lekknapp", "Index", new { selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-sm btn-default TR-btn-back" })
+
+
+<input type="button" value="Print" onclick="window.print();" />
+
