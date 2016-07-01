@@ -1,2 +1,30 @@
 ﻿body {
 }
+
+.cell-head {
+    font-size: 10px;
+}
+.cell-body {
+    font-size: 22px;
+}
+.cell-body-small {
+    font-size: 16px;
+}
+.cell-body-padding {
+    padding-top: 4em;
+}
+.TR-table{
+width: 100%;
+}
+.TR-table-cell{
+    border: 1px solid;
+    padding: 4px;
+}
+.TR-div{
+    border: 2px solid;
+    border-radius: 8px;
+}
+.TR-btn-back{
+    background-color:lightgreen;
+        border: 2px solid red;
+}
