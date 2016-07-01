@@ -50,7 +50,7 @@ namespace TravelExpenseReport.Models
 
                 if ((ExpenseDate < ETravel.DepartureDate) || (ExpenseDate > ETravel.ReturnDate))
                 {
-                    yield return new ValidationResult("Utgiftsdatum ligger utanför datumperioden för reseräknngen!");
+                    yield return new ValidationResult("Datum ligger utanför perioden för reseräknngen!");
                 }
                 if ((ExpenseTypeId == 4) && (ExpenseMilage == 0))
                 {

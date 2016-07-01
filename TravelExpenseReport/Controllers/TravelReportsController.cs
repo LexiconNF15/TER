@@ -18,8 +18,6 @@ namespace TravelExpenseReport.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        string CID = Users.Identity.GetUserName(); 
-
         public decimal SumOfAllowance(TravelReport travelReport)
         {
             var legalAmount = db.LegalAmounts.FirstOrDefault();
