@@ -57,7 +57,7 @@ namespace TravelExpenseReport.Controllers
             Expense expense = db.Expenses.Find(id);
             if (expense == null)
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ViewBag.ActualTravelReportId = expense.TravelReportId;
             return View(expense);
