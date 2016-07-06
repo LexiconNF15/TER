@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - TER Application</title>
     @Styles.Render("~/Content/css")
+    <link href="~/Content/custom.css" rel="stylesheet" />
     <link href="~/Content/jquery-ui.css" rel="stylesheet" />
     <link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
 
@@ -21,9 +22,10 @@
                 </button>
                 <a class="navbar-brand logo" href="#" style="font-size:18pt">
                     <span>
-                        <img src="images/Logo1.png" height="35px">
+                        <img src="~/images/Logo1.png" height="30px"/>
                     </span>
-                    Assistansboken
+                    @*Assistansboken*@
+                    Företagsboken
                 </a>
                 @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
@@ -38,8 +40,6 @@
         </div>
     </div>
     @Scripts.Render("~/Scripts/jquery-1.10.2.js")
-
-    @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")
     @Scripts.Render("~/Scripts/jquery.timepicker.js")
     <script src="~/scripts/datepicker-se.js"></script>

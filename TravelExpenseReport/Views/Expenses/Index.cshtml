@@ -6,77 +6,79 @@
     <div class="container-fluid">
     <h5> Reseräkning: @ViewBag.ActiveTravelReport.TravelReportName</h5>
     <h4>Lista reskostnader</h4>
-    <h4>@Html.ActionLink("Ny kostnad", "Create", new { tId = ViewBag.ActualTravelReportId }, new { @class = "btn btn-xs btn-sm btn-success" })                </h4>
-
-    <table class="table table-condensed">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
-                </th>
-                @*<th>
+    <h4>@Html.ActionLink("Ny kostnad", "Create", new { tId = ViewBag.ActualTravelReportId }, new { @class = "btn btn-xs btn-success" })                </h4>
+        <div class="table-responsive">
+            <table class="table table-condensed">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
+                    </th>
+                    @*<th>
                         @Html.DisplayNameFor(model => model.TravelReport.ApplicationUserId)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.TravelReport.TravelReportName)
                     </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpenseDescription)
-                </th>
-                <th>
-                    <section class="hidden-xs">
-                        @Html.DisplayNameFor(model => model.ExpenseDate)
-                    </section>
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExpenseAmount)
-                </th>
-                <th>
-                    <section class="hidden-xs">
-                        @Html.DisplayNameFor(model => model.ExpenseMilage)
-                    </section>
-                </th>
-                <th></th>
-            </tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExpenseDescription)
+                    </th>
+                    <th>
+                        <section class="hidden-xs">
+                            @Html.DisplayNameFor(model => model.ExpenseDate)
+                        </section>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExpenseAmount)
+                    </th>
+                    <th>
+                        <section class="hidden-xs">
+                            @Html.DisplayNameFor(model => model.ExpenseMilage)
+                        </section>
+                    </th>
+                    <th></th>
+                </tr>
 
-            @foreach (var item in Model)
+                @foreach (var item in Model)
             {
-                <tr>
-                    @*@Html.Partial("_ExpenseItem", item)*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
-                    </td>
-                    @*<td>
+                    <tr>
+                        @*@Html.Partial("_ExpenseItem", item)*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
+                        </td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.TravelReport.ApplicationUser.FullName)
                         </td>*@
-                    @*<td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.TravelReport.TravelReportName)
                         </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseDescription)
-                    </td>
-                    <td>
-                        <section class="hidden-xs">
-                            @Html.DisplayFor(modelItem => item.ExpenseDate)
-                        </section>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ExpenseAmount)
-                    </td>
-                    <td>
-                        <section class="hidden-xs">
-                            @Html.DisplayFor(modelItem => item.ExpenseMilage)
-                        </section>
-                    </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ExpenseDescription)
+                        </td>
+                        <td>
+                            <section class="hidden-xs">
+                                @Html.DisplayFor(modelItem => item.ExpenseDate)
+                            </section>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                        </td>
+                        <td>
+                            <section class="hidden-xs">
+                                @Html.DisplayFor(modelItem => item.ExpenseMilage)
+                            </section>
+                        </td>
 
-                    <td>
-                        @Html.ActionLink("Ändra", "Edit", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-sm btn-primary" })
-                        @Html.ActionLink("Visa", "Details", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-xs btn-sm btn-primary" })
-                        @Html.ActionLink("Radera", "Delete", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-xs btn-sm btn-warning" })
-                    </td>
-                </tr>
+                        <td>
+                            @Html.ActionLink("Ändra", "Edit", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-primary" })
+                            @Html.ActionLink("Visa", "Details", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-xs btn-primary" })
+                            @Html.ActionLink("Radera", "Delete", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-xs btn-warning" })
+                        </td>
+                    </tr>
             }
 
-        </table>
-    </div>
+            </table>
+        </div>
+    
     @*@Html.ActionLink("Till reseräkningen", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, null)*@
-    @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-xs btn-sm btn-primary" })
+    @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-xs btn-primary" })
+</div>
