@@ -3,13 +3,14 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Lista över reseräkningar</h2>
+<h4>Lista reseräkningar</h4>
 
 @if ((User.IsInRole("Administrator")) || (User.IsInRole("GroupAdmin")) || (User.IsInRole("Assistant")))
 {
 <p>
     @Html.ActionLink("Lägg till", "Create", null, new { @class = "btn btn-xs btn-sm btn-success" })
 </p>
+}
 
 <div class="responsive whiteBox">
 <table class="table table-condensed">

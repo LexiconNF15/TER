@@ -1,13 +1,13 @@
 ﻿@model TravelExpenseReport.Models.TravelReport
 
 @{
-    ViewBag.Title = "Visa";
+    ViewBag.Title = "Skriv ut";
 }
 
-<h3>Skriv ut reseräkning</h3>
+<div class="TR-print-div">
+    <h3>Reseräkning</h3>
 
 <h4>Reseinformation</h4>
-<div class="continer-fluid"></div>
 <div class="TR-div">
 
     <table class="TR-table table-condensed">
@@ -21,15 +21,15 @@
             <td class="TR-table-cell">
                 <table>
                     <tr><td><div class="cell-head">Anställningsnummer</div></td></tr>
-                    <tr><td><div class="cell-body">___________</div></td></tr>
+                    <tr><td><div class="cell-body">&nbsp;</div></td></tr>
                 </table>
             </td>
         </tr>
         <tr>
             <td class="TR-table-cell">
                 <table>
-                    <tr><td><div class="cell-head">@Html.DisplayNameFor(model => model.Patient.PatientName)</div></td></tr>
-                    <tr><td><div class="cell-body">@Html.DisplayFor(model => model.Patient.PatientName)</div></td></tr>
+                    <tr><td><div class="cell-head">Kostnadsställe</div></td></tr>
+                    <tr><td><div class="cell-body">&nbsp;</div></td></tr>
                 </table>
             </td>
             <td class="TR-table-cell">
@@ -255,7 +255,7 @@ else
                 <div class="cell-body">Summa resekostnader</div>
             </td>
             <td class="TR-table-cell">
-                <div class="cell-body-small"</div>
+                <div class="cell-body-small"></div>
             </td>
             <td class="TR-table-cell">
                 <div class="cell-body text-right">@ViewBag.SumOfExpenses</div>
@@ -283,21 +283,20 @@ else
 </div>
 
 <table class="TR-table">
-
     <tr>
         <td>
-            <div class="cell-body cell-body-padding">Datum och underskrift</div>
+            <div class="cell-body cell-body-padding-sm">Datum och underskrift</div>
         </td>
         <td>
-            <div class="cell-body cell-body-padding">Attest</div>
+            <div class="cell-body cell-body-padding-sm">Attest</div>
         </td>
     </tr>
     <tr>
         <td>
-            <div class="cell-body cell-body-padding">__________________________________</div>
+            <div class="cell-body cell-body-padding">_____________________________     </div>
         </td>
         <td>
-            <div class="cell-body cell-body-padding">__________________________________</div>
+            <div class="cell-body cell-body-padding">_____________________________</div>
         </td>
     </tr>
     <tr>
@@ -312,10 +311,8 @@ else
 </table>
 
 </div>
-@Html.ActionLink("Till listan", "Index", new { selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-xs btn-sm btn-default" })
 
-@Html.ActionLink("Lekknapp", "Index", new { selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-xs btn-sm btn-default TR-btn-back" })
+@Html.ActionLink("Till listan", "Index", new { selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-xs btn-default" })
 
-
-<input type="button" value="Print" onclick="window.print();" />
+<input type="button" class = "btn btn-xs btn-default" value="Print" onclick="window.print();" />
 
