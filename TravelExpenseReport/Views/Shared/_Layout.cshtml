@@ -19,7 +19,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand logo" href="#" style="font-size:18pt">
+                    <span>
+                        <img src="images/Logo1.png" height="35px">
+                    </span>
+                    Assistansboken
+                </a>
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -32,7 +38,6 @@
         </div>
     </div>
     @Scripts.Render("~/Scripts/jquery-1.10.2.js")
-
 
     @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")

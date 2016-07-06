@@ -6,8 +6,7 @@
 
 <h3>Radera reseräkning</h3>
 
-
-<div>
+<div class="container-fluid">
     <h4>TravelReport</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -36,7 +35,7 @@
         </dd>
 
         <dt>@Html.DisplayNameFor(model => model.Patient.PatientName)</dt>
-        
+
         <dd>@Html.DisplayFor(model => model.Patient.PatientName)</dd>
 
         <dt>
@@ -64,12 +63,12 @@
         </dd>
 
         @*<dt>
-            @Html.DisplayNameFor(model => model.DepartureTime)
-        </dt>
+                @Html.DisplayNameFor(model => model.DepartureTime)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DepartureTime)
-        </dd>*@
+            <dd>
+                @Html.DisplayFor(model => model.DepartureTime)
+            </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.ReturnDate)
@@ -80,76 +79,76 @@
         </dd>
 
         @*<dt>
-            @Html.DisplayNameFor(model => model.ReturnTime)
-        </dt>
+                @Html.DisplayNameFor(model => model.ReturnTime)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ReturnTime)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ReturnTime)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartureHoursExtra)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.DepartureHoursExtra)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DepartureHoursExtra)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.DepartureHoursExtra)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReturnHoursExtra)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ReturnHoursExtra)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ReturnHoursExtra)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ReturnHoursExtra)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FullDay)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.FullDay)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FullDay)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.FullDay)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HalfDay)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.HalfDay)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.HalfDay)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.HalfDay)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Night)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Night)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Night)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Night)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BreakfastDeduction)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BreakfastDeduction)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BreakfastDeduction)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BreakfastDeduction)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LunchOrDinnerDeduction)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.LunchOrDinnerDeduction)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AllMealsDeduction)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.AllMealsDeduction)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AllMealsDeduction)
-        </dd>*@
+            <dd>
+                @Html.DisplayFor(model => model.AllMealsDeduction)
+            </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.Comment)
@@ -161,12 +160,12 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
         <div class="form-actions no-color">
-            <input type="submit" value="Radera" class="btn btn-default btn-danger" /> 
-            @Html.ActionLink("Till listan", "Index", null, new { @class = "btn btn-default btn-primary"})
+            <input type="submit" value="Radera" class="btn btn-xs btn-sm btn-danger" />
+            @Html.ActionLink("Till listan", "Index", null, new { @class = "btn btn-default btn-xs btn-sm" })
         </div>
     }
 </div>

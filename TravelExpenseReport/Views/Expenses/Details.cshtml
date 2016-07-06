@@ -11,61 +11,62 @@
 
     @*<h4>
 
-        @Html.DisplayFor(model => model.TravelReport.TravelReportName)
+            @Html.DisplayFor(model => model.TravelReport.TravelReportName)
 
-        @Html.DisplayFor(model => model.TravelReport.ApplicationUser.FullName)
+            @Html.DisplayFor(model => model.TravelReport.ApplicationUser.FullName)
 
-        @Html.HiddenFor(model => model.TravelReportId, new { @Value = @ViewBag.ActualTravelReportId, @readonly = "true" })
+            @Html.HiddenFor(model => model.TravelReportId, new { @Value = @ViewBag.ActualTravelReportId, @readonly = "true" })
 
-    </h4>*@
+        </h4>*@
     @*<hr />*@
-   
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
-        </dt>
+    <div class="container-fluid">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ExpenseType.ExpenseTypeName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ExpenseType.ExpenseTypeName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpenseDescription)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ExpenseDescription)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ExpenseDescription)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ExpenseDescription)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpenseDate)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ExpenseDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ExpenseDate)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ExpenseDate)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpenseAmount)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ExpenseAmount)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ExpenseAmount)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ExpenseAmount)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpenseMilage)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ExpenseMilage)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ExpenseMilage)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ExpenseMilage)
+            </dd>
 
-    </dl>
- </div>
-       
-<p>
-    @Html.ActionLink("Ändra kostnad", "Edit", new { id = Model.ExpenseId }, new { @class = "btn btn-default btn-primary" }) 
-    @Html.ActionLink("Lista kostnader", "Index", new { tId = Model.TravelReportId }, new { @class = "btn btn-default btn-primary" })
-    @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-primary" })
-</p>
+        </dl>
+    </div>
+
+    <p>
+        @Html.ActionLink("Ändra kostnad", "Edit", new { id = Model.ExpenseId }, new { @class = "btn btn-xs btn-sm btn-primary" })
+        @Html.ActionLink("Lista kostnader", "Index", new { tId = Model.TravelReportId }, new { @class = "btn btn-xs btn-sm btn-default" })
+        @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btnbtn-xs btn-sm btn-default" })
+    </p>
+</div>

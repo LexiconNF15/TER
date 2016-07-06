@@ -6,12 +6,11 @@
 
 <h3>Skriv ut reseräkning</h3>
 
-
-
 <h4>Reseinformation</h4>
+<div class="continer-fluid"></div>
 <div class="TR-div">
 
-    <table class="TR-table">
+    <table class="TR-table table-condensed">
         <tr>
             <td class="TR-table-cell" colspan="3">
                 <table>
@@ -311,9 +310,11 @@ else
     </tr>
 
 </table>
-@Html.ActionLink("Till listan", "Index", new { selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-sm btn-primary" })
 
-@Html.ActionLink("Lekknapp", "Index", new { selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-sm btn-default TR-btn-back" })
+</div>
+@Html.ActionLink("Till listan", "Index", new { selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-xs btn-sm btn-default" })
+
+@Html.ActionLink("Lekknapp", "Index", new { selectedUserId = ViewBag.selectedUserId }, new { @class = "btn btn-xs btn-sm btn-default TR-btn-back" })
 
 
 <input type="button" value="Print" onclick="window.print();" />

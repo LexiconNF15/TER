@@ -3,16 +3,13 @@
 @{
     ViewBag.Title = "Index";
 }
-
 <h4>Lista reseräkningar</h4>
-
 <p>
-    @Html.ActionLink("Lägg till", "Create", null, new { @class = "btn btn-sm btn-primary" })
+    @Html.ActionLink("Lägg till", "Create", null, new { @class = "btn btn-xs btn-sm btn-success" })
 </p>
 
-<div class="container-fluid"></div>
-
-<table class="table">
+<div class="responsive whiteBox">
+<table class="table table-condensed">
     <tr>
         @if ((User.IsInRole("Administrator")) || (User.IsInRole("GroupAdmin")))
             {
@@ -22,7 +19,7 @@
 
                 @if (ViewBag.Filtered)
                 {
-                      @Html.ActionLink("Visa alla", "Index", null, new { @class = "btn btn-default btn-sm" })
+                    @Html.ActionLink("Visa alla", "Index", null, new { @class = "btn btn-default btn-xs" })
                 }
                 else
                 {
@@ -35,7 +32,7 @@
                         <div class="form-group">
                             @*<div class="col-md-offset-2 col-md-10">*@
                             <div>
-                                <input type="submit" value="Filtrera" name="SelectedTravelItem" class="btn btn-default btn-sm" />
+                                <input type="submit" value="Filtrera" name="SelectedTravelItem" class="btn btn-default btn-xs btn-sm" />
                             </div>
                         </div>
                     }
@@ -47,7 +44,9 @@
             @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().StatusType.StatusName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().TravelReportName)
+            <section class="hidden-xs hidden-sm visible-md">
+                @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().TravelReportName)
+            </section>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().Patient.PatientName)
@@ -56,57 +55,30 @@
             @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().Destination)
         </th>
         <th>
-            <section class="hidden-xs">
+            <section class="hidden-xs hidden-sm">
                 @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().Purpose)
-                </Section>
-</th>
+            </section>
+        </th>
         <th>
-            <section class="hidden-xs">
+            <section class="hidden-xs hidden-sm">
                 @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().DepartureDate)
-             </section>
-</th>
-        @*<th>
-        @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().DepartureTime)
-    </th>*@
+            </section>
+        </th>
         <th>
-            <section class="hidden-xs">
+            <section class="hidden-xs hidden-sm">
                 @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().ReturnDate)
-           </section>
-</th>
-        @*<th>
-        @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().ReturnTime)
-    </th>*@
-        @*<th>
-        @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().DepartureHoursExtra)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().ReturnHoursExtra)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().FullDay)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().HalfDay)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().Night)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().BreakfastDeduction)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().LunchOrDinnerDeduction)
-    </th>
-    <th>
-        @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().AllMealsDeduction)
-    </th>*@
+            </section>
+        </th>
+
         @if ((User.IsInRole("Administrator")) || (User.IsInRole("GroupAdmin")) || (User.IsInRole("Assistant")))
-        {
+            {
             <th>
-                @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().Comment)
+                <section class="hidden-xs hidden-sm">
+                    @Html.DisplayNameFor(model => model.SelectedUserTravelReports.FirstOrDefault().Comment)
+                </section>
             </th>
         }
-        <th></th>
+        @*<th></th>*@
     </tr>
 
     @foreach (var item in Model.SelectedUserTravelReports)
@@ -123,7 +95,9 @@
                 @Html.DisplayFor(modelItem => item.StatusType.StatusName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TravelReportName)
+                <section class="hidden-xs hidden-sm">
+                    @Html.DisplayFor(modelItem => item.TravelReportName)
+                </section>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Patient.PatientName)
@@ -132,54 +106,27 @@
                 @Html.DisplayFor(modelItem => item.Destination)
             </td>
             <td>
-                <section class="hidden-xs">
+                <section class="hidden-xs hidden-sm">
                     @Html.DisplayFor(modelItem => item.Purpose)
-                    </section>
+                </section>
             </td>
             <td>
-                <section class="hidden-xs">
+                <section class="hidden-xs hidden-sm">
                     @Html.DisplayFor(modelItem => item.DepartureDate)
                 </section>
             </td>
-            @*<td>*@
-               @*@Html.DisplayFor(modelItem => item.DepartureTime)*@
-            @*</td>*@
             <td>
-                <section class="hidden-xs">
+                <section class="hidden-xs hidden-sm">
                     @Html.DisplayFor(modelItem => item.ReturnDate)
                 </section>
-             </td>
-            @*<td>*@
-                @*@Html.DisplayFor(modelItem => item.ReturnTime)*@
-            @*</td>*@
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.DepartureHoursExtra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReturnHoursExtra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FullDay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HalfDay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Night)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BreakfastDeduction)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LunchOrDinnerDeduction)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AllMealsDeduction)
-                </td>*@
+            </td>
+
             @if ((User.IsInRole("Administrator")) || (User.IsInRole("GroupAdmin")) || (User.IsInRole("Assistant")))
             {
                 <td>
-                    @Html.DisplayFor(modelItem => item.Comment)
+                    <section class="hidden-xs hidden-sm">
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </section>
                 </td>
             }
 
@@ -190,13 +137,17 @@
                     {
                         if (User.IsInRole("Assistant"))
                         {
-                            @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-sm btn-primary" })
-                            @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId }, new { @class = "btn btn-sm btn-warning" })
+                            @*@Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-xs btn-sm  btn-primary TR-btn-primary" })*@
+                            @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-xs btn-sm  btn-primary" })
+                            @Html.ActionLink("Pdf", "Print", new { id = item.TravelReportId }, new { @class = "btn btn-xs btn-sm btn-default" })
+                            @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId }, new { @class = "btn btn-xs btn-sm btn-warning" })
                         }
                         else
                         {
-                            @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-sm btn-primary" })
-                            @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-sm btn-warning" })
+                            @*@Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-sm btn-primary TR-btn-primary" })*@
+                            @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-sm btn-primary" })
+                            @Html.ActionLink("Pdf", "Print", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-sm btn-default" })
+                            @Html.ActionLink("Radera", "Delete", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-sm btn-warning" })
                         }
                     }
                     else
@@ -206,12 +157,12 @@
                         {
                             if (User.IsInRole("Assistant"))
                             {
-                                @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-sm btn-primary" })
+                                @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId }, new { @class = "btn btn-xs btn-sm btn-primary" })
+                                @Html.ActionLink("Pdf", "Print", new { id = item.TravelReportId }, new { @class = "btn btn-xs btn-sm btn-default" })
                             }
                             else
                             {
-                                @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-sm btn-primary" })
-
+                                @Html.ActionLink("Gör klar", "Calc", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-smbtn-primary" })
                             }
 
                         }
@@ -219,11 +170,12 @@
                         {
                             if (User.IsInRole("Assistant"))
                             {
-                                @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId }, new { @class = "btn btn-xs btn-primary" })
+                                @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId }, new { @class = "btn btn-xs btn-sm btn-primary" })
+                                @Html.ActionLink("Pdf", "Print", new { id = item.TravelReportId }, new { @class = "btn btn-xs btn-sm btn-default" })
                             }
                             else
                             {
-                                @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-primary" })
+                                @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-smbtn-primary" })
                             }
                         }
                     }
@@ -237,11 +189,12 @@
                     {
                         if (item.StatusType.StatusName == "Inskickad")
                         {
-                            @Html.ActionLink("Granska", "Calc", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-sm btn-primary" })
+                            @Html.ActionLink("Granska", "Calc", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-sm btn-primary" })
                         }
                         else
                         {
-                            @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-sm btn-primary" })
+                            @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-sm btn-primary" })
+                            @*@Html.ActionLink("Pdf", "Print", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-sm btn-primary" })*@
                         }
                     }
                     else
@@ -250,16 +203,18 @@
                         {
                             if (item.StatusType.StatusName == "Ny" || item.StatusType.StatusName == "Ej godkänd" || item.StatusType.StatusName == "Verifierad")
                             {
-                                @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-sm btn-primary" })
+                                @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-sm btn-primary" })
+                                @*@Html.ActionLink("Pdf", "Print", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-sm btn-primary" })*@
                             }
                             else
                             {
-                                @Html.ActionLink("Granska", "Calc", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-sm btn-primary" })
+                                @Html.ActionLink("Granska", "Calc", new { id = item.TravelReportId, selectedUserId = Model.SelectionList.SelectedTravelUser }, new { @class = "btn btn-xs btn-sm btn-primary" })
                             }
                         }
                         else // Patient or Other
                         {
-                            @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId }, new { @class = "btn btn-sm btn-primary" })
+                            @Html.ActionLink("Visa", "Details", new { id = item.TravelReportId }, new { @class = "btn btn-xs btn-sm btn-primary" })
+                            @*@Html.ActionLink("Pdf", "Print", new { id = item.TravelReportId }, new { @class = "btn btn-xs  btn-sm btn-primary" })*@
                         }
                     }
                 </td>

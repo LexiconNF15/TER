@@ -6,10 +6,9 @@
     <div class="container-fluid">
     <h5> Reseräkning: @ViewBag.ActiveTravelReport.TravelReportName</h5>
     <h4>Lista reskostnader</h4>
-    <h4>@Html.ActionLink("Ny kostnad", "Create", new { tId = ViewBag.ActualTravelReportId }, new { @class = "btn btn-xs btn-primary" })                </h4>
+    <h4>@Html.ActionLink("Ny kostnad", "Create", new { tId = ViewBag.ActualTravelReportId }, new { @class = "btn btn-xs btn-sm btn-success" })                </h4>
 
-    @*<div class="container-fluid">*@
-        <table class="table">
+    <table class="table table-condensed">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
@@ -70,9 +69,9 @@
                     </td>
 
                     <td>
-                        @Html.ActionLink("Ändra", "Edit", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-primary" })
-                        @Html.ActionLink("Visa", "Details", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-primary" })
-                        @Html.ActionLink("Radera", "Delete", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-warning" })
+                        @Html.ActionLink("Ändra", "Edit", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-sm btn-primary" })
+                        @Html.ActionLink("Visa", "Details", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-xs btn-sm btn-primary" })
+                        @Html.ActionLink("Radera", "Delete", new { id = item.ExpenseId }, new { @class = "btn btn-xs btn-xs btn-sm btn-warning" })
                     </td>
                 </tr>
             }
@@ -80,4 +79,4 @@
         </table>
     </div>
     @*@Html.ActionLink("Till reseräkningen", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, null)*@
-    @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-xs btn-primary" })
+    @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-xs btn-sm btn-primary" })

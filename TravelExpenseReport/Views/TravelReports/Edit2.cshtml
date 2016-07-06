@@ -9,189 +9,105 @@
     }
 }
 
-<h2>Uträknade traktamentesdagar</h2>
+<h3>Uträknade traktamentesdagar</h3>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @*<h4>@Html.DisplayNameFor(model => model.ApplicationUser.FullName): @Html.DisplayFor(model => model.ApplicationUser.FullName)</h4>
-            <h4>@Html.DisplayNameFor(model => model.TravelReportName): @ViewBag.TravelReportName1 </h4>*@
-        @*<h4>@Html.DisplayNameFor(model => model.PatientId): @Html.DisplayFor(model => model.PatientId)</h4>
-            @*<h4>@Html.DisplayNameFor(model => model.Patient.PatientName): @Html.DisplayFor(model => model.Patient.PatientName)</h4>
-            <h4>@Html.DisplayNameFor(model => model.Destination): @Html.DisplayFor(model => model.Destination)</h4>
-            <h4>@Html.DisplayNameFor(model => model.Purpose): @Html.DisplayFor(model => model.Purpose)</h4>
-            <h4>@Html.DisplayNameFor(model => model.DepartureDate): @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)</h4>
-            <h4>@Html.DisplayNameFor(model => model.ReturnDate): @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)</h4>
-            <h4>@Html.DisplayNameFor(model => model.DepartureHoursExtra): @Html.DisplayFor(model => model.DepartureHoursExtra)</h4>
-            <h4>@Html.DisplayNameFor(model => model.ReturnHoursExtra): @Html.DisplayFor(model => model.ReturnHoursExtra)</h4>
-            <h4>@Html.DisplayNameFor(model => model.StatusType.StatusName): @Html.DisplayFor(model => model.StatusType.StatusName)</h4>*@
+    <div class="container-fluid">
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ApplicationUserId)
+        <div class="form-horizontal">
 
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ApplicationUserId)
+            @Html.HiddenFor(model => model.TravelReportId)
+            @Html.HiddenFor(model => model.TravelReportName)
+            @Html.HiddenFor(model => model.Destination)
+            @Html.HiddenFor(model => model.Purpose)
+            @Html.HiddenFor(model => model.DepartureDate)
+            @Html.HiddenFor(model => model.DepartureTime)
+            @Html.HiddenFor(model => model.ReturnDate)
+            @Html.HiddenFor(model => model.ReturnTime)
+            @Html.HiddenFor(model => model.DepartureHoursExtra)
+            @Html.HiddenFor(model => model.ReturnHoursExtra)
+            @Html.HiddenFor(model => model.StatusTypeId)
+            @Html.HiddenFor(model => model.PatientId)
+            @Html.HiddenFor(model => model.Comment)
 
-        @Html.HiddenFor(model => model.TravelReportId)
-        @Html.HiddenFor(model => model.TravelReportName)
-        @Html.HiddenFor(model => model.Destination)
-        @Html.HiddenFor(model => model.Purpose)
-        @Html.HiddenFor(model => model.DepartureDate)
-        @Html.HiddenFor(model => model.DepartureTime)
-        @Html.HiddenFor(model => model.ReturnDate)
-        @Html.HiddenFor(model => model.ReturnTime)
-        @Html.HiddenFor(model => model.DepartureHoursExtra)
-        @Html.HiddenFor(model => model.ReturnHoursExtra)
-        @Html.HiddenFor(model => model.StatusTypeId)
-        @Html.HiddenFor(model => model.PatientId)
-        @Html.HiddenFor(model => model.Comment)
-
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.ApplicationUser.FullName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Patient.PatientName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Patient.PatientName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Destination)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Destination)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Purpose)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Purpose)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.DepartureDate)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ReturnDate)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.DepartureHoursExtra)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DepartureHoursExtra)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ReturnHoursExtra)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.ReturnHoursExtra)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.StatusType.StatusName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.StatusType.StatusName)
-            </dd>
-        </dl>
-        <div>
-            @Html.ActionLink("Ändra", "Edit1", new { id = Model.TravelReportId }, new { @class = "btn btn-default btn-primary" })
-        </div>
-
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.PatientId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.PatientId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Destination, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
-                </div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ApplicationUser.FullName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Patient.PatientName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Patient.PatientName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Destination)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Destination)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Purpose)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Purpose)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DepartureDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ReturnDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DepartureHoursExtra)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DepartureHoursExtra)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ReturnHoursExtra)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ReturnHoursExtra)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StatusType.StatusName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StatusType.StatusName)
+                </dd>
+            </dl>
+            <div>
+                @Html.ActionLink("Ändra", "Edit1", new { id = Model.TravelReportId }, new { @class = "btn btn-primary btn-xs btn-sm" })
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Purpose, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Purpose, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.DepartureDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <h4>Traktamente</h4>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.DepartureTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DepartureTime, "", new { @class = "text-danger" })
+            @if (@ViewBag.Traktamente)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FullDay, htmlAttributes: new { @class = "control-label col-md-2" }) Max antal heldagar= @Model.FullDay
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FullDay, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay } })
+                        @Html.ValidationMessageFor(model => model.FullDay, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ReturnDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ReturnTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-4">
-                    @Html.EditorFor(model => model.ReturnTime, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ReturnTime, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.DepartureHoursExtra, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DepartureHoursExtra, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DepartureHoursExtra, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ReturnHoursExtra, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ReturnHoursExtra, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ReturnHoursExtra, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        <h4>Traktamente</h4>
-
-        @if (@ViewBag.Traktamente)
-        {
-            <div class="form-group">
-                @Html.LabelFor(model => model.FullDay, htmlAttributes: new { @class = "control-label col-md-2" }) Max antal heldagar= @Model.FullDay
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FullDay, new { htmlAttributes = new { @class = "form-control", min = 0, max = Model.FullDay } })
-                    @Html.ValidationMessageFor(model => model.FullDay, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.HalfDay, htmlAttributes: new { @class = "control-label col-md-2" }) Max antal halvdagar = @Model.HalfDay
@@ -200,7 +116,6 @@
                         @Html.ValidationMessageFor(model => model.HalfDay, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
                     @Html.LabelFor(model => model.Night, htmlAttributes: new { @class = "control-label col-md-2" }) Max antal nätter = @Model.Night
                     <div class="col-md-10">
@@ -209,7 +124,9 @@
                     </div>
                 </div>
 
-                <div><h4>Måltidsavdrag</h4></div>
+                <div>
+                    <h4>Måltidsavdrag</h4>
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.BreakfastDeduction, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -283,50 +200,27 @@
 
             }
 
-            @*<div class="form-group">
-                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-            @*<div class="form-group">
-                    @Html.LabelFor(model => model.StatusTypeId, "StatusTypeId", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("StatusTypeId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.StatusTypeId, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-
-            @*<div class="form-group">
-                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-2">
-                    <input type="submit" value="Ny resekostnad" name="button" class="btn btn-default" />
+                    <input type="submit" value="Ny resekostnad" name="button" class="btn btn-default btn-xs btn-sm" />
                 </div>
                 <div class="col-md-2">
-                    <input type="submit" value="Gör klar" name="button" class="btn btn-default btn-primary" />
+                    <input type="submit" value="Gör klar" name="button" class="btn btn-primary btn-xs btn-sm" />
                 </div>
                 @*<div class="col-md-2">
                         <input type="submit" value="Skicka in" name="button" class="btn btn-default btn-primary" />
                     </div>*@
                 <div class="col-md-4">
-                    <input type="submit" value="Till listan" name="button" class="btn btn-default btn-primary" />
+                    <input type="submit" value="Till listan" name="button" class="btn btn-default btn-xs btn-sm" />
                 </div>
             </div>
 
-            </div>
+        </div>
+
+    </div>
 
 }
-    
 
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
