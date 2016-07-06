@@ -20,12 +20,10 @@ namespace TravelExpenseReport.Models
         public string TravelReportName { get; set; }
 
         [DisplayName("Resmål")]
-        //[Required]
         [Required(ErrorMessage = "Skriv in resmål.")]
         public string Destination { get; set; }
 
         [DisplayName("Syfte")]
-        //[Required]
         [Required(ErrorMessage = "Skriv in syfte.")]
         public string Purpose { get; set; }
 
@@ -34,7 +32,6 @@ namespace TravelExpenseReport.Models
         [DataType(DataType.Date)]
         public DateTime DepartureDate { get; set; }
 
-        //[DisplayName("Avresa tid")]
         [Required(ErrorMessage = "Skriv in tid.")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]

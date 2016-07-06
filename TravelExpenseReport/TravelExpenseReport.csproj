@@ -225,7 +225,6 @@
     <Compile Include="ViewModels\SelectTravelUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\AB.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

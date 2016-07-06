@@ -102,7 +102,7 @@
             @if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
         {
         <dt>
-            <input type="submit" value="Ändra" name="button" class="btn btn-xs btn-sm btn-primary" />
+            <input type="submit" value="Ändra" name="button" class="btn btn-xs btn-primary" />
         </dt>
         <dd></dd>
         }
@@ -178,7 +178,7 @@
                 if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
                 {
                     <dt>
-                        <input type="submit" value="Ändra traktamente" name="button" class="btn btn-xs btn-sm btn-primary" />
+                        <input type="submit" value="Ändra traktamente" name="button" class="btn btn-xs btn-primary" />
                     </dt>
                     <dd>
                     </dd>
@@ -222,7 +222,7 @@
             @if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
             {
                 <dt>
-                    <input type="submit" value="Ny resekostnad" name="button" class="btn btn-xs btn-sm btn-success" />
+                    <input type="submit" value="Ny resekostnad" name="button" class="btn btn-xs btn-success" />
                 </dt>
                 <dd>        </dd>
             }
@@ -276,10 +276,10 @@
     if (ViewBag.ActiveUser == Model.ApplicationUserId)
     {
         <div class="col-md-offset-2 col-md-2">
-            <input type="submit" value="Skicka in" name="button" class="btn btn-xs btn-sm btn-success" />
+            <input type="submit" value="Skicka in" name="button" class="btn btn-xs btn-success" />
         </div>
         <div class="col-md-8">
-            <input type="submit" value="Till listan" name="button" class="btn btn-xs btn-sm btn-primary" />
+            <input type="submit" value="Till listan" name="button" class="btn btn-xs btn-primary" />
         </div>
     }
     else
@@ -287,19 +287,19 @@
         <div class="col-md-offset-2 col-md-1">
             @if (Model.StatusType.StatusName == "Godkänd")
             {
-                <input type="submit" value="Verifierad" name="button" class="btn btn-xs btn-sm btn-success" />
+                <input type="submit" value="Verifierad" name="button" class="btn btn-xs btn-success" />
             }
             else
             {
-                <input type="submit" value="Godkänd" name="button" class="btn btn-xs btn-sm btn-success" />
+                <input type="submit" value="Godkänd" name="button" class="btn btn-xs btn-success" />
 
             }
         </div>
         <div class="col-md-1">
-            <input type="submit" value="Ej godkänd" name="button" class="btn btn-xs btn-sm btn-warning" />
+            <input type="submit" value="Ej godkänd" name="button" class="btn btn-xs btn-warning" />
         </div>
                 <div class="col-md-8">
-                    <input type="submit" value="Till listan" name="button" class="btn btn-xs btn-sm btn-primary" />
+                    <input type="submit" value="Till listan" name="button" class="btn btn-xs btn-primary" />
                 </div>
     }
 
