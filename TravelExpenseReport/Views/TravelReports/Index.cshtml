@@ -3,13 +3,15 @@
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Lista över reseräkningar</h2>
 
+@if ((User.IsInRole("Administrator")) || (User.IsInRole("GroupAdmin")) || (User.IsInRole("Assistant")))
+{
 <p>
     @Html.ActionLink("Lägg till", "Create", null, new { @class = "btn btn-default btn-sm btn-primary" })
 </p>
 
+}
 
 
 <table class="table">

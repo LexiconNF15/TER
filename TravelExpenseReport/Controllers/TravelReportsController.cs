@@ -259,6 +259,16 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+            if (User.IsInRole("Assistant"))
+            {
+                var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+                if (travelReport.ApplicationUserId != ActiveUser.Id)
+                {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                }
+            }
+
+            
             ViewBag.Traktamente = (travelReport.Night != 0);
             var legalAmount = db.LegalAmounts.Where(l => l.ValidDate <= travelReport.DepartureDate).OrderByDescending(l => l.ValidDate).FirstOrDefault();
             ViewBag.LegalAmount = legalAmount;
@@ -296,6 +306,16 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (User.IsInRole("Assistant"))
+            {
+                var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+                if (travelReport.ApplicationUserId != ActiveUser.Id)
+                {
+                    return HttpNotFound();
+                }
+            }
+
             ViewBag.Traktamente = (travelReport.Night != 0);
             var legalAmount = db.LegalAmounts.Where(l => l.ValidDate <= travelReport.DepartureDate).OrderByDescending(l => l.ValidDate).FirstOrDefault();
             ViewBag.LegalAmount = legalAmount;
@@ -464,6 +484,15 @@ namespace TravelExpenseReport.Controllers
                 return HttpNotFound();
             }
 
+            if (User.IsInRole("Assistant"))
+            {
+                var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+                if (travelReport.ApplicationUserId != ActiveUser.Id)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                }
+            }
+
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.StatusName = db.StatusTypes.Find(travelReport.StatusTypeId).StatusName;
             //ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
@@ -503,13 +532,21 @@ namespace TravelExpenseReport.Controllers
 
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
             TravelReport travelReport = db.TravelReports.Find(id);
             if (travelReport == null)
             {
                 return HttpNotFound();
             }
+            if (User.IsInRole("Assistant"))
+            {
+                if (travelReport.ApplicationUserId != ActiveUser.Id)
+                {
+                    return HttpNotFound();
+                }
+            }
+
             //var legalAmount = db.LegalAmounts.FirstOrDefault();
             var legalAmount = db.LegalAmounts.Where(l => l.ValidDate <= travelReport.DepartureDate).OrderByDescending(l => l.ValidDate).FirstOrDefault();
             ViewBag.LegalAmount = legalAmount;
@@ -636,12 +673,20 @@ namespace TravelExpenseReport.Controllers
 
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
             if (travelReport == null)
             {
                 return HttpNotFound();
             }
+            if (User.IsInRole("Assistant"))
+            {
+                if (travelReport.ApplicationUserId != ActiveUser.Id)
+                {
+                    return HttpNotFound();
+                }
+            }
+
             //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.ApplicationUserId1 = ActiveUser.Id;
             ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
@@ -782,6 +827,15 @@ namespace TravelExpenseReport.Controllers
             {
                 return HttpNotFound();
             }
+                        if (User.IsInRole("Assistant"))
+            {
+                var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
+                if (travelReport.ApplicationUserId != ActiveUser.Id)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                }
+            }
+
             return View(travelReport);
         }
 
