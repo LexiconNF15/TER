@@ -90,7 +90,6 @@ namespace TravelExpenseReport.Controllers
                         {
                             travelReports.Add(tr);
                         }
-
                     }
                 }
             }
@@ -110,7 +109,6 @@ namespace TravelExpenseReport.Controllers
                 }
             }
             return allowedTRUsers;
-
         }
 
         public ActionResult Index(SelectionAndTRViewModel selection, string selectedUserId)
@@ -286,7 +284,6 @@ namespace TravelExpenseReport.Controllers
 
             ViewBag.NoOfExpenses = noOfExpenses;
             ViewBag.SumOfExpenses = sumOfExpenses;
-
             ViewBag.SummaPlus = sumOfAll + sumOfExpenses;
 
             return View(travelReport);
@@ -348,7 +345,6 @@ namespace TravelExpenseReport.Controllers
             ViewBag.StatusName = db.StatusTypes.FirstOrDefault().StatusName;
             ViewBag.StatusTypeId1 = db.StatusTypes.Where(stt => stt.StatusName == "Ny").FirstOrDefault().StatusTypeId;
             ViewBag.ApplicationUserId1 = ActiveUser.Id;
-
             ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName");
             //ViewBag.PatientId = new SelectList(db.PatientUsers.Where(p => p.StaffUserId == ActiveUser.Id).Include(g => g.Patient).Where(g => g.PatientId == g.Patient.PatientId).Select(g => g.Patient), "PatientId", "PatientName", String.Empty);
 
@@ -395,7 +391,6 @@ namespace TravelExpenseReport.Controllers
                 travelReport.FullDay = travelReport.Night + 1;
                 ViewBag.Traktamente = true;
 
-
                 if (travelReport.DepartureTime.Hours >= 12)
                 {
                     travelReport.HalfDay++;
@@ -417,10 +412,7 @@ namespace TravelExpenseReport.Controllers
                     }
                 }
             }
-            //if (PatientId == null)
-            //{
-            //    travelReport.PatientId = 0;
-            //}
+           
             if (ModelState.IsValid)
             {
                 db.TravelReports.Add(travelReport);
@@ -449,7 +441,6 @@ namespace TravelExpenseReport.Controllers
                 return HttpNotFound();
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
-            //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             return View(travelReport);
         }
 
@@ -532,7 +523,7 @@ namespace TravelExpenseReport.Controllers
 
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TravelReport travelReport = db.TravelReports.Find(id);
             if (travelReport == null)
@@ -544,7 +535,7 @@ namespace TravelExpenseReport.Controllers
                 if (travelReport.ApplicationUserId != ActiveUser.Id)
                 {
                     return HttpNotFound();
-                }
+            }
             }
 
             //var legalAmount = db.LegalAmounts.FirstOrDefault();
@@ -656,9 +647,7 @@ namespace TravelExpenseReport.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Edit1", new { id = travelReport.TravelReportId });
                 }
-
                 return RedirectToAction("Calc", new { id = travelReport.TravelReportId });
-
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
@@ -673,7 +662,7 @@ namespace TravelExpenseReport.Controllers
 
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             if (travelReport == null)
             {
@@ -684,7 +673,7 @@ namespace TravelExpenseReport.Controllers
                 if (travelReport.ApplicationUserId != ActiveUser.Id)
                 {
                     return HttpNotFound();
-                }
+            }
             }
 
             //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
@@ -706,7 +695,6 @@ namespace TravelExpenseReport.Controllers
                 travelReport.HalfDay = 0;
                 travelReport.FullDay = travelReport.Night + 1;
                 ViewBag.Traktamente = true;
-
 
                 if (travelReport.DepartureTime.Hours >= 12)
                 {
@@ -732,7 +720,6 @@ namespace TravelExpenseReport.Controllers
             ViewBag.TravelReportId = travelReport.TravelReportId;
             ViewBag.TravelReportName1 = travelReport.TravelReportName;
 
-
             return View(travelReport);
         }
 
@@ -745,7 +732,6 @@ namespace TravelExpenseReport.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 if (button == "Gör klar")
                 {
                     db.Entry(travelReport).State = EntityState.Modified;
@@ -771,16 +757,13 @@ namespace TravelExpenseReport.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Edit1");
                 }
-
                 return RedirectToAction("Index");
-
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FullName", travelReport.ApplicationUserId);
             ViewBag.StatusTypeId = new SelectList(db.StatusTypes, "StatusTypeId", "StatusName", travelReport.StatusTypeId);
 
             return View(travelReport);
         }
-
 
 
         //Delete Expenses for TravelReport
@@ -794,7 +777,6 @@ namespace TravelExpenseReport.Controllers
             {
                 Expense expense = db.Expenses.Find(ex.ExpenseId);
                 db.Expenses.Remove(expense);
-
             }
             db.SaveChanges();
 

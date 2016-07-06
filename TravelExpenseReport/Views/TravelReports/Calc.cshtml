@@ -16,12 +16,9 @@
 {
     @Html.AntiForgeryToken()
     <h4>Reseinformation</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @*<hr />*@
+    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
     @Html.HiddenFor(model => model.ApplicationUserId)
-
-
-
     @Html.HiddenFor(model => model.TravelReportId)
     @Html.HiddenFor(model => model.TravelReportName)
     @Html.HiddenFor(model => model.PatientId)
@@ -43,136 +40,112 @@
     @Html.HiddenFor(model => model.LunchAndDinnerDeduction)
     @Html.HiddenFor(model => model.AllMealsDeduction)
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUser.FullName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Patient.PatientName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Patient.PatientName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Destination)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Destination)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Purpose)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Purpose)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartureDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReturnDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartureHoursExtra)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DepartureHoursExtra)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReturnHoursExtra)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReturnHoursExtra)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.StatusType.StatusName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StatusType.StatusName)
-        </dd>
 
-        @if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
-        {
-            <dt>
-                <input type="submit" value="Ändra" name="button" class="btn btn-default btn-primary" />
-            </dt>
-            <dd></dd>
-        }
-    </dl>
-
-    @*<hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.ApplicationUserId)
+    <div class="contianer-fluid">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ApplicationUser.FullName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Patient.PatientName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Patient.PatientName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Destination)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Destination)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Purpose)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Purpose)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DepartureDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DepartureDate) @Html.DisplayFor(model => model.DepartureTime)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ReturnDate) @Html.DisplayFor(model => model.ReturnTime)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DepartureHoursExtra)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DepartureHoursExtra)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ReturnHoursExtra)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ReturnHoursExtra)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StatusType.StatusName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StatusType.StatusName)
+            </dd>
+
+            @if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
+        {
+        <dt>
+            <input type="submit" value="Ändra" name="button" class="btn btn-xs btn-sm btn-primary" />
+        </dt>
+        <dd></dd>
+        }
+        </dl>
 
 
+        <h4>Traktamente</h4>
 
-    @Html.HiddenFor(model => model.TravelReportId)
-    @Html.HiddenFor(model => model.TravelReportName)
-    @Html.HiddenFor(model => model.PatientId)
-    @Html.HiddenFor(model => model.DepartureDate)
-    @Html.HiddenFor(model => model.DepartureTime)
-    @Html.HiddenFor(model => model.ReturnDate)
-    @Html.HiddenFor(model => model.ReturnTime)
-    @Html.HiddenFor(model => model.StatusTypeId)
-    @Html.HiddenFor(model => model.Destination)
-    @Html.HiddenFor(model => model.Purpose)
-    @Html.HiddenFor(model => model.FullDay)
-    @Html.HiddenFor(model => model.HalfDay)
-    @Html.HiddenFor(model => model.Night)
-    @Html.HiddenFor(model => model.DepartureHoursExtra)
-    @Html.HiddenFor(model => model.ReturnHoursExtra)
-    @Html.HiddenFor(model => model.PatientId)
-    @Html.HiddenFor(model => model.BreakfastDeduction)
-    @Html.HiddenFor(model => model.LunchOrDinnerDeduction)
-    @Html.HiddenFor(model => model.LunchAndDinnerDeduction)
-    @Html.HiddenFor(model => model.AllMealsDeduction)*@
+        <dl class="dl-horizontal">
 
-
-    <h4>Traktamente</h4>
-
-    <dl class="dl-horizontal">
-
-        @if (@ViewBag.Traktamente)
+            @if (@ViewBag.Traktamente)
                 {
-            <dt>
-                @Html.DisplayNameFor(model => model.FullDay)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FullDay)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.FullDay) a' @ViewBag.LegalAmount.FullDayAmount
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.FullDay) a' @ViewBag.LegalAmount.FullDayAmount
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.HalfDay)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.HalfDay)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.HalfDay) a' @ViewBag.LegalAmount.HalfDayAmount
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.HalfDay) a' @ViewBag.LegalAmount.HalfDayAmount
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Night)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Night)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Night) a' @ViewBag.LegalAmount.NightAmount
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.BreakfastDeduction)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BreakfastDeduction)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.BreakfastDeduction) a' @ViewBag.LegalAmount.BreakfastAmount
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.BreakfastDeduction) a' @ViewBag.LegalAmount.BreakfastAmount
+                </dd>
 
                 <dt>
                     @Html.DisplayNameFor(model => model.LunchOrDinnerDeduction)
@@ -202,123 +175,111 @@
                 <dd>
                     @ViewBag.Summa
                 </dd>
-            if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
+                if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
+                {
+                    <dt>
+                        <input type="submit" value="Ändra traktamente" name="button" class="btn btn-xs btn-sm btn-primary" />
+                    </dt>
+                    <dd>
+                    </dd>
+                }
+            }
+            else
             {
+
                 <dt>
-                    <input type="submit" value="Ändra traktamente" name="button" class="btn btn-default btn-primary" />
+                    Inget traktamente
                 </dt>
                 <dd>
+
                 </dd>
             }
-        }
-        else
-        {
+
+        </dl>
+
+        <hr />
+        <h4>Resekostnader</h4>
+
+        <dl class="dl-horizontal">
+
+            @foreach (var item in Model.Expenses)
+            {
+                <dt>
+                    @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                </dd>
+            }
 
             <dt>
-                Inget traktamente
+                Summa resekostnader
+                @*för @ViewBag.NoOfExpenses st*@
             </dt>
             <dd>
-
+                @ViewBag.SumOfExpenses
             </dd>
-        }
+            @if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
+            {
+                <dt>
+                    <input type="submit" value="Ny resekostnad" name="button" class="btn btn-xs btn-sm btn-success" />
+                </dt>
+                <dd>        </dd>
+            }
+        </dl>
 
-    </dl>
+        <hr />
+        <h4>Summering</h4>
 
-    <hr />
-    <h4>Resekostnader</h4>
+        <dl class="dl-horizontal">
 
-    @*@Html.Partial("_ExpView", Model.Expenses)*@
-
-    <dl class="dl-horizontal">
-
-        @foreach (var item in Model.Expenses)
-        {
             <dt>
-                @Html.DisplayFor(modelItem => item.ExpenseType.ExpenseTypeName)
+                Totalsumma
             </dt>
+
             <dd>
-                @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                @ViewBag.SummaPlus
             </dd>
-        }
 
-        @*</dl>
+        </dl>
 
-            <dl class="dl-horizontal">*@
-
-        @*<dt>
-                Utgifter
-            </dt>
-            <dd>
-                @{Html.RenderPartial("_ExpView", Model.Expenses);}
-            </dd>*@
-        <dt>
-            Summa resekostnader
-            @*för @ViewBag.NoOfExpenses st*@
-        </dt>
-        <dd>
-            @ViewBag.SumOfExpenses
-        </dd>
-        @if (Model.StatusType.StatusName == "Ny" || Model.StatusType.StatusName == "Ej godkänd")
-        {
-            <dt>
-                <input type="submit" value="Ny resekostnad" name="button" class="btn btn-default btn-primary" />
-            </dt>
-            <dd>        </dd>
-        }
-    </dl>
-
-    <hr />
-    <h4>Summering</h4>
-
-    <dl class="dl-horizontal">
-
-        <dt>
-            Totalsumma
-        </dt>
-
-        <dd>
-            @ViewBag.SummaPlus
-        </dd>
-
-    </dl>
-
-    <div class="form-group">
         <div class="form-group">
-            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <table>
-                    @foreach (var note in Model.Notes)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <table>
+                        @foreach (var note in Model.Notes)
                 {
-                        <tr>
-                            <td>
-                                @note.NoteTime
-                            </td>
-                            <td>
-                                @note.NoteStatus
-                            </td>
-                            <td>@note.ApplicationUserId</td>
-                            <td>
-                                @note.NoteInfo
-                        </td>
+                            <tr>
+                                <td>
+                                    @note.NoteTime
+                                </td>
+                                <td>
+                                    @note.NoteStatus
+                                </td>
+                                <td>@note.ApplicationUserId</td>
+                                <td>
+                                    @note.NoteInfo
+                                </td>
 
 
-                    </tr>
-                    }
-                </table>
-                @Html.EditorFor(model => model.Comment, new { @Value = "", htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                            </tr>
+                        }
+                    </table>
+                    @Html.EditorFor(model => model.Comment, new { @Value = "", htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
     </div>
 
-
     if (ViewBag.ActiveUser == Model.ApplicationUserId)
     {
         <div class="col-md-offset-2 col-md-2">
-            <input type="submit" value="Skicka in" name="button" class="btn btn-xs btn-success" />
+            <input type="submit" value="Skicka in" name="button" class="btn btn-xs btn-sm btn-success" />
         </div>
         <div class="col-md-8">
-            <input type="submit" value="Till listan" name="button" class="btn btn-xs btn-primary" />
+            <input type="submit" value="Till listan" name="button" class="btn btn-xs btn-sm btn-primary" />
         </div>
     }
     else
@@ -326,19 +287,19 @@
         <div class="col-md-offset-2 col-md-1">
             @if (Model.StatusType.StatusName == "Godkänd")
             {
-                <input type="submit" value="Verifierad" name="button" class="btn btn-xs btn-success" />
+                <input type="submit" value="Verifierad" name="button" class="btn btn-xs btn-sm btn-success" />
             }
             else
             {
-                <input type="submit" value="Godkänd" name="button" class="btn btn-xs btn-success" />
+                <input type="submit" value="Godkänd" name="button" class="btn btn-xs btn-sm btn-success" />
 
             }
         </div>
         <div class="col-md-1">
-            <input type="submit" value="Ej godkänd" name="button" class="btn btn-default btn-xs btn-warning" />
+            <input type="submit" value="Ej godkänd" name="button" class="btn btn-xs btn-sm btn-warning" />
         </div>
                 <div class="col-md-8">
-                    <input type="submit" value="Till listan" name="button" class="btn btn-default btn-xs btn-primary" />
+                    <input type="submit" value="Till listan" name="button" class="btn btn-xs btn-sm btn-primary" />
                 </div>
     }
 

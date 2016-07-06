@@ -23,10 +23,15 @@ namespace TravelExpenseReport
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+            //          "~/Content/bootstrap.min.css",
+            //          "~/Content/site.css",
+            //          "~/Content/AB.css"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/AB.css"));
+                     "~/Content/bootstrap.min.css",
+                     "~/Content/site.css",
+                     "~/Content/custom.css"));
         }
     }
 }

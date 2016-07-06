@@ -1,0 +1,95 @@
+﻿body {
+    font-family: "Helvetica Neue", Helvetica , Arial, sans-serif;
+    /*background: #fff url(../../images/bodyback.jpg);*/
+    background-color:#F8F4E8;
+}
+.navbar{
+    background-color: #2fa4e7;
+    border-color: #1995dc;
+}
+.btn-warning {
+    color: #ffffff;
+    background-color: #dd5600;
+    border-color: #dd5600;
+}
+.btn-primary {
+    color: #ffffff;
+    background-color: #2fa4e7;
+    border-color: #2fa4e7;
+}
+.btn-success {
+    color: #ffffff;
+    background-color: #73a839;
+    border-color: #73a839;
+}
+.btn-danger {
+    color: #ffffff;
+    background-color: #c71c22;
+    border-color: #c71c22;
+}
+.navbar-default .navbar-brand {
+    color: #ffffff;
+}
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
+}
+.table {
+     background-color: #ffffff;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 65px;
+    background-color: #f5f5f5;
+}
+.whiteBox {
+    background: #fff;
+    padding: 1em;
+    /*box-shadow: 3px 3px 3px rgba(102, 102, 102, 0.10);*/
+    border-radius: 6px;
+    margin-top: 20px;
+    font-size:12px;
+}
+.cell-head {
+    font-size: 10px;
+}
+.cell-body {
+    font-size: 22px;
+}
+.cell-body-small {
+    font-size: 16px;
+}
+.cell-body-padding {
+    padding-top: 4em;
+}
+.TR-table{
+width: 100%;
+}
+.TR-table-cell{
+    border: 1px solid;
+    padding: 4px;
+}
+.TR-div{
+    border: 2px solid;
+    border-radius: 8px;
+}
+.TR-btn-back{
+    /*background-color:lightgreen;*/
+    background-color:#73a839;
+    border-color: #73a839;
+    color:cornsilk;
+    /*border: 2px solid red;*/
+}
+.TR-btn-primary{
+    background-color:#2fa4e7;
+    border-color:#2fa4e7;
+    color:#ffffff;
+}
+
+
+

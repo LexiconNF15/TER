@@ -1,4 +1,25 @@
 ﻿body {
+     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+     font-size: 14px;
+     background-color:#ffffff;   
+}
+/*.jumbotron {
+     background-color:#ffffff;*/
+}
+.navbar-default {
+    background-color: #2fa4e7;
+    border-color: #1995dc;
+}
+.navbar-fixed-top{
+    /*background-color:#178acc;*/
+    background-color:#2fa4e7;
+}
+.navbar-inverse .navbar-brand {
+    color: #fff;
+    background-color:transparent;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
 }
 
 .cell-head {
@@ -25,6 +46,15 @@ width: 100%;
     border-radius: 8px;
 }
 .TR-btn-back{
-    background-color:lightgreen;
-        border: 2px solid red;
+    /*background-color:lightgreen;*/
+    background-color:#73a839;
+    border-color: #73a839;
+    color:cornsilk;
+    /*border: 2px solid red;*/
 }
+.TR-btn-primary{
+    background-color:#2fa4e7;
+    border-color:#2fa4e7;
+    color:#ffffff;
+}
+
