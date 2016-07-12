@@ -31,6 +31,8 @@ namespace TravelExpenseReport.Models
         public decimal? ExpenseAmount { get; set; }
 
         [DisplayName("Kilometer")]
+        [Required(ErrorMessage = "Skriv in kilometer i heltal.")]
+        [Range(0, 2000, ErrorMessage = "Giltigt värde (0 - 2000)")]
         public int? ExpenseMilage { get; set; }
 
         public int? TravelReportId { get; set; }

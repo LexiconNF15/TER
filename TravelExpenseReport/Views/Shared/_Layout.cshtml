@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - TER Application</title>
     @Styles.Render("~/Content/css")
-    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" /> @*stylesheet for custom-adjustments*@
     <link href="~/Content/jquery-ui.css" rel="stylesheet" />
     <link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
 
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top"> 
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -24,8 +24,8 @@
                     <span>
                         <img src="~/images/Logo1.png" height="30px"/>
                     </span>
-                    @*Assistansboken*@
-                    Företagsboken
+                    Assistansboken
+                    @*Företagsboken*@
                 </a>
                 @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
@@ -44,7 +44,7 @@
     @Scripts.Render("~/Scripts/jquery.timepicker.js")
     <script src="~/scripts/datepicker-se.js"></script>
 
-    <script>
+    <script> //Used for Datapicker and Timepickerfunctionality for Browsers: Firefox and IE etc
         $(function () {
             if (!Modernizr.inputtypes.date) {
                 $('.date').datepicker({
@@ -63,7 +63,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - ASP.NET Application</p>
         </footer>
     </div>
     @Scripts.Render("~/bundles/bootstrap")
