@@ -9,6 +9,7 @@ namespace TravelExpenseReport.Models
     public class StatusType
     {
         public int StatusTypeId { get; set; }
+
         [DisplayName("Status")]
         public string StatusName { get; set; }
 

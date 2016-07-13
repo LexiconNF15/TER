@@ -22,17 +22,5 @@ namespace TravelExpenseReport.Models
        [ForeignKey("StaffRoleId")]
         public virtual StaffRole StaffRole { get; set; }
 
-        //public int CustomerId { get; set; }  //ftg om ej enbart i usertabellen.
-
-        //[ForeignKey("RoleId")]
-        //public virtual IdentityRole UserRoleId { get; set; }
-
-        //    [ForeignKey("UserId")]
-        //    public virtual ICollection<ApplicationUser> ApplicationUser { get; set; }
-
-        //[ForeignKey("PatientId")]
-        //public virtual ICollection<Patient> Patient { get; set; }
-
-       
-    }
+        }
 }

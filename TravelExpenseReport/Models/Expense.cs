@@ -23,7 +23,6 @@ namespace TravelExpenseReport.Models
         [DataType(DataType.Date)]
         public DateTime ExpenseDate { get; set; }
 
-        //[Required]
         [RegularExpression("[0-9]+,?[0-9]?[0-9]?", ErrorMessage = "Ange belopp som siffror med decimalkomma, ex. 124,50")]
         [DisplayName("Belopp")]
         public string ExpenseAmountInfo { get; set; }
@@ -32,7 +31,6 @@ namespace TravelExpenseReport.Models
         public decimal? ExpenseAmount { get; set; }
 
         [DisplayName("Kilometer")]
-        //[Required(ErrorMessage = "Skriv in kilometer i heltal.")]
         [Range(0, 2000, ErrorMessage = "Giltigt värde (0 - 2000)")]
         public int? ExpenseMilage { get; set; }
 
