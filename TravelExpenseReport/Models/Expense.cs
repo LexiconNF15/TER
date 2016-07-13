@@ -19,6 +19,7 @@ namespace TravelExpenseReport.Models
         public string ExpenseDescription { get; set; }
 
         [DisplayName("Datum")]
+        [Required(ErrorMessage = "Välj datum")]
         [DataType(DataType.Date)]
         public DateTime ExpenseDate { get; set; }
 
@@ -31,6 +32,8 @@ namespace TravelExpenseReport.Models
         public decimal? ExpenseAmount { get; set; }
 
         [DisplayName("Kilometer")]
+        //[Required(ErrorMessage = "Skriv in kilometer i heltal.")]
+        [Range(0, 2000, ErrorMessage = "Giltigt värde (0 - 2000)")]
         public int? ExpenseMilage { get; set; }
 
         public int? TravelReportId { get; set; }
@@ -50,7 +53,7 @@ namespace TravelExpenseReport.Models
 
                 if ((ExpenseDate < ETravel.DepartureDate) || (ExpenseDate > ETravel.ReturnDate))
                 {
-                    yield return new ValidationResult("Datum ligger utanför perioden för reseräknngen!");
+                    yield return new ValidationResult("Datum ligger utanför perioden för reseräkningen!");
                 }
                 if ((ExpenseTypeId == 4) && (ExpenseMilage == 0))
                 {

@@ -17,7 +17,7 @@ namespace TravelExpenseReport.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        //CHeck ExpenseAmountInfo
+        //Check ExpenseAmountInfo
         public decimal AmountCheck(string expenseAmountInfo)
         {
 
@@ -30,20 +30,19 @@ namespace TravelExpenseReport.Controllers
             }
             else
             {
-                // "Amount is invalid
-                //expense.ExpenseAmount = 0;
+                // "Amount is invalid, expense.ExpenseAmount = 0;
                 return 0;
             }
         }
 
-// GET: Expenses
+        // GET: Expenses
         public ActionResult Index(int tId)
         {
             var activeUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
             ViewBag.ActualTravelReportId = tId;
             var expenses = db.Expenses.Include(e => e.ExpenseType).Include(e => e.TravelReport).Where(e => e.TravelReportId == tId);
             TravelReport activeTravelReport = db.TravelReports.Find(tId);
-            ViewBag.ActiveTravelReport = activeTravelReport;                                             
+            ViewBag.ActiveTravelReport = activeTravelReport;
             return View(expenses.ToList());
         }
 
@@ -70,12 +69,12 @@ namespace TravelExpenseReport.Controllers
 
             TravelReport activeTravelReport = db.TravelReports.Find(tId); ;
             ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName");
-            ViewBag.ActualTravelReportId = tId;             
+            ViewBag.ActualTravelReportId = tId;
             ViewBag.ActiveTravelReport = activeTravelReport;
             ViewBag.ErrorMsg = faultMessage;
             return View();
         }
-        
+
         // POST: Expenses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -90,14 +89,11 @@ namespace TravelExpenseReport.Controllers
             ViewBag.ActualTravelReportId = expense.TravelReportId;
             ViewBag.ActiveTravelReport = activeTravelReport;
 
-
             if (expense.ExpenseTypeId == 4) // 4 = Driving own car. 
             {
                 if (expense.ExpenseMilage > 0)
                 {
-                    // Calulate: ExpenseAmount = ExpenseMilage * Milage from LegalAmount for valid year.
-                    //ViewBag.ActualTravelReportId = expense.TravelReportId;
-                    //var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate);
+                    // Calulate: ExpenseAmount = ExpenseMilage * Milage from LegalAmount for valid year(devided by 100).
                     var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate).OrderBy(l => l.ValidDate).FirstOrDefault();
                     DateTime actualValidDate = DateTime.Parse("2013-01-01");
                     float actualLegalMilageAmount = 0;
@@ -113,16 +109,14 @@ namespace TravelExpenseReport.Controllers
                     expense.ExpenseAmountInfo = null;
                     expense.ExpenseMilage = 0;
                     faultMessage = "Resa med bil, ange antal kilometer";
-                    ViewBag.ErrorMsg = faultMessage;                   
+                    ViewBag.ErrorMsg = faultMessage;
                     ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
                     return View(expense);
                 }
-
             }
-
             if (expense.ExpenseTypeId != 4)
             {
-                 if ((expense.ExpenseAmountInfo == null))
+                if ((expense.ExpenseAmountInfo == null))
                 {
                     expense.ExpenseMilage = 0;
                     expense.ExpenseAmount = 0;
@@ -222,7 +216,6 @@ namespace TravelExpenseReport.Controllers
                     ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseTypeId);
                     return View(expense);
                 }
-
                 else if (expense.ExpenseAmountInfo != null)
                 {
                     expense.ExpenseMilage = 0;
@@ -242,7 +235,6 @@ namespace TravelExpenseReport.Controllers
             return View(expense);
         }
 
-        
         // GET: Expenses/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -267,8 +259,8 @@ namespace TravelExpenseReport.Controllers
             Expense expense = db.Expenses.Find(id);
             int? actualTravelReportId = expense.TravelReportId;
             db.Expenses.Remove(expense);
-            db.SaveChanges(); 
-            return RedirectToAction("Index",new { tId = actualTravelReportId});
+            db.SaveChanges();
+            return RedirectToAction("Index", new { tId = actualTravelReportId });
         }
 
         protected override void Dispose(bool disposing)

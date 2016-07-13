@@ -14,30 +14,16 @@
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
-        @*<hr />*@
+      
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ExpenseId)
         @Html.HiddenFor(model => model.ExpenseTypeId)
         @Html.HiddenFor(model => model.ExpenseAmount)
 
+        <h4>@Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName) för @Html.DisplayFor(model => model.ExpenseType.ExpenseTypeName) </h4>
+
         <div class="container-fluid">
-            @*<div class="col-md-12, col-sm-10 col-sm-pull-2">*@  // fixa för sm
-             <div class="col-md-12">
-                <dl class="dl-horizontal">
-                    <div class="col-sm-10">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.ExpenseType.ExpenseTypeName)
-                    </dd>
-                </dl>
-                @*<p>@Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName) för @Html.DisplayFor(model => model.ExpenseType.ExpenseTypeName) </p>*@
-
-            </div>
-
-                <div class="form-group">
+                  <div class="form-group">
                     @Html.LabelFor(model => model.ExpenseDescription, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.ExpenseDescription, new { htmlAttributes = new { @class = "form-control" } })
@@ -48,7 +34,6 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.ExpenseDate, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @*@Html.EditorFor(model => model.ExpenseDate, new { htmlAttributes = new { @class = "form-control" } })*@
                         @Html.EditorFor(model => model.ExpenseDate, new { htmlAttributes = new { @class = "form-control date", type = "date", id = "date1", name = "date" } })
                         @Html.ValidationMessageFor(model => model.ExpenseDate, "", new { @class = "text-danger" })
                     </div>
