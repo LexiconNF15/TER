@@ -4,82 +4,76 @@
     ViewBag.Title = "Create";
 
 }
-@*<h4>
 
-    @ViewBag.ActiveTravelReport.TravelReportName
-    @ViewBag.ActiveTravelReport.ApplicationUser.FullName
-    @ViewBag.ActiveTravelReport.DepartureDate.Date.ToString("yyyy-MM-dd")
-    @ViewBag.ActiveTravelReport.ReturnDate.Date.ToString("yyyy-MM-dd")
-
-</h4>*@
 <h4> Reseräkning: @ViewBag.ActiveTravelReport.TravelReportName </h4>
 <h4> Resedatum: @ViewBag.ActiveTravelReport.DepartureDate.Date.ToString("yyyy-MM-dd") @ViewBag.ActiveTravelReport.ReturnDate.Date.ToString("yyyy-MM-dd") </h4>
 <h3>Ny resekostnad</h3>
 <h5 class="text-danger"> @ViewBag.ErrorMsg</h5>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="container-fluid">
-        <div class="form-horizontal">                 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExpenseTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ExpenseTypeId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ExpenseTypeId, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpenseTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ExpenseTypeId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ExpenseTypeId, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExpenseDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpenseDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ExpenseDescription, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpenseDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ExpenseDescription, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ExpenseDescription, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExpenseDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*@Html.EditorFor(model => model.ExpenseDate, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.EditorFor(model => model.ExpenseDate, new { htmlAttributes = new { @class = "form-control date", type = "date", id = "date1", name = "date" } })
-                @Html.ValidationMessageFor(model => model.ExpenseDate, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpenseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.EditorFor(model => model.ExpenseDate, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.EditorFor(model => model.ExpenseDate, new { htmlAttributes = new { @class = "form-control date", type = "date", id = "date1", name = "date" } })
+                    @Html.ValidationMessageFor(model => model.ExpenseDate, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExpenseAmountInfo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpenseAmountInfo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ExpenseAmountInfo, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpenseAmountInfo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ExpenseAmountInfo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ExpenseAmountInfo, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-          <div class="form-group">
-            @Html.LabelFor(model => model.ExpenseMilage, htmlAttributes: new { @class = "control-label col-md-2" }) Ange bara om du kört egen bil.
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpenseMilage, new { htmlAttributes = new { @class = "form-control", min = 0, @Value = 0 } })
-                @Html.ValidationMessageFor(model => model.ExpenseMilage, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpenseMilage, htmlAttributes: new { @class = "control-label col-md-2" }) Ange bara om du kört egen bil.
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ExpenseMilage, new { htmlAttributes = new { @class = "form-control", min = 0, @Value = 0 } })
+                    @Html.ValidationMessageFor(model => model.ExpenseMilage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.TravelReportId, "TravelReportId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.TravelReportId, new { @Value = @ViewBag.ActualTravelReportId, @readonly = "true" })
+                    @Html.ValidationMessageFor(model => model.TravelReportId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10 col-sm-10">
+                    <input type="submit" value="Spara" class="btn btn-success btn-xs" />
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            @*@Html.LabelFor(model => model.TravelReportId, "TravelReportId", htmlAttributes: new { @class = "control-label col-md-2" })*@
-            <div class="col-md-10">
-                @Html.HiddenFor(model => model.TravelReportId, new { @Value = @ViewBag.ActualTravelReportId, @readonly = "true" })
-                @Html.ValidationMessageFor(model => model.TravelReportId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-       
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10 col-sm-10">
-                <input type="submit" value="Spara" class="btn btn-success btn-xs" />
-            </div>
-        </div>
-    </div>
     </div>
 }
 
 <div>
-      @Html.ActionLink("Lista kostnader", "Index", new { tId = @ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-xs " })
-      @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-xs" })
+    @Html.ActionLink("Lista kostnader", "Index", new { tId = @ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-xs " })
+    @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-default btn-xs" })
 </div>
 
 @section Scripts {

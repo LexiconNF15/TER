@@ -112,3 +112,12 @@
 .TR-print-div{
     padding-left: 40px;
 }
+.ui-datepicker-title{
+    color: #555;
+}
+.ui-datepicker-month{
+     color: #555;
+}
+.ui-datepicker-year{
+     color: #555;
+}
