@@ -143,7 +143,7 @@ namespace TravelExpenseReport.Migrations
                    new ExpenseType
                 {
                     ExpenseTypeId = 5,
-                    ExpenseTypeName = "Buss, spårvagn, mm"
+                    ExpenseTypeName = "Buss, spårvagn, tunnelbana"
                 },
                    new ExpenseType
                     {
@@ -160,8 +160,7 @@ namespace TravelExpenseReport.Migrations
             foreach (var et in expenseTypes)
             {
                 context.ExpenseTypes.AddOrUpdate(e => e.ExpenseTypeName, et);
-                //context.ExpenseTypes.AddOrUpdate(et);
-
+                
             }
 
             var statusTypes = new List<StatusType> {
@@ -195,25 +194,13 @@ namespace TravelExpenseReport.Migrations
                     StatusTypeId = 6,
                     StatusName = "Utbetald"
                     }
-                //new StatusType
-                //{
-                //    StatusTypeId = 7,
-                //    StatusName = "Ny/Beräknad"
-                //    },
-                //new StatusType
-                //{
-                //    StatusTypeId = 8,
-                //    StatusName = "Ny/Summerad"
-                //}
-            };
+             };
 
             foreach (var st in statusTypes)
             {
                 context.StatusTypes.AddOrUpdate(s => s.StatusName, st);
-
             }
 
-          
             var legalAmount = new List<LegalAmount> {
                 new LegalAmount
                 {
@@ -227,7 +214,6 @@ namespace TravelExpenseReport.Migrations
                     LunchOrDinnerAmount = 74,
                     LunchAndDinnerAmount =148,
                     AllMealsAmount = 190
-
                 },
                 new LegalAmount
                 {
@@ -247,8 +233,6 @@ namespace TravelExpenseReport.Migrations
             foreach (var la in legalAmount)
             {
                 context.LegalAmounts.AddOrUpdate(l => l.LegalAmountId, la);
-                //context.ExpenseTypes.AddOrUpdate(et);
-
             }
 
             var travelReport = new List<TravelReport> {
@@ -635,8 +619,6 @@ namespace TravelExpenseReport.Migrations
             foreach (var pt in patients)
             {
                 context.Patients.AddOrUpdate(p => p.PatientId, pt);
-                //context.ExpenseTypes.AddOrUpdate(et);
-
             }
 
             var staffRoles = new List<StaffRole> {
@@ -666,7 +648,6 @@ namespace TravelExpenseReport.Migrations
             foreach (var sr in staffRoles)
             {
                 context.StaffRoles.AddOrUpdate(s => s.StaffRoleId, sr);
-
             }
 
 
@@ -767,8 +748,7 @@ namespace TravelExpenseReport.Migrations
             foreach (var pu in patientUsers)
             {
                 context.PatientUsers.AddOrUpdate(p => p.PatientUserId, pu);
-                //context.ExpenseTypes.AddOrUpdate(et);
-
+             
             }
 
             var note = new List<Note> {

@@ -89,7 +89,7 @@ namespace TravelExpenseReport.Controllers
             ViewBag.ActualTravelReportId = expense.TravelReportId;
             ViewBag.ActiveTravelReport = activeTravelReport;
 
-            if (expense.ExpenseTypeId == 4) // 4 = Driving own car. 
+            if (expense.ExpenseTypeId == 4) // 4 = Driving own car, calculation of amount by milage * legal amount).
             {
                 if (expense.ExpenseMilage > 0)
                 {
@@ -229,7 +229,6 @@ namespace TravelExpenseReport.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", new { tId = expense.TravelReportId });
             }
-            //ViewBag.ExpenseTypeId = new SelectList(db.ExpenseTypes, "ExpenseTypeId", "ExpenseTypeName", expense.ExpenseId);
             ViewBag.ActualTravelReportId = expense.TravelReportId;
             ViewBag.ActualExpenseTypeId = expense.ExpenseTypeId;
             return View(expense);

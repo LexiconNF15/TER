@@ -11,7 +11,6 @@
 
     <div class="container-fluid">
         <dl>
-            @*<dl class="dl-horizontal">*@
             <dt>
                 @Html.DisplayNameFor(model => model.ExpenseType.ExpenseTypeName)
             </dt>
@@ -59,7 +58,7 @@
         @Html.ActionLink("Ändra kostnad", "Edit", new { id = Model.ExpenseId }, new { @class = "btn btn-xs btn-primary" })
     </p>
     <div>
-    @Html.ActionLink("Lista kostnader", "Index", new { tId = Model.TravelReportId }, new { @class = "btn btn-xs btn-default" })
-    @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-xs btn-default" })
-</div>
+        @Html.ActionLink("Lista kostnader", "Index", new { tId = Model.TravelReportId }, new { @class = "btn btn-xs btn-default" })
+        @Html.ActionLink("Till reseräkning", "Calc", "TravelReports", new { id = ViewBag.ActualTravelReportId }, new { @class = "btn btn-xs btn-default" })
+    </div>
 </div>
