@@ -89,11 +89,11 @@ namespace TravelExpenseReport.Controllers
             ViewBag.ActualTravelReportId = expense.TravelReportId;
             ViewBag.ActiveTravelReport = activeTravelReport;
 
-            if (expense.ExpenseTypeId == 4) // 4 = Driving own car, calculation of amount by milage * legal amount).
+            if (expense.ExpenseTypeId == 4) // 4 = Driving own car, calculation of amount by milage * legalamount).
             {
                 if (expense.ExpenseMilage > 0)
                 {
-                    // Calulate: ExpenseAmount = ExpenseMilage * Milage from LegalAmount for valid year(devided by 100).
+                    // Calulate: ExpenseAmount = ExpenseMilage * Milage(devided by 100) from LegalAmount for valid year.
                     var activeLegalMilage = db.LegalAmounts.Where(l => l.ValidDate <= expense.ExpenseDate).OrderBy(l => l.ValidDate).FirstOrDefault();
                     DateTime actualValidDate = DateTime.Parse("2013-01-01");
                     float actualLegalMilageAmount = 0;
