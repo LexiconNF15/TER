@@ -1,0 +1,15 @@
+Identity:
+AspNetRoles ( category)
+AspNetUserRoles ( userid, roleid)
+AspNetUser , like Usertable today + CustomerId, FullName, PatientId (if user=patient),EmployeeNo
+
+Expenses 
+ExpenseTypes (Type of Expenses, obs Id = 4 for own car, special logic)
+LegalAmounts (Amounts according to Swedish tax laws, add new row with date when amounts changes)
+obs milage amount should be devided by 100 (in öre) in clalculations)
+Notes (Comments history until verified TR)
+Patients (= Patients today)
+PatientUsers (= PatientUsers today)
+StaffRoles (= multiple Roles today)
+StatusTypes (Status of the TR)
+TravelReports (What this is all about)

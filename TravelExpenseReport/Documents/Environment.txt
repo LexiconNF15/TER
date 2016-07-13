@@ -1,0 +1,32 @@
+This document describes the environment for this project.
+
+Visual Studio 2015
+
+MVC 5 project with Razor using Identity, Code First, Entity Framework and Bootstrap.
+
+Javascript jQuery
+
+Most importants packages
+  <package id="bootstrap" version="3.3.6" targetFramework="net452" />
+  <package id="EntityFramework" version="6.1.3" targetFramework="net452" />
+  <package id="jQuery" version="1.10.2" targetFramework="net452" />
+  <package id="jQuery.UI.Combined" version="1.11.4" targetFramework="net452" />
+  <package id="jQuery.Validation" version="1.11.1" targetFramework="net452" />
+  <package id="jquery-timepicker-jt" version="1.9.0" targetFramework="net452" />
+  <package id="Microsoft.AspNet.Identity.Core" version="2.2.1" targetFramework="net452" />
+  <package id="Microsoft.AspNet.Identity.EntityFramework" version="2.2.1" targetFramework="net452" />
+  <package id="Microsoft.AspNet.Identity.Owin" version="2.2.1" targetFramework="net452" />
+  <package id="Microsoft.AspNet.Mvc" version="5.2.3" targetFramework="net452" />
+  <package id="Microsoft.AspNet.Razor" version="3.2.3" targetFramework="net452" />
+  <package id="Modernizr" version="2.6.2" targetFramework="net452" />
+
+See also packages.config for rest of packages versions
+
+Special considerations:
+jQuery datepicker is nescessary for IE and FireFox
+jQuery timepicker is nescessary for IE and FireFox
+datepicker-se.js adjusts to swedish
+Modernizr is used for checking abilities of browsers, and their support of HTML5 features
+
+Bootstrap is used for Responsitivity
+
