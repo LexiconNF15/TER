@@ -43,7 +43,6 @@ namespace TravelExpenseReport.Models
         [DataType(DataType.Date)]
         public DateTime ReturnDate { get; set; }
 
-        //[DisplayName("Hemkomst tid")]
         [DataType(DataType.Time)]
         [Required(ErrorMessage = "Skriv in tid.")]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
@@ -110,9 +109,6 @@ namespace TravelExpenseReport.Models
         [ForeignKey("PatientId")]
         public virtual Patient Patient { get; set; }
 
-
-        //public virtual ICollection<PatientUser> PatientUsers { get; set; }
-
         [ForeignKey("StatusTypeId")]
         public virtual StatusType StatusType { get; set; }
 
@@ -141,7 +137,6 @@ namespace TravelExpenseReport.Models
             HalfDay = 0;
             FullDay = 0;
             Night = 0;
-            //StatusTypeId = 4;
         }
     }
 }

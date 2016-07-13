@@ -17,11 +17,20 @@ namespace TravelExpenseReport.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        // Calculates the sum of all allowances for current travel report
+        //
+        // Returns the sum if allowanse is according to tax rules, that is away for at least one night
+        // Otherwise returns 0
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="travelReport"></param>
+        /// <param name="legalAmount"></param>
+        /// <returns></returns>
         public decimal SumOfAllowance(TravelReport travelReport, LegalAmount legalAmount)
         {
             if (travelReport.Night != 0)
             {
-                //var legalAmount = db.LegalAmounts.FirstOrDefault();
                 int allowanceSum = 0;
                 allowanceSum = allowanceSum + (int)travelReport.Night * (int)legalAmount.NightAmount;
                 allowanceSum = allowanceSum + (int)travelReport.FullDay * (int)legalAmount.FullDayAmount;
@@ -35,6 +44,11 @@ namespace TravelExpenseReport.Controllers
             else return 0;
         }
 
+        /// <summary>
+        /// Saves the current comment from the tavelreport together with timing information into the Notes db table
+        /// Will be used later as history of the status changes for the travel report
+        /// </summary>
+        /// <param name="travelReport"></param>
         public void SaveNote(TravelReport travelReport)
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
@@ -49,6 +63,11 @@ namespace TravelExpenseReport.Controllers
             db.SaveChanges();
         }
 
+        /// <summary>
+        /// Fetches the last two notes from the Notes db table
+        /// </summary>
+        /// <param name="travelReportId"></param>
+        /// <returns>String with the last two notes</returns>
         public string Last2Notes(int travelReportId)
         {
             var notesToSearch = db.Notes.Where(e => e.TravelReportId == travelReportId).OrderByDescending(n => n.NoteTime);
@@ -71,9 +90,14 @@ namespace TravelExpenseReport.Controllers
             }
             x3 = x1 + " , " + x2;
             return (x3);
-
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="TRReports"></param>
+        /// <param name="patientsForUser"></param>
+        /// <returns></returns>
         public List<TravelReport> AllowedTRList(IOrderedQueryable<TravelReport> TRReports, List<PatientUser> patientsForUser)
         {
             var ActiveUser = db.Users.Where(u => u.UserName == User.Identity.Name.ToString()).ToList().FirstOrDefault();
