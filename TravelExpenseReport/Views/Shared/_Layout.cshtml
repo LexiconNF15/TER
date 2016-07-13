@@ -8,7 +8,7 @@
     <link href="~/Content/custom.css" rel="stylesheet" />           @*///stylesheet for custom-adjustments*@
     <link href="~/Content/jquery-ui.css" rel="stylesheet" />
     <link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
-
+   
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>    
@@ -44,7 +44,7 @@
     <script src="~/scripts/datepicker-se.js"></script>
     @*<script src="~/scripts/messages_sv.js"></script>*@
 
-    <script> //Used for Datapicker and Timepickerfunctionality for Browsers: Firefox and IE etc
+    <script> 
         $(function () {
             if (!Modernizr.inputtypes.date) {
                 $('.date').datepicker({
